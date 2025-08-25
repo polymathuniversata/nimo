@@ -7,26 +7,49 @@ Nimo is a decentralized reputation system built on MeTTa language that enables A
 Millions of African youth participate in informal work, activism, and decentralized learning but lack verifiable digital identity or proof of their contributions, limiting their access to jobs, capital, and global platforms.
 
 ## Features
-- **Decentralized Identity**: Create a persistent MeTTa-based identity
-- **Contribution Tracking**: Record and verify real-world actions and contributions
-- **Reputation Tokens**: Earn tokens for contributions like volunteering, building projects, attending events, and participating in DAO votes
-- **Verification System**: Trusted organizations can verify user contributions
-- **Automated Token Awards**: Automatic token distribution for verified contributions
-- **NFT-based Diaspora Bonds**: Enable Kenyans abroad to fund local creators or causes via NFT-backed "impact bonds"
+
+### 🏗️ Decentralized Identity & NFTs
+- **NFT Identity Certificates**: Each identity is a unique, transferable NFT on Ethereum
+- **MeTTa-Powered Logic**: Autonomous reasoning for identity verification and reputation
+- **Cross-Platform Portability**: Use your identity across multiple platforms and applications
+
+### 🎯 Smart Contract Integration  
+- **On-Chain Contributions**: Immutable record of all contributions and verifications
+- **Automated Token Awards**: Smart contracts execute MeTTa decisions automatically
+- **Role-Based Access Control**: Verifiers, MeTTa agents, and users with different permissions
+
+### 💰 Token Economy & Governance
+- **ERC20 Reputation Tokens**: Earn tradeable tokens for verified contributions
+- **DAO Governance**: Token holders vote on platform decisions and upgrades
+- **Opportunity Access**: Spend tokens to unlock jobs, grants, and opportunities
+
+### 🌍 Impact Bond Marketplace
+- **Decentralized Funding**: Diaspora investors fund local projects through smart contracts
+- **Milestone Tracking**: Automated milestone verification and fund release
+- **Impact Measurement**: Transparent tracking of social and economic impact
+
+### 🤖 MeTTa Autonomous Agents
+- **Intelligent Verification**: AI agents analyze contributions and calculate appropriate rewards
+- **Complex Logic**: Handle multi-factor reputation scoring and contribution weighting
+- **Transparent Reasoning**: All MeTTa decisions include cryptographic proofs
 
 ## Project Structure
 ```
 Nimo/
-├── backend/           # Flask REST API server
+├── contracts/         # Smart contracts (Solidity)
+│   ├── NimoIdentity.sol  # Identity NFT & contribution tracking
+│   ├── NimoToken.sol     # ERC20 reputation tokens
+│   └── scripts/          # Deployment scripts
+├── backend/          # Flask REST API server
 │   ├── models/       # Database models (SQLAlchemy)
 │   ├── routes/       # API endpoints
-│   ├── services/     # Business logic & MeTTa integration
+│   ├── services/     # Business logic, MeTTa & blockchain integration
 │   └── utils/        # Helper functions
 ├── frontend/         # Vue.js + Quasar UI
 │   ├── src/
 │   │   ├── components/  # Reusable Vue components
 │   │   ├── pages/      # Application pages
-│   │   ├── services/   # API service layer
+│   │   ├── services/   # API & Web3 service layer
 │   │   └── stores/     # Pinia state management
 ├── docs/            # Technical documentation
 ├── tests/           # MeTTa test cases
@@ -52,17 +75,23 @@ Nimo/
 ```
 
 ## Technology Stack
-- **Backend**: Flask (Python) + SQLAlchemy + JWT Authentication
-- **Frontend**: Vue.js 3 + Quasar Framework + Pinia
-- **Core Logic**: MeTTa language for decentralized identity and reputation
-- **Database**: SQLite (development) / PostgreSQL (production)
+- **Backend**: Flask (Python) + SQLAlchemy + JWT Authentication + Web3.py
+- **Frontend**: Vue.js 3 + Quasar Framework + Pinia + Web3 Wallet Integration
+- **Smart Contracts**: Solidity + OpenZeppelin + Foundry (deployed on Base)
+- **Core Logic**: MeTTa language for autonomous reasoning and decision-making
+- **Blockchain**: Base Network (Ethereum L2) for low-cost identity NFTs and reputation tokens
+- **Storage**: PostgreSQL (relational) + IPFS (metadata) + On-chain (critical state)
+- **Infrastructure**: Docker + Redis + Blockchain event indexing
 
 ## Quick Start
 
 ### Prerequisites
 - Python 3.8+
 - Node.js 16+
+- Foundry (for smart contract development)
 - MeTTa runtime (optional for core testing)
+- Ethereum wallet (MetaMask) with Base network configured
+- Base Sepolia ETH for testnet deployment
 
 ### Development Setup
 
@@ -95,9 +124,31 @@ Nimo/
    npm run dev
    ```
 
-4. **Access the Application**
+4. **Smart Contract Setup** (Foundry + Base Network)
+   ```bash
+   cd contracts
+   
+   # Install Foundry dependencies
+   forge install OpenZeppelin/openzeppelin-contracts
+   forge install foundry-rs/forge-std
+   
+   # Compile contracts
+   forge build
+   
+   # Run tests
+   forge test
+   
+   # Deploy to Base Sepolia testnet
+   forge script script/Deploy.s.sol:DeployScript --rpc-url base-sepolia --broadcast --verify
+   
+   # Copy contract addresses to backend/.env
+   ```
+
+5. **Access the Application**
    - Frontend: http://localhost:9000
    - Backend API: http://localhost:5000
+   - Base Sepolia: https://sepolia.basescan.org
+   - Base Mainnet: https://basescan.org
 
 ### Running MeTTa Examples
 ```bash

@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+venv/
+ENV/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+.npm/
+.yarn/
+.pnp.*
+
+# Quasar / Vue
+.quasar/
+/dist/
+.thumbs/
+
+# Hardhat / Foundry
+/artifacts/
+/cache/
+/typechain/
+/typechain-types/
+.env
+coverage/
+coverage.json
+forge-cache/
+broadcast/
+out/
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store

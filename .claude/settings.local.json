@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm search:*)",
+      "WebSearch",
+      "Bash(npx:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
