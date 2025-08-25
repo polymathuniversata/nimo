@@ -19,17 +19,14 @@ export default boot(async ({ app, router }) => {
   router.beforeEach((to, from, next) => {
     // Routes that require wallet connection
     const protectedRoutes = [
-      '/profile',
-      '/contributions',
-      '/tokens',
-      '/bonds'
+      '/dashboard'
     ]
 
     if (protectedRoutes.some(route => to.path.startsWith(route))) {
       if (!walletStore.isConnected) {
         // Store the intended route to redirect after connection
         localStorage.setItem('intendedRoute', to.fullPath)
-        next('/auth/connect')
+        next('/')
         return
       }
 
