@@ -3,7 +3,13 @@
     "allow": [
       "Bash(npm search:*)",
       "WebSearch",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(node:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

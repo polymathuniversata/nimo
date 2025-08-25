@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nimo - Development Preview</title>
+  
+  <!-- Vue 3 from CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  
+  <!-- Quasar from CDN -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.12.0/dist/quasar.prod.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.12.0/dist/quasar.umd.prod.js"></script>
+  
+  <!-- Web3 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.0.0/dist/ethers.umd.min.js"></script>
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .welcome-card {
+      background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(240,242,245,1) 100%);
+    }
+    
+    .dashboard-card {
+      height: 100%;
+    }
+    
+    .wallet-connect {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .wallet-connect-btn {
+      min-width: 140px;
+    }
+    
+    .wallet-info {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="q-pa-md">
+      <!-- Welcome Section -->
+      <div class="row q-col-gutter-md">
+        <div class="col-12">
+          <q-card class="welcome-card">
+            <q-card-section class="bg-primary text-white">
+              <div class="text-h5">Welcome to Nimo</div>
+              <div class="text-subtitle2">Decentralized Youth Identity & Proof of Contribution Network on Base</div>
+            </q-card-section>
+            <q-card-section>
+              <p>Build your NFT identity, earn reputation tokens for contributions, and access global opportunities through Base network.</p>
+              
+              <!-- Wallet Connection -->
+              <div class="wallet-section q-mb-md">
+                <div class="wallet-connect">
+                  <q-btn
+                    v-if="!isConnected"
+                    @click="connectWallet"
+                    :loading="isConnecting"
+                    color="primary"
+                    icon="account_balance_wallet"
+                    label="Connect Wallet"
+                    class="wallet-connect-btn"
+                    unelevated
+                  />
+                  
+                  <div v-else class="wallet-info">
+                    <q-chip
+                      color="positive"
+                      text-color="white"
+                      icon="account_balance_wallet"
+                    >
+                      {{ formattedAddress }}
+                    </q-chip>
+                    <q-btn
+                      flat
+                      round
+                      icon="logout"
+                      @click="disconnectWallet"
+                      title="Disconnect Wallet"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Network Status -->
+              <div v-if="isConnected" class="network-status q-mb-md">
+                <q-chip
+                  :color="isOnCorrectNetwork ? 'positive' : 'warning'"
+                  text-color="white"
+                  icon="lan"
+                  class="q-mr-sm"
+                >
+                  {{ networkName }}
+                </q-chip>
+                
+                <q-chip
+                  color="info"
+                  text-color="white"
+                  icon="account_balance"
+                >
+                  {{ formattedBalance }} ETH
+                </q-chip>
+              </div>
+
+              <q-btn 
+                v-if="isConnected && isOnCorrectNetwork"
+                color="secondary" 
+                label="Create Your Identity" 
+                icon="person_add"
+                @click="createIdentity"
+              />
+              
+              <div v-else-if="!isConnected" class="text-caption q-mt-sm">
+                Connect your wallet to get started
+              </div>
+              
+              <div v-else class="text-caption q-mt-sm text-warning">
+                Please switch to Base network to continue
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="col-12 col-md-4">
+          <q-card class="dashboard-card">
+            <q-card-section>
+              <div class="text-h6">Your Contributions</div>
+              <div class="text-h3 text-primary">5</div>
+              <div class="text-caption">Total contributions recorded</div>
+            </q-card-section>
+          </q-card>
+        </div>
+        
+        <div class="col-12 col-md-4">
+          <q-card class="dashboard-card">
+            <q-card-section>
+              <div class="text-h6">Reputation Tokens</div>
+              <div class="text-h3 text-primary">250</div>
+              <div class="text-caption">Current token balance</div>
+            </q-card-section>
+          </q-card>
+        </div>
+        
+        <div class="col-12 col-md-4">
+          <q-card class="dashboard-card">
+            <q-card-section>
+              <div class="text-h6">Verifications</div>
+              <div class="text-h3 text-primary">3</div>
+              <div class="text-caption">Contributions verified</div>
+            </q-card-section>
+          </q-card>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="col-12">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Recent Activity</div>
+            </q-card-section>
+            <q-list separator>
+              <q-item>
+                <q-item-section avatar>
+                  <q-icon name="check_circle" color="positive" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Contribution "Community Workshop" verified by Tech Community</q-item-label>
+                  <q-item-label caption>Today, 2:30 PM</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item>
+                <q-item-section avatar>
+                  <q-icon name="token" color="primary" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>You received 50 reputation tokens</q-item-label>
+                  <q-item-label caption>Today, 2:30 PM</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item>
+                <q-item-section avatar>
+                  <q-icon name="work" color="info" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>New contribution "Open Source Project" added</q-item-label>
+                  <q-item-label caption>Yesterday, 10:15 AM</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    const { useQuasar } = Quasar;
+    
+    // Base Network Configuration
+    const BASE_SEPOLIA_CHAIN_ID = 84532;
+    const BASE_MAINNET_CHAIN_ID = 8453;
+    
+    const BASE_NETWORKS = {
+      [BASE_SEPOLIA_CHAIN_ID]: {
+        chainId: '0x14a34',
+        chainName: 'Base Sepolia',
+        nativeCurrency: {
+          name: 'Ethereum',
+          symbol: 'ETH',
+          decimals: 18
+        },
+        rpcUrls: ['https://sepolia.base.org'],
+        blockExplorerUrls: ['https://sepolia-explorer.base.org']
+      },
+      [BASE_MAINNET_CHAIN_ID]: {
+        chainId: '0x2105',
+        chainName: 'Base',
+        nativeCurrency: {
+          name: 'Ethereum',
+          symbol: 'ETH',
+          decimals: 18
+        },
+        rpcUrls: ['https://mainnet.base.org'],
+        blockExplorerUrls: ['https://basescan.org']
+      }
+    };
+    
+    createApp({
+      setup() {
+        const $q = useQuasar();
+        
+        // Reactive state
+        const isConnected = ref(false);
+        const isConnecting = ref(false);
+        const account = ref(null);
+        const chainId = ref(null);
+        const balance = ref('0');
+        
+        // Computed properties
+        const formattedAddress = computed(() => {
+          if (!account.value) return '';
+          return `${account.value.substring(0, 6)}...${account.value.substring(account.value.length - 4)}`;
+        });
+        
+        const formattedBalance = computed(() => {
+          const bal = parseFloat(balance.value);
+          return bal.toFixed(4);
+        });
+        
+        const networkName = computed(() => {
+          if (!chainId.value) return 'Unknown';
+          const network = BASE_NETWORKS[chainId.value];
+          return network ? network.chainName : `Chain ID: ${chainId.value}`;
+        });
+        
+        const isOnCorrectNetwork = computed(() => {
+          return chainId.value === BASE_SEPOLIA_CHAIN_ID || chainId.value === BASE_MAINNET_CHAIN_ID;
+        });
+        
+        // Methods
+        const connectWallet = async () => {
+          if (!window.ethereum) {
+            $q.notify({
+              type: 'negative',
+              message: 'MetaMask is not installed. Please install MetaMask to continue.',
+              position: 'top-right'
+            });
+            return;
+          }
+          
+          try {
+            isConnecting.value = true;
+            
+            // Request account access
+            const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+            
+            if (accounts.length === 0) {
+              throw new Error('No accounts found');
+            }
+            
+            account.value = accounts[0];
+            isConnected.value = true;
+            
+            // Get network
+            const currentChainId = await window.ethereum.request({
+              method: 'eth_chainId'
+            });
+            chainId.value = parseInt(currentChainId, 16);
+            
+            // Get balance
+            await updateBalance();
+            
+            $q.notify({
+              type: 'positive',
+              message: 'Wallet connected successfully!',
+              position: 'top-right'
+            });
+            
+            // Switch to Base network if not already there
+            if (!isOnCorrectNetwork.value) {
+              setTimeout(() => {
+                switchToBaseNetwork();
+              }, 1000);
+            }
+            
+          } catch (error) {
+            console.error('Error connecting wallet:', error);
+            $q.notify({
+              type: 'negative',
+              message: error.message || 'Failed to connect wallet',
+              position: 'top-right'
+            });
+          } finally {
+            isConnecting.value = false;
+          }
+        };
+        
+        const disconnectWallet = () => {
+          isConnected.value = false;
+          account.value = null;
+          chainId.value = null;
+          balance.value = '0';
+          
+          $q.notify({
+            type: 'info',
+            message: 'Wallet disconnected',
+            position: 'top-right'
+          });
+        };
+        
+        const switchToBaseNetwork = async () => {
+          if (!window.ethereum) return;
+          
+          try {
+            const targetNetwork = BASE_NETWORKS[BASE_SEPOLIA_CHAIN_ID]; // Use Sepolia for development
+            
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: targetNetwork.chainId }]
+            });
+          } catch (switchError) {
+            if (switchError.code === 4902) {
+              // Network not added, add it
+              try {
+                await window.ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [BASE_NETWORKS[BASE_SEPOLIA_CHAIN_ID]]
+                });
+              } catch (addError) {
+                console.error('Failed to add Base network:', addError);
+                $q.notify({
+                  type: 'negative',
+                  message: 'Failed to add Base network',
+                  position: 'top-right'
+                });
+              }
+            } else {
+              console.error('Failed to switch network:', switchError);
+              $q.notify({
+                type: 'negative',
+                message: 'Failed to switch to Base network',
+                position: 'top-right'
+              });
+            }
+          }
+        };
+        
+        const updateBalance = async () => {
+          if (!window.ethereum || !account.value) return;
+          
+          try {
+            const balanceWei = await window.ethereum.request({
+              method: 'eth_getBalance',
+              params: [account.value, 'latest']
+            });
+            
+            // Convert from wei to ETH
+            const balanceEth = parseInt(balanceWei, 16) / Math.pow(10, 18);
+            balance.value = balanceEth.toString();
+          } catch (error) {
+            console.error('Error getting balance:', error);
+          }
+        };
+        
+        const createIdentity = () => {
+          $q.notify({
+            type: 'info',
+            message: 'Identity creation feature coming soon!',
+            position: 'top-right'
+          });
+        };
+        
+        // Set up event listeners
+        if (window.ethereum) {
+          window.ethereum.on('accountsChanged', (accounts) => {
+            if (accounts.length === 0) {
+              disconnectWallet();
+            } else {
+              account.value = accounts[0];
+              updateBalance();
+            }
+          });
+          
+          window.ethereum.on('chainChanged', (newChainId) => {
+            chainId.value = parseInt(newChainId, 16);
+            updateBalance();
+          });
+        }
+        
+        return {
+          isConnected,
+          isConnecting,
+          account,
+          chainId,
+          balance,
+          formattedAddress,
+          formattedBalance,
+          networkName,
+          isOnCorrectNetwork,
+          connectWallet,
+          disconnectWallet,
+          switchToBaseNetwork,
+          updateBalance,
+          createIdentity
+        };
+      }
+    }).use(Quasar).mount('#app');
+  </script>
+</body>
+</html>

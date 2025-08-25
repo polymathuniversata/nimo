@@ -6,11 +6,46 @@
         <q-card class="welcome-card">
           <q-card-section class="bg-primary text-white">
             <div class="text-h5">Welcome to Nimo</div>
-            <div class="text-subtitle2">Your Decentralized Youth Identity & Contribution Platform</div>
+            <div class="text-subtitle2">Decentralized Youth Identity & Proof of Contribution Network on Base</div>
           </q-card-section>
           <q-card-section>
-            <p>Build your digital identity, record your contributions, and gain access to opportunities.</p>
-            <q-btn color="primary" label="Get Started" to="/profile" />
+            <p>Build your NFT identity, earn reputation tokens for contributions, and access global opportunities through Base network.</p>
+            
+            <!-- Wallet Connection -->
+            <div class="wallet-section q-mb-md">
+              <WalletConnect />
+            </div>
+
+            <!-- Network Status -->
+            <div v-if="walletStore.isConnected" class="network-status q-mb-md">
+              <q-chip
+                :color="walletStore.isOnCorrectNetwork ? 'positive' : 'warning'"
+                text-color="white"
+                icon="lan"
+                class="q-mr-sm"
+              >
+                {{ walletStore.networkName }}
+              </q-chip>
+              
+              <q-chip
+                color="info"
+                text-color="white"
+                icon="account_balance"
+              >
+                {{ formattedBalance }} ETH
+              </q-chip>
+            </div>
+
+            <q-btn 
+              v-if="walletStore.isConnected && walletStore.isOnCorrectNetwork"
+              color="secondary" 
+              label="Create Your Identity" 
+              to="/profile"
+              icon="person_add"
+            />
+            <div v-else-if="!walletStore.isConnected" class="text-caption q-mt-sm">
+              Connect your wallet to get started
+            </div>
           </q-card-section>
         </q-card>
       </div>
@@ -83,50 +118,46 @@
   </q-page>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup>
+import { ref, computed } from 'vue'
+import { useWalletStore } from 'src/stores/wallet'
+import WalletConnect from 'src/components/WalletConnect.vue'
 
-export default {
-  name: 'IndexPage',
+const walletStore = useWalletStore()
 
-  setup () {
-    // Mock data for demonstration
-    const contributionCount = ref(5)
-    const tokenBalance = ref(250)
-    const verificationCount = ref(3)
-    
-    const recentActivity = ref([
-      {
-        id: 1,
-        title: 'Contribution "Community Workshop" verified by Tech Community',
-        date: 'Today, 2:30 PM',
-        icon: 'check_circle',
-        color: 'positive'
-      },
-      {
-        id: 2,
-        title: 'You received 50 reputation tokens',
-        date: 'Today, 2:30 PM',
-        icon: 'token',
-        color: 'primary'
-      },
-      {
-        id: 3,
-        title: 'New contribution "Open Source Project" added',
-        date: 'Yesterday, 10:15 AM',
-        icon: 'work',
-        color: 'info'
-      }
-    ])
+// Mock data for demonstration
+const contributionCount = ref(5)
+const tokenBalance = ref(250)
+const verificationCount = ref(3)
 
-    return {
-      contributionCount,
-      tokenBalance,
-      verificationCount,
-      recentActivity
-    }
+const recentActivity = ref([
+  {
+    id: 1,
+    title: 'Contribution "Community Workshop" verified by Tech Community',
+    date: 'Today, 2:30 PM',
+    icon: 'check_circle',
+    color: 'positive'
+  },
+  {
+    id: 2,
+    title: 'You received 50 reputation tokens',
+    date: 'Today, 2:30 PM',
+    icon: 'token',
+    color: 'primary'
+  },
+  {
+    id: 3,
+    title: 'New contribution "Open Source Project" added',
+    date: 'Yesterday, 10:15 AM',
+    icon: 'work',
+    color: 'info'
   }
-}
+])
+
+const formattedBalance = computed(() => {
+  const balance = parseFloat(walletStore.balance)
+  return balance.toFixed(4)
+})
 </script>
 
 <style lang="scss" scoped>

@@ -10,6 +10,7 @@ module.exports = configure(function (ctx) {
     supportTS: false,
     boot: [
       'axios',
+      'wallet',
     ],
     css: [
       'app.scss'
@@ -29,8 +30,16 @@ module.exports = configure(function (ctx) {
       server: {
         type: 'http'
       },
-      port: 8080,
-      open: true
+      port: 9000,
+      open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          secure: false,
+          logLevel: 'debug'
+        }
+      }
     },
     framework: {
       config: {},
