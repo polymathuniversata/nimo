@@ -15,7 +15,17 @@
       "Bash(pip install:*)",
       "Bash(pip search:*)",
       "WebFetch(domain:metta-lang.dev)",
-      "Bash(pip index:*)"
+      "Bash(pip index:*)",
+      "Bash(msiexec:*)",
+      "Bash(cmake:*)",
+      "Bash(start /wait cmake:*)",
+      "Bash(set PATH=\"C:\\Program Files\\CMake\\bin;%PATH%\")",
+      "Bash(powershell:*)",
+      "Bash(conda install:*)",
+      "Bash(docker:*)",
+      "Bash(.metta-test-venvScriptsactivate)",
+      "Bash(./metta-test-venv/Scripts/activate.bat)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": []

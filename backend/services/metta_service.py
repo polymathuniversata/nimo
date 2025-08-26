@@ -5,11 +5,15 @@ This service provides integration with MeTTa language for representing
 decentralized identities and contributions in the Nimo platform.
 
 Based on research findings: docs/metta_research_findings.md
+
+This version uses the metta_runner.py module which runs MeTTa through the Rust REPL
+instead of using the Python bindings which are more difficult to install.
 """
 
 import os
 import json
-import pymetta
+import re
+from .metta_runner import run_metta_script, run_metta_query
 
 class MeTTaIntegration:
     def __init__(self, rules_dir=None, db_path=None):
@@ -20,11 +24,11 @@ class MeTTaIntegration:
             rules_dir (str, optional): Directory containing MeTTa rule files
             db_path (str, optional): Path to save/load MeTTa space serialization
         """
-        self.space = pymetta.MeTTa()
         self.rules_dir = rules_dir or os.path.join(os.path.dirname(__file__), '../rules')
         self.db_path = db_path
+        self.added_atoms = []
         
-        # Load core rules
+        # Create a new MeTTa space via our temp file approach
         self._load_core_rules()
         
         # Load serialized space if path provided
@@ -37,7 +41,7 @@ class MeTTaIntegration:
     def _load_core_rules(self):
         """Load core reasoning rules into the MeTTa space"""
         # Core identity and verification rules
-        self.space.parse_and_eval('''
+        rules = '''
         ; Identity patterns
         (= (HasIdentity $user-id)
            (User $user-id $_))
@@ -55,7 +59,10 @@ class MeTTaIntegration:
            (and (Contribution $contribution-id $user-id $_)
                 (HasIdentity $user-id)
                 (HasEvidence $contribution-id $_)))
-        ''')
+        '''
+        
+        run_metta_query(rules)
+        self._track_atom(rules)
         
         # Load token award rules
         self._load_token_rules()
@@ -65,11 +72,12 @@ class MeTTaIntegration:
         if os.path.exists(core_rules_path):
             with open(core_rules_path, 'r') as f:
                 rules = f.read()
-                self.space.parse_and_eval(rules)
+                run_metta_query(rules)
+                self._track_atom(rules)
     
     def _load_token_rules(self):
         """Load rules for token awards"""
-        self.space.parse_and_eval('''
+        rules = '''
         ; Auto-award rule with confidence scoring
         (= (AutoAward $user-id $contribution-id)
            (let* (($verified (VerifyContribution $contribution-id))
@@ -89,7 +97,10 @@ class MeTTaIntegration:
                   ($evidence-factor (* $evidence-count 0.1))
                   ($verification-factor (* $verification-count 0.2)))
              (min 1.0 (+ $base-confidence $evidence-factor $verification-factor))))
-        ''')
+        '''
+        
+        run_metta_query(rules)
+        self._track_atom(rules)
     
     def _load_serialized_space(self, path):
         """
@@ -104,7 +115,8 @@ class MeTTaIntegration:
             
             # Process each atom in the serialized data
             for atom_str in data.get('atoms', []):
-                self.space.parse_and_eval(atom_str)
+                run_metta_query(atom_str)
+                self._track_atom(atom_str)
                 
         except Exception as e:
             print(f"Error deserializing MeTTa space: {e}")
@@ -116,12 +128,8 @@ class MeTTaIntegration:
         Returns:
             dict: Serialized representation of the space
         """
-        # This is a simplified approach as PyMeTTa doesn't have a direct way to export atoms
-        # In a real implementation, we'd need to iterate over all atoms in the space
-        
-        # For now, we'll maintain our own tracking of added atoms
         return {
-            "atoms": self.added_atoms if hasattr(self, 'added_atoms') else [],
+            "atoms": self.added_atoms,
             "version": "1.0"
         }
     
@@ -135,7 +143,12 @@ class MeTTaIntegration:
         save_path = path or self.db_path
         if save_path:
             serialized = self._serialize_space()
-            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            
+            # Make directory if there's a directory part in the path
+            dir_path = os.path.dirname(save_path)
+            if dir_path:
+                os.makedirs(dir_path, exist_ok=True)
+                
             with open(save_path, 'w') as f:
                 json.dump(serialized, f, indent=2)
     
@@ -152,7 +165,7 @@ class MeTTaIntegration:
         """
         username_str = f'"{username}"' if username else '"anonymous"'
         atom = f'(User "{user_id}" {username_str})'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         return atom
     
@@ -169,7 +182,7 @@ class MeTTaIntegration:
             str: The atom expression
         """
         atom = f'(HasSkill "{user_id}" "{skill}" {level})'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         return atom
     
@@ -187,12 +200,12 @@ class MeTTaIntegration:
             str: The atom expression
         """
         atom = f'(Contribution "{contribution_id}" "{user_id}" "{category}")'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         
         if title:
             title_atom = f'(ContributionTitle "{contribution_id}" "{title}")'
-            self.space.parse_and_eval(title_atom)
+            run_metta_query(title_atom)
             self._track_atom(title_atom)
             
         return atom
@@ -212,7 +225,7 @@ class MeTTaIntegration:
         """
         evidence_id = evidence_id or f"evidence-{contribution_id}-{evidence_type}"
         atom = f'(Evidence "{evidence_id}" "{contribution_id}" "{evidence_type}" "{evidence_url}")'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         return atom
     
@@ -230,7 +243,7 @@ class MeTTaIntegration:
         """
         verifier_part = f'"{verifier_id}"' if verifier_id else 'None'
         atom = f'(HasVerification "{contribution_id}" "{organization}" {verifier_part})'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         return atom
     
@@ -246,7 +259,7 @@ class MeTTaIntegration:
             str: The atom expression
         """
         atom = f'(TokenBalance "{user_id}" {balance})'
-        self.space.parse_and_eval(atom)
+        run_metta_query(atom)
         self._track_atom(atom)
         return atom
     
@@ -262,16 +275,16 @@ class MeTTaIntegration:
             object: MeTTa result object
         """
         # Make sure the contribution exists and is linked to the user
-        contribution_check = self.space.parse_and_eval(
-            f'(Contribution "{contribution_id}" "{user_id}" $_)'
+        contribution_check = run_metta_query(
+            f'!(match &self (Contribution "{contribution_id}" "{user_id}" $_) "exists")'
         )
         
-        if not contribution_check:
+        if not contribution_check or "exists" not in contribution_check:
             return None
             
         # Execute the auto-award rule
-        result = self.space.parse_and_eval(
-            f'(AutoAward "{user_id}" "{contribution_id}")'
+        result = run_metta_query(
+            f'!(AutoAward "{user_id}" "{contribution_id}")'
         )
         
         return result
@@ -286,13 +299,17 @@ class MeTTaIntegration:
         Returns:
             float: Confidence score between 0.0 and 1.0
         """
-        result = self.space.parse_and_eval(
-            f'(CalculateConfidence "{contribution_id}")'
+        result = run_metta_query(
+            f'!(CalculateConfidence "{contribution_id}")'
         )
         
         if result:
             try:
-                return float(result)
+                # Extract numeric value from result
+                match = re.search(r'(0\.\d+|1\.0)', result)
+                if match:
+                    return float(match.group(0))
+                return 0.5
             except (ValueError, TypeError):
                 return 0.5
         
@@ -309,11 +326,11 @@ class MeTTaIntegration:
             dict: Validation result with confidence and explanation
         """
         # Check if contribution exists
-        contribution_check = self.space.parse_and_eval(
-            f'(Contribution "{contribution_id}" $_ $_)'
+        contribution_check = run_metta_query(
+            f'!(match &self (Contribution "{contribution_id}" $_ $_) "exists")'
         )
         
-        if not contribution_check:
+        if not contribution_check or "exists" not in contribution_check:
             return {
                 "valid": False,
                 "confidence": 0.0,
@@ -321,11 +338,11 @@ class MeTTaIntegration:
             }
         
         # Check if contribution can be verified
-        can_verify = self.space.parse_and_eval(
-            f'(CanVerify "{contribution_id}")'
+        can_verify = run_metta_query(
+            f'!(CanVerify "{contribution_id}")'
         )
         
-        if not can_verify:
+        if not can_verify or "True" not in can_verify:
             return {
                 "valid": False,
                 "confidence": 0.0,
@@ -333,8 +350,8 @@ class MeTTaIntegration:
             }
             
         # Execute verification query
-        result = self.space.parse_and_eval(
-            f'(VerifyContribution "{contribution_id}")'
+        result = run_metta_query(
+            f'!(VerifyContribution "{contribution_id}")'
         )
         
         # Calculate confidence
@@ -342,13 +359,13 @@ class MeTTaIntegration:
         
         # Generate explanation (if we had an explanation generator rule)
         explanation = "Contribution validation complete"
-        if result:
+        if result and "True" in result:
             explanation = "Contribution validated successfully with sufficient evidence"
         else:
             explanation = "Contribution failed validation checks"
             
         return {
-            "valid": bool(result),
+            "valid": bool(result and "True" in result),
             "confidence": confidence,
             "explanation": explanation
         }
@@ -363,25 +380,17 @@ class MeTTaIntegration:
         Returns:
             list: List of contribution IDs
         """
-        results = self.space.parse_and_eval(
-            f'(Contribution $id "{user_id}" $_)'
+        results = run_metta_query(
+            f'!(match &self (Contribution $id "{user_id}" $_) (get-value $id))'
         )
         
         # Parse results into a list of contribution IDs
         contribution_ids = []
         if results:
-            # If we got a single result
-            if hasattr(results, 'get_args'):
-                args = results.get_args()
-                if args and len(args) > 0:
-                    contribution_ids.append(str(args[0]))
-            # If we got multiple results
-            else:
-                for result in results:
-                    if hasattr(result, 'get_args'):
-                        args = result.get_args()
-                        if args and len(args) > 0:
-                            contribution_ids.append(str(args[0]))
+            # Simple parsing of the output from MeTTa REPL
+            # Looking for patterns like "contribution-1", "contribution-2"
+            matches = re.findall(r'"([^"]+)"', results)
+            contribution_ids.extend(matches)
         
         return contribution_ids
     
@@ -395,19 +404,18 @@ class MeTTaIntegration:
         Returns:
             int: Token balance or 0 if not found
         """
-        result = self.space.parse_and_eval(
-            f'(TokenBalance "{user_id}" $balance)'
+        result = run_metta_query(
+            f'!(match &self (TokenBalance "{user_id}" $balance) $balance)'
         )
         
         if result:
-            try:
-                # Extract balance value from result
-                if hasattr(result, 'get_args'):
-                    args = result.get_args()
-                    if len(args) > 1:
-                        return int(args[1])
-            except (ValueError, TypeError, IndexError):
-                return 0
+            # Extract the balance using regex
+            match = re.search(r'\d+', result)
+            if match:
+                try:
+                    return int(match.group(0))
+                except (ValueError, TypeError):
+                    return 0
         
         return 0
     
@@ -469,8 +477,5 @@ class MeTTaIntegration:
     
     def _track_atom(self, atom):
         """Track atoms added to the space for serialization"""
-        if not hasattr(self, 'added_atoms'):
-            self.added_atoms = []
-        
         if atom not in self.added_atoms:
             self.added_atoms.append(atom)
