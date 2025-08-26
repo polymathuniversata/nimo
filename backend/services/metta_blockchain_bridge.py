@@ -10,11 +10,11 @@ import json
 import asyncio
 from typing import Dict, Any, Optional, List
 
-from backend.services.metta_reasoning import MeTTaReasoning
-from backend.services.blockchain_service import BlockchainService
-from backend.models.user import User
-from backend.models.contribution import Contribution, Verification
-from backend.models.bond import BlockchainTransaction
+from services.metta_reasoning import MeTTaReasoning
+from services.blockchain_service import BlockchainService
+from models.user import User
+from models.contribution import Contribution, Verification
+from models.bond import BlockchainTransaction
 
 class MeTTaBlockchainBridge:
     def __init__(self, metta_service: MeTTaReasoning, blockchain_service: BlockchainService):
@@ -443,4 +443,3 @@ class MeTTaBlockchainBridge:
             'network': getattr(self.blockchain_service, 'network', 'unknown'),
             'checked_at': self._get_current_timestamp()
         }
-```

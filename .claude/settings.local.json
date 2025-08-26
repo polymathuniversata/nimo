@@ -11,7 +11,11 @@
       "Bash(node:*)",
       "Bash(python:*)",
       "Bash(npm uninstall:*)",
-      "Bash(./node_modules/.bin/quasar dev:*)"
+      "Bash(./node_modules/.bin/quasar dev:*)",
+      "Bash(pip install:*)",
+      "Bash(pip search:*)",
+      "WebFetch(domain:metta-lang.dev)",
+      "Bash(pip index:*)"
     ],
     "deny": [],
     "ask": []
