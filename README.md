@@ -1,4 +1,9 @@
-# Nimo: Decentralized Youth Identity & Proof of Contribution Network
+# Nimo: Decentralized Youth Id## MeTTa Autonomous Agents
+- **Intelligent Verification**: AI agents analyze contributions and calculate appropriate rewards
+- **Complex Logic**: Handle multi-factor reputation scoring and contribution weighting
+- **Transparent Reasoning**: All MeTTa decisions include cryptographic proofs
+- **Persistent Identity**: MeTTa-based identity representations enable cross-platform verification
+- **Fraud Detection**: Sophisticated pattern recognition to detect fraudulent contributionsty & Proof of Contribution Network
 
 ## Overview
 Nimo is a decentralized reputation system built on MeTTa language that enables African youth to create persistent digital identities, earn reputation tokens for real-world contributions, and use their identity and reputation to unlock access to opportunities like internships, grants, gigs, and DAO proposals.
@@ -58,20 +63,39 @@ Nimo/
 
 ## Sample MeTTa Atoms
 ```
-(user Kwame)
-(skill Kwame Python)
-(contribution Kwame KRNL_Hackathon)
-(verified_by Kwame KRNL_Org)
-(token_balance Kwame 320)
+; User Identity and Skills
+(User "user-123" "Kwame")
+(HasSkill "user-123" "Python" 4)
+(HasSkill "user-123" "community_building" 3)
+
+; Contributions and Evidence
+(Contribution "contrib-456" "user-123" "coding")
+(ContributionTitle "contrib-456" "KRNL Hackathon Project")
+(Evidence "evidence-789" "contrib-456" "github" "https://github.com/kwame/krnl-project")
+
+; Verification and Impact
+(HasVerification "contrib-456" "KRNL_Org" "verifier-101")
+(ContributionImpact "contrib-456" "significant")
+(TokenBalance "user-123" 320)
 ```
 
 ## Autonomous Agent Logic
 ```
-(= (auto-award $user $task)
-   (and
-     (contribution $user $task)
-     (verified_by $user $org))
-   (increase-token $user 50))
+; Verification rule with confidence scoring
+(= (VerifyContribution $contrib-id)
+   (and (Contribution $contrib-id $user-id $_)
+        (ValidEvidence $contrib-id)
+        (SkillMatch $contrib-id $user-id)
+        (ImpactAssessment $contrib-id "moderate")))
+
+; Dynamic token award based on evidence quality and verification
+(= (CalculateTokenAward $contrib-id)
+   (let* (($category (GetContributionCategory $contrib-id))
+          ($base-amount (BaseTokenAmount $category))
+          ($confidence (CalculateConfidence $contrib-id))
+          ($quality-bonus (* $confidence 50))
+          ($total-amount (+ $base-amount $quality-bonus)))
+     $total-amount))
 ```
 
 ## Technology Stack
@@ -161,6 +185,10 @@ metta main.metta
 - [User Guide](docs/user_guide.md) - How to use the platform
 - [Backend API](backend/README.md) - REST API endpoints
 - [Workflow Diagrams](docs/) - Visual system architecture
+- [MeTTa Implementation Plan](docs/metta_implementation_plan.md) - Detailed MeTTa integration plan
+- [MeTTa User Guide](docs/metta_user_guide.md) - How to use and extend the MeTTa integration
+- [MeTTa Research Findings](docs/metta_research_findings.md) - Latest research on MeTTa integration best practices
+- [Backend Implementation Status](docs/backend_implementation_status.md) - Current implementation status and roadmap
 
 ## Why It Matters
 - Creates a portable, tamper-proof record of experience

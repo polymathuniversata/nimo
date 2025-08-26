@@ -3,108 +3,474 @@ MeTTa Integration Service for Nimo Platform
 
 This service provides integration with MeTTa language for representing
 decentralized identities and contributions in the Nimo platform.
+
+Based on research findings: docs/metta_research_findings.md
 """
 
-import pymetta as metta
+import os
+import json
+import pymetta
 
 class MeTTaIntegration:
-    def __init__(self, db_path=None):
-        """Initialize MeTTa integration with optional database path"""
-        self.space = metta.Metta()
+    def __init__(self, rules_dir=None, db_path=None):
+        """
+        Initialize MeTTa integration
+        
+        Args:
+            rules_dir (str, optional): Directory containing MeTTa rule files
+            db_path (str, optional): Path to save/load MeTTa space serialization
+        """
+        self.space = pymetta.MeTTa()
+        self.rules_dir = rules_dir or os.path.join(os.path.dirname(__file__), '../rules')
         self.db_path = db_path
         
-        # Load MeTTa definitions if path provided
-        if self.db_path:
+        # Load core rules
+        self._load_core_rules()
+        
+        # Load serialized space if path provided
+        if self.db_path and os.path.exists(self.db_path):
             try:
-                self.load_from_file(self.db_path)
+                self._load_serialized_space(self.db_path)
             except Exception as e:
                 print(f"Error loading MeTTa store: {e}")
     
-    def load_from_file(self, path):
-        """Load MeTTa definitions from a file"""
-        self.space.load_space(path)
+    def _load_core_rules(self):
+        """Load core reasoning rules into the MeTTa space"""
+        # Core identity and verification rules
+        self.space.parse_and_eval('''
+        ; Identity patterns
+        (= (HasIdentity $user-id)
+           (User $user-id $_))
+           
+        ; Verification patterns
+        (= (IsVerified $user-id)
+           (HasVerification $user-id $_ $_))
+           
+        ; Skill matching rule
+        (= (HasRelevantSkill $user-id $skill-name)
+           (HasSkill $user-id $skill-name $_))
+           
+        ; Contribution verification rule base
+        (= (CanVerify $contribution-id)
+           (and (Contribution $contribution-id $user-id $_)
+                (HasIdentity $user-id)
+                (HasEvidence $contribution-id $_)))
+        ''')
+        
+        # Load token award rules
+        self._load_token_rules()
+        
+        # Load rules from files if available
+        core_rules_path = os.path.join(self.rules_dir, 'core_rules.metta')
+        if os.path.exists(core_rules_path):
+            with open(core_rules_path, 'r') as f:
+                rules = f.read()
+                self.space.parse_and_eval(rules)
+    
+    def _load_token_rules(self):
+        """Load rules for token awards"""
+        self.space.parse_and_eval('''
+        ; Auto-award rule with confidence scoring
+        (= (AutoAward $user-id $contribution-id)
+           (let* (($verified (VerifyContribution $contribution-id))
+                  ($confidence (CalculateConfidence $contribution-id))
+                  ($base-amount 50)
+                  ($bonus (* $confidence 50))
+                  ($total (+ $base-amount $bonus)))
+             (if $verified
+                 (IncreaseToken $user-id $total)
+                 (TokenBalance $user-id (GetTokenBalance $user-id)))))
+        
+        ; Default confidence calculation
+        (= (CalculateConfidence $contribution-id)
+           (let* (($evidence-count (CountEvidence $contribution-id))
+                  ($verification-count (CountVerifications $contribution-id))
+                  ($base-confidence 0.5)
+                  ($evidence-factor (* $evidence-count 0.1))
+                  ($verification-factor (* $verification-count 0.2)))
+             (min 1.0 (+ $base-confidence $evidence-factor $verification-factor))))
+        ''')
+    
+    def _load_serialized_space(self, path):
+        """
+        Load serialized MeTTa space from JSON
+        
+        This is a custom implementation since PyMeTTa doesn't directly
+        support serialization/deserialization yet.
+        """
+        try:
+            with open(path, 'r') as f:
+                data = json.load(f)
+            
+            # Process each atom in the serialized data
+            for atom_str in data.get('atoms', []):
+                self.space.parse_and_eval(atom_str)
+                
+        except Exception as e:
+            print(f"Error deserializing MeTTa space: {e}")
+    
+    def _serialize_space(self):
+        """
+        Serialize current MeTTa space to a JSON structure
+        
+        Returns:
+            dict: Serialized representation of the space
+        """
+        # This is a simplified approach as PyMeTTa doesn't have a direct way to export atoms
+        # In a real implementation, we'd need to iterate over all atoms in the space
+        
+        # For now, we'll maintain our own tracking of added atoms
+        return {
+            "atoms": self.added_atoms if hasattr(self, 'added_atoms') else [],
+            "version": "1.0"
+        }
     
     def save_to_file(self, path=None):
-        """Save MeTTa definitions to a file"""
+        """
+        Save MeTTa space to a file
+        
+        Args:
+            path (str, optional): Path to save the file, defaults to self.db_path
+        """
         save_path = path or self.db_path
         if save_path:
-            self.space.save_space(save_path)
+            serialized = self._serialize_space()
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            with open(save_path, 'w') as f:
+                json.dump(serialized, f, indent=2)
     
-    def define_user(self, user_id):
-        """Define a user in MeTTa"""
-        atom = f'(user "{user_id}")'
+    def define_user(self, user_id, username=None):
+        """
+        Define a user in MeTTa
+        
+        Args:
+            user_id (str): User ID
+            username (str, optional): Username
+        
+        Returns:
+            str: The atom expression
+        """
+        username_str = f'"{username}"' if username else '"anonymous"'
+        atom = f'(User "{user_id}" {username_str})'
         self.space.parse_and_eval(atom)
+        self._track_atom(atom)
         return atom
     
-    def add_skill(self, user_id, skill):
-        """Add a skill to a user's profile"""
-        atom = f'(skill "{user_id}" "{skill}")'
+    def add_skill(self, user_id, skill, level=1):
+        """
+        Add a skill to a user's profile
+        
+        Args:
+            user_id (str): User ID
+            skill (str): Skill name
+            level (int, optional): Skill level (1-5)
+        
+        Returns:
+            str: The atom expression
+        """
+        atom = f'(HasSkill "{user_id}" "{skill}" {level})'
         self.space.parse_and_eval(atom)
+        self._track_atom(atom)
         return atom
     
-    def add_contribution(self, user_id, activity):
-        """Record a contribution by a user"""
-        atom = f'(contribution "{user_id}" "{activity}")'
+    def add_contribution(self, contribution_id, user_id, category, title=None):
+        """
+        Record a contribution
+        
+        Args:
+            contribution_id (str): Contribution ID
+            user_id (str): User ID
+            category (str): Contribution category
+            title (str, optional): Contribution title
+        
+        Returns:
+            str: The atom expression
+        """
+        atom = f'(Contribution "{contribution_id}" "{user_id}" "{category}")'
         self.space.parse_and_eval(atom)
+        self._track_atom(atom)
+        
+        if title:
+            title_atom = f'(ContributionTitle "{contribution_id}" "{title}")'
+            self.space.parse_and_eval(title_atom)
+            self._track_atom(title_atom)
+            
         return atom
     
-    def verify_contribution(self, user_id, organization):
-        """Record a contribution verification by an organization"""
-        atom = f'(verified-by "{user_id}" "{organization}")'
+    def add_evidence(self, contribution_id, evidence_type, evidence_url, evidence_id=None):
+        """
+        Add evidence for a contribution
+        
+        Args:
+            contribution_id (str): Contribution ID
+            evidence_type (str): Type of evidence (e.g., "github", "certificate")
+            evidence_url (str): URL to the evidence
+            evidence_id (str, optional): Unique ID for the evidence
+        
+        Returns:
+            str: The atom expression
+        """
+        evidence_id = evidence_id or f"evidence-{contribution_id}-{evidence_type}"
+        atom = f'(Evidence "{evidence_id}" "{contribution_id}" "{evidence_type}" "{evidence_url}")'
         self.space.parse_and_eval(atom)
+        self._track_atom(atom)
+        return atom
+    
+    def verify_contribution(self, contribution_id, organization, verifier_id=None):
+        """
+        Record a contribution verification by an organization
+        
+        Args:
+            contribution_id (str): Contribution ID
+            organization (str): Verifying organization
+            verifier_id (str, optional): ID of the verifier
+            
+        Returns:
+            str: The atom expression
+        """
+        verifier_part = f'"{verifier_id}"' if verifier_id else 'None'
+        atom = f'(HasVerification "{contribution_id}" "{organization}" {verifier_part})'
+        self.space.parse_and_eval(atom)
+        self._track_atom(atom)
         return atom
     
     def set_token_balance(self, user_id, balance):
-        """Set token balance for a user"""
-        atom = f'(token-balance "{user_id}" {balance})'
+        """
+        Set token balance for a user
+        
+        Args:
+            user_id (str): User ID
+            balance (int): Token balance
+            
+        Returns:
+            str: The atom expression
+        """
+        atom = f'(TokenBalance "{user_id}" {balance})'
         self.space.parse_and_eval(atom)
+        self._track_atom(atom)
         return atom
     
-    def auto_award(self, user_id, task):
-        """Apply the autonomous agent logic for automatic token awards"""
-        # Define the auto-award rule
-        rule = '''
-        (= (auto-award $user $task)
-           (if (and (contribution $user $task)
-                   (verified-by $user $_))
-               (increase-token $user 50)
-               (token-balance $user (get-token-balance $user))))
-        '''
-        self.space.parse_and_eval(rule)
+    def auto_award(self, user_id, contribution_id):
+        """
+        Apply the autonomous agent logic for automatic token awards
         
-        # Execute the auto-award with specific user and task
-        result = self.space.parse_and_eval(f'(auto-award "{user_id}" "{task}")')
+        Args:
+            user_id (str): User ID
+            contribution_id (str): Contribution ID
+            
+        Returns:
+            object: MeTTa result object
+        """
+        # Make sure the contribution exists and is linked to the user
+        contribution_check = self.space.parse_and_eval(
+            f'(Contribution "{contribution_id}" "{user_id}" $_)'
+        )
+        
+        if not contribution_check:
+            return None
+            
+        # Execute the auto-award rule
+        result = self.space.parse_and_eval(
+            f'(AutoAward "{user_id}" "{contribution_id}")'
+        )
+        
         return result
+    
+    def calculate_contribution_confidence(self, contribution_id):
+        """
+        Calculate confidence score for a contribution
+        
+        Args:
+            contribution_id (str): Contribution ID
+            
+        Returns:
+            float: Confidence score between 0.0 and 1.0
+        """
+        result = self.space.parse_and_eval(
+            f'(CalculateConfidence "{contribution_id}")'
+        )
+        
+        if result:
+            try:
+                return float(result)
+            except (ValueError, TypeError):
+                return 0.5
+        
+        return 0.5
+    
+    def validate_contribution(self, contribution_id):
+        """
+        Validate a contribution using MeTTa reasoning
+        
+        Args:
+            contribution_id (str): Contribution ID
+            
+        Returns:
+            dict: Validation result with confidence and explanation
+        """
+        # Check if contribution exists
+        contribution_check = self.space.parse_and_eval(
+            f'(Contribution "{contribution_id}" $_ $_)'
+        )
+        
+        if not contribution_check:
+            return {
+                "valid": False,
+                "confidence": 0.0,
+                "explanation": "Contribution not found"
+            }
+        
+        # Check if contribution can be verified
+        can_verify = self.space.parse_and_eval(
+            f'(CanVerify "{contribution_id}")'
+        )
+        
+        if not can_verify:
+            return {
+                "valid": False,
+                "confidence": 0.0,
+                "explanation": "Cannot verify contribution - missing required elements"
+            }
+            
+        # Execute verification query
+        result = self.space.parse_and_eval(
+            f'(VerifyContribution "{contribution_id}")'
+        )
+        
+        # Calculate confidence
+        confidence = self.calculate_contribution_confidence(contribution_id)
+        
+        # Generate explanation (if we had an explanation generator rule)
+        explanation = "Contribution validation complete"
+        if result:
+            explanation = "Contribution validated successfully with sufficient evidence"
+        else:
+            explanation = "Contribution failed validation checks"
+            
+        return {
+            "valid": bool(result),
+            "confidence": confidence,
+            "explanation": explanation
+        }
     
     def query_user_contributions(self, user_id):
-        """Query all contributions for a user"""
-        query = f'(get-contributions "{user_id}")'
-        result = self.space.parse_and_eval(query)
-        return result
+        """
+        Query all contributions for a user
+        
+        Args:
+            user_id (str): User ID
+            
+        Returns:
+            list: List of contribution IDs
+        """
+        results = self.space.parse_and_eval(
+            f'(Contribution $id "{user_id}" $_)'
+        )
+        
+        # Parse results into a list of contribution IDs
+        contribution_ids = []
+        if results:
+            # If we got a single result
+            if hasattr(results, 'get_args'):
+                args = results.get_args()
+                if args and len(args) > 0:
+                    contribution_ids.append(str(args[0]))
+            # If we got multiple results
+            else:
+                for result in results:
+                    if hasattr(result, 'get_args'):
+                        args = result.get_args()
+                        if args and len(args) > 0:
+                            contribution_ids.append(str(args[0]))
+        
+        return contribution_ids
     
     def query_token_balance(self, user_id):
-        """Query token balance for a user"""
-        query = f'(get-token-balance "{user_id}")'
-        result = self.space.parse_and_eval(query)
-        return result
+        """
+        Query token balance for a user
+        
+        Args:
+            user_id (str): User ID
+            
+        Returns:
+            int: Token balance or 0 if not found
+        """
+        result = self.space.parse_and_eval(
+            f'(TokenBalance "{user_id}" $balance)'
+        )
+        
+        if result:
+            try:
+                # Extract balance value from result
+                if hasattr(result, 'get_args'):
+                    args = result.get_args()
+                    if len(args) > 1:
+                        return int(args[1])
+            except (ValueError, TypeError, IndexError):
+                return 0
+        
+        return 0
     
     def sync_user_to_metta(self, user):
-        """Sync a user from the SQL database to MeTTa representation"""
-        self.define_user(user.id)
+        """
+        Sync a user from the SQL database to MeTTa representation
         
-        for skill in user.skills:
-            self.add_skill(user.id, skill.name)
+        Args:
+            user: User model instance
+        """
+        self.define_user(user.id, user.username)
+        
+        if hasattr(user, 'skills') and user.skills:
+            for skill in user.skills:
+                self.add_skill(user.id, skill.name, skill.level)
         
         if hasattr(user, 'tokens') and user.tokens:
             self.set_token_balance(user.id, user.tokens.balance)
         
-        for contribution in user.contributions:
-            self.add_contribution(user.id, contribution.title)
-            
-            for verification in contribution.verifications:
-                self.verify_contribution(user.id, verification.organization)
+        if hasattr(user, 'contributions') and user.contributions:
+            for contribution in user.contributions:
+                self.add_contribution(
+                    contribution.id, 
+                    user.id,
+                    contribution.category,
+                    contribution.title
+                )
+                
+                if hasattr(contribution, 'evidence') and contribution.evidence:
+                    for evidence in contribution.evidence:
+                        self.add_evidence(
+                            contribution.id,
+                            evidence.type,
+                            evidence.url,
+                            evidence.id
+                        )
+                
+                if hasattr(contribution, 'verifications') and contribution.verifications:
+                    for verification in contribution.verifications:
+                        self.verify_contribution(
+                            contribution.id,
+                            verification.organization,
+                            verification.verifier_id
+                        )
     
     def sync_all_users(self, users):
-        """Sync all users from SQL database to MeTTa representation"""
+        """
+        Sync all users from SQL database to MeTTa representation
+        
+        Args:
+            users: List of User model instances
+        """
         for user in users:
             self.sync_user_to_metta(user)
+            
+        # Save updated state
+        if self.db_path:
+            self.save_to_file()
+    
+    def _track_atom(self, atom):
+        """Track atoms added to the space for serialization"""
+        if not hasattr(self, 'added_atoms'):
+            self.added_atoms = []
+        
+        if atom not in self.added_atoms:
+            self.added_atoms.append(atom)

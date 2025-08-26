@@ -1,6 +1,43 @@
 from app import db
 from datetime import datetime
 
+class BlockchainTransaction(db.Model):
+    __tablename__ = 'blockchain_transactions'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    tx_hash = db.Column(db.String(128), unique=True, nullable=False)
+    tx_type = db.Column(db.String(50), nullable=False)  # contribution, identity, token, bond
+    reference_id = db.Column(db.Integer)  # ID of the related object
+    data = db.Column(db.Text)  # JSON data
+    status = db.Column(db.String(50), default='pending')  # pending, confirmed, failed
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    confirmed_at = db.Column(db.DateTime)
+    
+    def __init__(self, tx_hash, tx_type, reference_id=None, data=None):
+        self.tx_hash = tx_hash
+        self.tx_type = tx_type
+        self.reference_id = reference_id
+        self.data = data
+    
+    def confirm(self):
+        self.status = 'confirmed'
+        self.confirmed_at = datetime.utcnow()
+    
+    def fail(self):
+        self.status = 'failed'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'tx_hash': self.tx_hash,
+            'tx_type': self.tx_type,
+            'reference_id': self.reference_id,
+            'data': self.data,
+            'status': self.status,
+            'created_at': self.created_at.isoformat(),
+            'confirmed_at': self.confirmed_at.isoformat() if self.confirmed_at else None
+        }
+
 class Bond(db.Model):
     __tablename__ = 'bonds'
 
