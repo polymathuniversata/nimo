@@ -1,9 +1,23 @@
-# Nimo: Decentralized Youth Id## MeTTa Autonomous Agents
+# Nimo: Decentralized Youth Identity & Proof of Contribution Network
+**🚀 MAJOR UPDATE: React.js Migration Complete - August 26, 2025**
+
+[![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.2-purple.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.4-teal.svg)](https://tailwindcss.com/)
+[![Flask](https://img.shields.io/badge/Flask-Backend-green.svg)](https://flask.palletsprojects.com/)
+[![MeTTa](https://img.shields.io/badge/MeTTa-AI_Integration-orange.svg)](https://github.com/trueagi-io/hyperon-experimental)
+
+## ✅ **Frontend Stack Completely Modernized**
+- **Vue.js/Quasar** → **React.js/Vite/Tailwind CSS** migration complete
+- **Modern Development Experience** with lightning-fast builds
+- **All backend MeTTa integration preserved** and operational
+
+## 🤖 MeTTa Autonomous Agents
 - **Intelligent Verification**: AI agents analyze contributions and calculate appropriate rewards
 - **Complex Logic**: Handle multi-factor reputation scoring and contribution weighting
 - **Transparent Reasoning**: All MeTTa decisions include cryptographic proofs
 - **Persistent Identity**: MeTTa-based identity representations enable cross-platform verification
-- **Fraud Detection**: Sophisticated pattern recognition to detect fraudulent contributionsty & Proof of Contribution Network
+- **Fraud Detection**: Sophisticated pattern recognition to detect fraudulent contributions
 
 ## Overview
 Nimo is a decentralized reputation system built on MeTTa language that enables African youth to create persistent digital identities, earn reputation tokens for real-world contributions, and use their identity and reputation to unlock access to opportunities like internships, grants, gigs, and DAO proposals.
@@ -50,12 +64,15 @@ Nimo/
 │   ├── routes/       # API endpoints
 │   ├── services/     # Business logic, MeTTa & blockchain integration
 │   └── utils/        # Helper functions
-├── frontend/         # Vue.js + Quasar UI
-│   ├── src/
-│   │   ├── components/  # Reusable Vue components
-│   │   ├── pages/      # Application pages
-│   │   ├── services/   # API & Web3 service layer
-│   │   └── stores/     # Pinia state management
+├── frontend/         # 🆕 React.js + Vite + Tailwind CSS
+│   └── client/       # New React application
+│       ├── src/
+│       │   ├── components/  # React JSX components
+│       │   ├── pages/      # React pages
+│       │   ├── contexts/   # React Context API
+│       │   └── hooks/      # Custom React hooks
+│       ├── package.json    # React dependencies
+│       └── vite.config.js  # Vite configuration
 ├── docs/            # Technical documentation
 ├── tests/           # MeTTa test cases
 └── main.metta       # MeTTa demonstration script
@@ -98,14 +115,34 @@ Nimo/
      $total-amount))
 ```
 
-## Technology Stack
-- **Backend**: Flask (Python) + SQLAlchemy + JWT Authentication + Web3.py
-- **Frontend**: Vue.js 3 + Quasar Framework + Pinia + Web3 Wallet Integration
-- **Smart Contracts**: Solidity + OpenZeppelin + Foundry (deployed on Base)
-- **Core Logic**: MeTTa language for autonomous reasoning and decision-making
-- **Blockchain**: Base Network (Ethereum L2) for low-cost identity NFTs and reputation tokens
-- **Storage**: PostgreSQL (relational) + IPFS (metadata) + On-chain (critical state)
-- **Infrastructure**: Docker + Redis + Blockchain event indexing
+## Technology Stack 🔧
+
+### **🎨 Frontend (Completely Modernized)**
+- **React 19.1.1**: Modern UI framework with hooks
+- **Vite 7.1.2**: Lightning-fast build tool and dev server  
+- **Tailwind CSS 3.3.4**: Utility-first CSS framework
+- **React Router DOM 7.8.2**: Client-side routing
+- **React Context API**: State management
+- **React Icons**: Icon system
+
+### **⚙️ Backend (MeTTa Integration Complete)**
+- **Flask (Python)**: RESTful API server
+- **SQLAlchemy**: Database ORM
+- **MeTTa Integration**: AI reasoning engine (✅ COMPLETE)
+- **JWT Authentication**: Secure authentication
+- **Web3.py**: Blockchain integration
+
+### **⛓️ Blockchain & Smart Contracts**
+- **Base Network (Ethereum L2)**: Low-cost transactions
+- **Solidity + OpenZeppelin**: Secure smart contracts
+- **Foundry**: Contract development and deployment
+- **Identity NFTs**: On-chain verifiable identities
+
+### **🧠 AI & Logic**
+- **MeTTa Language**: Autonomous reasoning and decision-making
+- **Hyperon Integration**: Advanced AI verification
+- **Fraud Detection**: Pattern recognition and anomaly detection
+- **Confidence Scoring**: Multi-factor verification confidence
 
 ## Quick Start
 
@@ -141,11 +178,12 @@ Nimo/
    flask run
    ```
 
-3. **Frontend Setup** (in a new terminal)
+3. **Frontend Setup** 🆕 **React.js Stack** (in a new terminal)
    ```bash
-   cd frontend
+   cd frontend/client
    npm install
    npm run dev
+   # React app with hot reload runs on http://localhost:5173
    ```
 
 4. **Smart Contract Setup** (Foundry + Base Network)
