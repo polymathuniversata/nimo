@@ -25,7 +25,10 @@
       "Bash(docker:*)",
       "Bash(.metta-test-venvScriptsactivate)",
       "Bash(./metta-test-venv/Scripts/activate.bat)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
