@@ -9,7 +9,6 @@ MeTTa's autonomous decisions.
 import json
 import asyncio
 from typing import Dict, Any, Optional, List
-
 from backend.services.metta_reasoning import MeTTaReasoning
 from backend.services.blockchain_service import BlockchainService
 from backend.models.user import User
@@ -443,4 +442,3 @@ class MeTTaBlockchainBridge:
             'network': getattr(self.blockchain_service, 'network', 'unknown'),
             'checked_at': self._get_current_timestamp()
         }
-```

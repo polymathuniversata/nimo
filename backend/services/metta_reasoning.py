@@ -11,7 +11,7 @@ Updated based on research findings: docs/metta_research_findings.md
 import json
 import hashlib
 import os
-import pymetta
+import hyperon as pymetta
 from typing import Dict, List, Any, Optional, Tuple, Union
 
 class MeTTaReasoning:
@@ -1087,4 +1087,3 @@ class MeTTaReasoning:
         self.space = pymetta.MeTTa()
         self.added_atoms = []
         self._initialize_core_rules()
-```
