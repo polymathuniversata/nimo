@@ -1,0 +1,18 @@
+{
+  "user_bob": {
+    "skills": [
+      "python",
+      "blockchain",
+      "ai",
+      "machine-learning"
+    ]
+  },
+  "contribution_ml-model-1": {
+    "user_id": "bob",
+    "category": "machine-learning",
+    "title": "Implemented neural network for identity verification",
+    "skills": [
+      "machine-learning"
+    ]
+  }
+}

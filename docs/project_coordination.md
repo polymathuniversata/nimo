@@ -1,10 +1,54 @@
 # Nimo Project Coordination Guide
+**Updated: August 26, 2025 - React.js Migration Complete**
+
+## 🚀 **MAJOR UPDATE: Frontend Stack Completely Modernized**
+
+### **✅ Aisha's React.js Migration Completed**
+- **Vue.js/Quasar** completely removed and replaced
+- **React 19.1.1** modern application implemented
+- **Vite + Tailwind CSS** for fast development and styling
+- **React Router DOM + Context API** for navigation and state
+- **All backend work preserved** during migration
 
 ## Team Structure & Communication
 
-### Team Members
-- **John**: Backend Developer, Smart Contract Developer, AI/MeTTa Integration
-- **Aisha**: Frontend Developer, Web3 Integration, User Experience Designer
+### Team Members & Clear Role Assignments
+
+#### **Aisha** - Frontend Lead ✅ **REACT.JS MIGRATION COMPLETE**
+**Primary Responsibilities:**
+- **Frontend Development**: All React.js frontend components and pages
+- **Modern Stack**: React 19.1.1, Vite, Tailwind CSS, React Router DOM
+- **User Experience Design**: UI/UX design and user flow optimization  
+- **Web3 Frontend Integration**: Wallet connections, transaction UI, MetaMask integration
+- **Component Architecture**: React hooks, Context API state management, modern patterns
+- **Frontend Testing**: React component tests, E2E user journey tests
+- **Mobile Responsiveness**: Responsive design with Tailwind CSS
+
+**Focus Areas:**
+- Complete ownership of `/frontend/client/` directory (New React app)
+- All `.jsx` components and React JavaScript
+- Web3 client-side integration (ethers.js, wallet SDKs)
+- Vite build process and deployment
+- Tailwind CSS styling and responsive design
+- React Router navigation and user interface polish
+
+#### **John** - Backend & Infrastructure Lead  
+**Primary Responsibilities:**
+- **Backend Development**: Flask API, database models, business logic
+- **Smart Contract Development**: Solidity contracts, deployment, upgrades
+- **MeTTa Integration**: AI reasoning engine, verification algorithms
+- **Blockchain Integration**: Web3 backend services, transaction processing
+- **Database Architecture**: Models, migrations, data integrity
+- **API Design**: RESTful endpoints, authentication, rate limiting
+- **DevOps & Deployment**: CI/CD, production deployment, monitoring
+
+**Focus Areas:**
+- Complete ownership of `/backend` directory and `/contracts` directory
+- All Python backend code and Solidity smart contracts
+- MeTTa reasoning service and AI integration
+- Blockchain services and Web3 backend integration
+- Database design and API architecture
+- Production deployment and infrastructure
 
 ### Communication Channels
 
@@ -183,37 +227,52 @@ refactor(backend): optimize MeTTa query performance
 
 ### Integration Points & Dependencies
 
-#### Week 1-2: Foundation
-**John's Dependencies for Aisha:**
+#### **John's Backend/Infrastructure Deliverables for Aisha:**
+**Week 1-2: Foundation**
 - [ ] Smart contract ABIs and deployment addresses (Base Sepolia)
-- [ ] Base Sepolia testnet contract deployments
-- [ ] Basic API endpoints for testing
-- [ ] Base network configuration details
+- [ ] Base Sepolia testnet contract deployments  
+- [ ] Basic API endpoints structure and documentation
+- [ ] Base network configuration details and environment setup
+- [ ] Backend server running with CORS configured for frontend
 
-**Aisha's Dependencies for John:**
-- [ ] UI mockups and user flow designs
-- [ ] Web3 integration requirements
+**Week 3-4: Core Development**
+- [ ] Complete user authentication API (`POST /api/auth/login`, `/register`)
+- [ ] Identity management endpoints (`GET/POST /api/identity`)
+- [ ] Contribution verification API (`POST /api/contributions/verify`)
+- [ ] MeTTa reasoning service integrated with contribution verification
+- [ ] WebSocket events for real-time verification updates
+
+**Week 5-6: Advanced Features**
+- [ ] Token balance and transaction APIs
+- [ ] Bond creation and investment backend logic
+- [ ] Reputation scoring system via MeTTa integration
+- [ ] Complete API documentation with examples
+
+#### **Aisha's Frontend Deliverables for John:**
+**Week 1-2: Foundation**  
+- [ ] UI/UX mockups and user journey designs
 - [ ] Frontend API requirements specification
+- [ ] Wallet integration requirements (supported wallets, transaction flows)
+- [ ] Component architecture and routing structure
 
-#### Week 3-4: Core Development
-**John's Deliverables for Aisha:**
-- [ ] User authentication API
-- [ ] Identity management endpoints
-- [ ] Contract interaction helpers
-- [ ] WebSocket events for real-time updates
+**Week 3-4: Core Development**
+- [ ] User registration/login frontend flows
+- [ ] Wallet connection components and wallet state management
+- [ ] API integration patterns and error handling
+- [ ] Responsive design implementation for mobile/desktop
 
-**Aisha's Deliverables for John:**
-- [ ] User registration/login flows
-- [ ] Wallet connection components
-- [ ] API integration feedback
-- [ ] Frontend error handling requirements
+**Week 5-6: Advanced Features**
+- [ ] Complete user interface for all platform features
+- [ ] Frontend validation and user feedback systems
+- [ ] Mobile optimization and PWA features
+- [ ] User acceptance testing and feedback
 
-#### Week 5-6: Advanced Features
-**Integration Testing Together:**
-- [ ] End-to-end user registration flow
-- [ ] Identity NFT creation and display
-- [ ] Contribution submission and verification
-- [ ] Token balance display and transactions
+#### **Joint Integration Testing (Both)**
+**Week 3-6: Continuous Integration**
+- [ ] End-to-end user registration and authentication flow
+- [ ] Wallet connection → backend identity creation flow
+- [ ] Contribution submission → MeTTa verification → token reward flow
+- [ ] Complete user journey testing from registration to token earning
 
 ### Testing Strategy
 

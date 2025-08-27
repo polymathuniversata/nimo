@@ -12,9 +12,18 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = 3600  # 1 hour
     
     # MeTTa configuration
-    METTA_DB_PATH = os.environ.get('METTA_DB_PATH', 'metta_store.db')
+    METTA_DATABASE_PATH = os.environ.get('METTA_DATABASE_PATH', 'backend/metta_state/metta_database.json')
+    METTA_CORE_RULES_PATH = os.environ.get('METTA_CORE_RULES_PATH', 'backend/rules/core_rules.metta')
     USE_METTA_REASONING = os.environ.get('USE_METTA_REASONING', 'False').lower() == 'true'
+    METTA_MODE = os.environ.get('METTA_MODE', 'mock')
     METTA_CONFIDENCE_THRESHOLD = float(os.environ.get('METTA_CONFIDENCE_THRESHOLD', '0.7'))
+    
+    # Try to detect if hyperon/MeTTa is available
+    try:
+        import hyperon
+        USE_METTA_REASONING = True
+    except ImportError:
+        pass
     
     # Blockchain configuration
     BLOCKCHAIN_NETWORK = os.environ.get('BLOCKCHAIN_NETWORK', 'base-goerli')

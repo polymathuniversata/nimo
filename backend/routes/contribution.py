@@ -7,7 +7,8 @@ from models.contribution import Contribution, Verification
 from models.user import User, Token, TokenTransaction
 from models.bond import BlockchainTransaction
 from services.token_service import award_tokens_for_verification
-from services.metta_reasoning import MeTTaReasoning
+from services.metta_integration import MeTTaIntegration
+from services.metta_reasoning import MeTTaReasoning  # For backward compatibility
 from services.blockchain_service import BlockchainService
 from services.metta_blockchain_bridge import MeTTaBlockchainBridge
 
@@ -350,17 +351,53 @@ async def verify_contribution(contrib_id):
         use_metta = current_app.config.get('USE_METTA_REASONING', False)
         
         if use_metta and hasattr(contribution, 'evidence') and contribution.evidence:
-            # Use MeTTa reasoning for verification
-            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+            # Use new MeTTa integration
+            metta_integration = MeTTaIntegration(
+                rules_path=current_app.config.get('METTA_RULES_PATH'),
+                db_path=current_app.config.get('METTA_DB_PATH')
+            )
+            
+            # Use legacy services for blockchain integration
             blockchain_service = BlockchainService()
+            
+            # Initialize old bridge for backwards compatibility
+            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
             bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
             
-            # Execute verification through bridge
+            # First use the new integration to validate the contribution
+            contribution_data = {
+                "user_id": contribution.user_id,
+                "category": getattr(contribution, 'contribution_type', 'other'),
+                "title": contribution.title,
+                "evidence": [
+                    {
+                        "type": contribution.evidence.get('type', 'url'),
+                        "url": contribution.evidence.get('url', ''),
+                        "id": f"evidence-{contrib_id}"
+                    }
+                ] if contribution.evidence and contribution.evidence.get('url') else []
+            }
+            
+            # Validate with MeTTa integration
+            validation_result = metta_integration.validate_contribution(
+                contribution_id=str(contrib_id),
+                contribution_data=contribution_data
+            )
+            
+            # Execute verification through bridge for blockchain integration
             result = await bridge.verify_contribution_on_chain(
                 user_id=contribution.user_id,
                 contribution_id=contrib_id,
                 evidence=contribution.evidence
             )
+            
+            # Merge the results
+            result.update({
+                'reputation_impact': validation_result.get('reputation_impact', 0),
+                'token_award': validation_result.get('token_award', 0),
+                'confidence': validation_result.get('confidence', 0.0),
+                'explanation': validation_result.get('explanation', '')
+            })
             
             # Create verification record if verified
             if result['status'] == 'verified':

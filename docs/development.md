@@ -1,6 +1,12 @@
 # Development Guide
+**Updated: August 26, 2025 - React.js Migration Complete**
 
 This guide covers the development workflow, testing, and deployment processes for the Nimo platform.
+
+## 🚀 **MAJOR UPDATE: Frontend Stack Completely Modernized**
+- **Vue.js/Quasar** → **React.js/Vite/Tailwind CSS**
+- **Modern Development Experience** with lightning-fast builds
+- **All backend MeTTa integration preserved**
 
 ## Development Workflow
 
@@ -8,9 +14,10 @@ This guide covers the development workflow, testing, and deployment processes fo
 
 1. **System Requirements**
    - Python 3.8+ with pip
-   - Node.js 16+ with npm
+   - Node.js 18+ with npm (updated for React 19.1.1)
    - Git for version control
    - MeTTa runtime (optional, for core logic testing)
+   - Modern browser for React DevTools
 
 2. **Clone and Setup**
    ```bash
@@ -35,11 +42,17 @@ This guide covers the development workflow, testing, and deployment processes fo
    flask db upgrade
    ```
 
-4. **Frontend Setup**
+4. **Frontend Setup** ✅ **NEW REACT.JS STACK**
    ```bash
-   cd frontend
+   cd frontend/client
    npm install
    ```
+   
+   **New Frontend Stack:**
+   - React 19.1.1 + Vite 7.1.2
+   - Tailwind CSS 3.3.4 + PostCSS
+   - React Router DOM 7.8.2
+   - ESLint + React DevTools
 
 ### Daily Development Workflow
 
@@ -48,6 +61,14 @@ This guide covers the development workflow, testing, and deployment processes fo
    cd backend
    source venv/bin/activate
    flask run
+   # Backend runs on http://127.0.0.1:5000
+   ```
+
+2. **Start React Frontend** (Terminal 2) 🎆 **NEW**
+   ```bash
+   cd frontend/client
+   npm run dev
+   # React app runs on http://localhost:5173 with hot reload
    ```
 
 2. **Start Frontend** (Terminal 2)

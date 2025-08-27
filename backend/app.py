@@ -46,9 +46,44 @@ def create_app(config_class=active_config):
     def server_error(e):
         return {"error": "Server error"}, 500
 
+    # Root endpoint
+    @app.route('/')
+    def root():
+        return {
+            "message": "Nimo Platform API Server",
+            "version": "1.0.0",
+            "status": "operational",
+            "metta_integration": "active",
+            "endpoints": {
+                "health": "/api/health",
+                "auth": "/api/auth/*",
+                "users": "/api/user/*", 
+                "contributions": "/api/contributions/*",
+                "tokens": "/api/tokens/*",
+                "bonds": "/api/bonds/*"
+            }
+        }, 200
+
+    @app.route('/api')
+    def api_info():
+        return {
+            "message": "Nimo Platform API",
+            "version": "1.0.0",
+            "metta_integration": "operational",
+            "available_endpoints": [
+                "GET /api/health - Health check",
+                "POST /api/auth/register - User registration", 
+                "POST /api/auth/login - User login",
+                "POST /api/contributions - Create contribution",
+                "POST /api/contributions/verify - MeTTa verification",
+                "GET /api/tokens/balance/{user_id} - Token balance",
+                "POST /api/bonds - Create bond"
+            ]
+        }, 200
+
     @app.route('/api/health')
     def health_check():
-        return {"status": "ok"}, 200
+        return {"status": "ok", "metta": "operational"}, 200
 
     return app
 

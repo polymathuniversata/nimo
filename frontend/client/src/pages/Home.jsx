@@ -2,7 +2,11 @@ import React from 'react'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
+<<<<<<< HEAD
 import state from "../components/Stats";
+=======
+
+>>>>>>> origin/main
 import Footer from '../components/Footer'
 
 const Home = () => {
@@ -11,7 +15,11 @@ const Home = () => {
       <Header />
       <Hero />
       <Features />
+<<<<<<< HEAD
       <state/>
+=======
+    
+>>>>>>> origin/main
       <Footer />
     </div>
   )
