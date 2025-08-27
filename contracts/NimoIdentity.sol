@@ -25,10 +25,22 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
     uint256 public constant BASE_CHAIN_ID = 8453;
     uint256 public constant BASE_SEPOLIA_CHAIN_ID = 84532;
 
+    // MCP (Model Context Protocol) structures for enhanced off-chain processing
+    struct MCPContext {
+        string protocolVersion;
+        string contractName;
+        string actionType;
+        bytes32 entityId;
+        string metadataURI;
+        uint256 timestamp;
+        address actor;
+        bytes32 parentContext;
+    }
+
     // Identity NFT structure with IPFS metadata
     struct Identity {
         string username;
-        string metadataURI; // IPFS URI
+        string metadataURI; // IPFS URI with MCP-compliant metadata
         uint256 reputationScore;
         uint256 tokenBalance;
         bool isActive;
@@ -84,6 +96,7 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
     mapping(address => uint256) public addressToTokenId;
     mapping(string => uint256) public didToTokenId;
     mapping(uint256 => MeTTaRule) public mettaRules;
+    mapping(bytes32 => bytes32) public contextLinks; // MCP context linking
 
     uint256 private _nextTokenId = 1;
     uint256 private _nextContributionId = 1;
@@ -94,23 +107,114 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
     uint256 public reputationPerToken = 10; // 10% of tokens convert to reputation
     uint256 public minConfidenceThreshold = 70; // Minimum confidence for auto-verification
     uint256 public maxGasForMeTTa = 500000; // Gas limit for MeTTa operations
+    string public constant MCP_PROTOCOL_VERSION = "Nimo-MCP-1.0";
 
-    // Events
-    event IdentityCreated(uint256 indexed tokenId, string username, address owner, string did);
-    event ContributionAdded(uint256 indexed contributionId, uint256 indexed identityId, string contributionType);
-    event ContributionVerified(uint256 indexed contributionId, address verifier, uint256 tokensAwarded, uint256 confidence);
-    event TokensAwarded(uint256 indexed identityId, uint256 amount, string reason);
-    event ImpactBondCreated(uint256 indexed bondId, address creator, uint256 targetAmount);
-    event BondInvestment(uint256 indexed bondId, address investor, uint256 amount);
-    event MilestoneCompleted(uint256 indexed bondId, string milestone);
-    event MeTTaRuleExecuted(uint256 indexed ruleId, string rule, string result);
-    event ProtocolParameterUpdated(string parameter, uint256 oldValue, uint256 newValue);
+    // Events with MCP context
+    event IdentityCreated(
+        uint256 indexed tokenId,
+        string username,
+        address indexed owner,
+        string did,
+        string metadataURI,
+        uint256 timestamp,
+        bytes32 indexed contextHash
+    );
+    event ContributionAdded(
+        uint256 indexed contributionId,
+        uint256 indexed identityId,
+        string contributionType,
+        string evidenceURI,
+        string mettaHash,
+        uint256 timestamp,
+        bytes32 indexed contextHash
+    );
+    event ContributionVerified(
+        uint256 indexed contributionId,
+        address indexed verifier,
+        uint256 tokensAwarded,
+        uint256 confidence,
+        bytes32 indexed contextHash
+    );
+    event TokensAwarded(
+        uint256 indexed identityId,
+        uint256 amount,
+        string reason,
+        bytes32 indexed contextHash
+    );
+    event ImpactBondCreated(
+        uint256 indexed bondId,
+        address indexed creator,
+        uint256 targetAmount,
+        string metadataURI,
+        uint256 timestamp,
+        bytes32 indexed contextHash
+    );
+    event BondInvestment(
+        uint256 indexed bondId,
+        address indexed investor,
+        uint256 amount,
+        bytes32 indexed contextHash
+    );
+    event MilestoneCompleted(
+        uint256 indexed bondId,
+        string milestone,
+        bytes32 indexed contextHash
+    );
+    event MeTTaRuleExecuted(
+        uint256 indexed ruleId,
+        string rule,
+        string result,
+        bytes32 indexed contextHash
+    );
+    event ProtocolParameterUpdated(
+        string parameter,
+        uint256 oldValue,
+        uint256 newValue,
+        bytes32 indexed contextHash
+    );
+    event ContextLinked(
+        bytes32 indexed parentContext,
+        bytes32 indexed childContext
+    );
 
     constructor() ERC721("NimoIdentity", "NIMO") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(VERIFIER_ROLE, msg.sender);
         _grantRole(METTA_AGENT_ROLE, msg.sender);
         _grantRole(GOVERNANCE_ROLE, msg.sender);
+    }
+
+    /**
+     * @dev Generate MCP context hash for off-chain processing
+     * @param actionType Type of action being performed
+     * @param entityId Unique identifier for the entity
+     * @param metadataURI IPFS URI for additional context
+     * @return Context hash for event emission
+     */
+    function _generateContextHash(
+        string memory actionType,
+        bytes32 entityId,
+        string memory metadataURI
+    ) internal view returns (bytes32) {
+        return keccak256(abi.encodePacked(
+            MCP_PROTOCOL_VERSION,
+            "NimoIdentity",
+            actionType,
+            entityId,
+            metadataURI,
+            block.timestamp,
+            msg.sender
+        ));
+    }
+
+    /**
+     * @dev Link MCP contexts for relationship tracking
+     * @param parentContext Parent context hash
+     * @param childContext Child context hash
+     */
+    function _linkContexts(bytes32 parentContext, bytes32 childContext) internal {
+        contextLinks[childContext] = parentContext;
+        emit ContextLinked(parentContext, childContext);
     }
 
     /**
@@ -143,9 +247,9 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
     }
 
     /**
-     * @dev Create a new decentralized identity with DID
+     * @dev Create a new decentralized identity with DID and MCP context
      * @param username Unique username for the identity
-     * @param metadataURI IPFS URI containing identity metadata
+     * @param metadataURI IPFS URI containing MCP-compliant identity metadata
      * @param did Decentralized Identifier
      */
     function createIdentity(
@@ -178,11 +282,14 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
 
         _safeMint(msg.sender, tokenId);
 
-        emit IdentityCreated(tokenId, username, msg.sender, did);
+        // Generate MCP context hash
+        bytes32 contextHash = _generateContextHash("identity_creation", bytes32(tokenId), metadataURI);
+
+        emit IdentityCreated(tokenId, username, msg.sender, did, metadataURI, block.timestamp, contextHash);
     }
 
     /**
-     * @dev Add a contribution to an identity with IPFS evidence
+     * @dev Add a contribution to an identity with IPFS evidence and MCP context
      * @param contributionType Type of contribution (e.g., "hackathon", "volunteer")
      * @param description Description of the contribution
      * @param evidenceURI IPFS URI containing evidence of contribution
@@ -217,11 +324,14 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
         // Update identity activity
         identities[identityId].lastActivity = block.timestamp;
 
-        emit ContributionAdded(contributionId, identityId, contributionType);
+        // Generate MCP context hash
+        bytes32 contextHash = _generateContextHash("contribution_add", bytes32(contributionId), evidenceURI);
+
+        emit ContributionAdded(contributionId, identityId, contributionType, evidenceURI, mettaHash, block.timestamp, contextHash);
     }
 
     /**
-     * @dev Verify a contribution with MeTTa confidence score
+     * @dev Verify a contribution with MeTTa confidence score and MCP context
      * @param contributionId ID of the contribution to verify
      * @param tokensToAward Amount of reputation tokens to award
      * @param confidence MeTTa confidence score (0-100)
@@ -247,12 +357,19 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
         identity.reputationScore += tokensToAward / reputationPerToken;
         identity.lastActivity = block.timestamp;
 
-        emit ContributionVerified(contributionId, msg.sender, tokensToAward, confidence);
-        emit TokensAwarded(contribution.identityId, tokensToAward, "Contribution verified");
+        // Generate MCP context hash for verification
+        bytes32 verificationContext = _generateContextHash("contribution_verify", bytes32(contributionId), "");
+
+        // Link verification context to contribution context
+        bytes32 contributionContext = _generateContextHash("contribution_add", bytes32(contributionId), contribution.evidenceURI);
+        _linkContexts(contributionContext, verificationContext);
+
+        emit ContributionVerified(contributionId, msg.sender, tokensToAward, confidence, verificationContext);
+        emit TokensAwarded(contribution.identityId, tokensToAward, "Contribution verified", verificationContext);
     }
 
     /**
-     * @dev Execute MeTTa autonomous agent logic with gas optimization
+     * @dev Execute MeTTa autonomous agent logic with gas optimization and MCP context
      * @param rule MeTTa rule to execute
      * @param targetIdentityId Target identity for the rule
      * @param tokensToAward Tokens to award based on MeTTa logic
@@ -278,20 +395,23 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
             isActive: true
         });
 
+        // Generate MCP context hash for MeTTa execution
+        bytes32 mettaContext = _generateContextHash("metta_execution", bytes32(ruleId), "");
+
         // Award tokens based on MeTTa agent decision
         if (tokensToAward > 0) {
             identities[targetIdentityId].tokenBalance += tokensToAward;
             identities[targetIdentityId].reputationScore += tokensToAward / reputationPerToken;
             identities[targetIdentityId].lastActivity = block.timestamp;
 
-            emit TokensAwarded(targetIdentityId, tokensToAward, "MeTTa agent award");
+            emit TokensAwarded(targetIdentityId, tokensToAward, "MeTTa agent award", mettaContext);
         }
 
-        emit MeTTaRuleExecuted(ruleId, rule, "executed successfully");
+        emit MeTTaRuleExecuted(ruleId, rule, "executed successfully", mettaContext);
     }
 
     /**
-     * @dev Create an impact bond with IPFS metadata
+     * @dev Create an impact bond with IPFS metadata and MCP context
      * @param title Title of the impact bond
      * @param description Description of the project
      * @param metadataURI IPFS URI for detailed project information
@@ -326,7 +446,10 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
         bond.isActive = true;
         bond.milestones = milestones;
 
-        emit ImpactBondCreated(bondId, msg.sender, targetAmount);
+        // Generate MCP context hash for bond creation
+        bytes32 contextHash = _generateContextHash("bond_creation", bytes32(bondId), metadataURI);
+
+        emit ImpactBondCreated(bondId, msg.sender, targetAmount, metadataURI, block.timestamp, contextHash);
     }
 
     /**

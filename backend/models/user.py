@@ -7,13 +7,18 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=True)  # Made nullable for wallet users
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100))
     bio = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
+
+    # Wallet fields
+    wallet_address = db.Column(db.String(42), unique=True, nullable=True)  # Ethereum address
+    auth_method = db.Column(db.String(20), default='traditional')  # 'traditional' or 'wallet'
+    is_wallet_verified = db.Column(db.Boolean, default=False)
+
     # Relationships
     skills = db.relationship('Skill', back_populates='user', cascade='all, delete-orphan')
     contributions = db.relationship('Contribution', back_populates='user', cascade='all, delete-orphan')
@@ -21,12 +26,19 @@ class User(db.Model):
     created_bonds = db.relationship('Bond', back_populates='creator', foreign_keys='Bond.creator_id')
     investments = db.relationship('BondInvestment', back_populates='investor')
 
-    def __init__(self, email, password, name, location=None, bio=None):
+    def __init__(self, email, password=None, name=None, location=None, bio=None, wallet_address=None, auth_method='traditional'):
         self.email = email
-        self.password_hash = generate_password_hash(password)
         self.name = name
         self.location = location
         self.bio = bio
+        self.wallet_address = wallet_address
+        self.auth_method = auth_method
+
+        if password and auth_method == 'traditional':
+            self.password_hash = generate_password_hash(password)
+        elif auth_method == 'wallet':
+            self.password_hash = None  # Wallet users don't have password hash
+            self.is_wallet_verified = True  # Assume verified for now
         
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -40,7 +52,10 @@ class User(db.Model):
             'bio': self.bio,
             'created_at': self.created_at.isoformat(),
             'skills': [skill.name for skill in self.skills],
-            'token_balance': self.tokens.balance if self.tokens else 0
+            'token_balance': self.tokens.balance if self.tokens else 0,
+            'wallet_address': self.wallet_address,
+            'auth_method': self.auth_method,
+            'is_wallet_verified': self.is_wallet_verified
         }
 
 

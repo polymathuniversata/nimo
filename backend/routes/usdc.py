@@ -11,6 +11,8 @@ import logging
 
 from services.usdc_integration import USDCIntegration
 from services.metta_integration import MeTTaIntegration
+from app import db
+from models.user import User
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -404,12 +406,152 @@ def preview_contribution_reward():
                 }
             }
         }), 200
-        
+
     except Exception as e:
         logger.error(f"Error previewing contribution reward: {e}")
         return jsonify({
             "success": False,
             "error": "Internal server error"
+        }), 500
+
+
+@usdc_bp.route('/balance', methods=['GET'])
+@jwt_required()
+def get_current_user_usdc_balance():
+    """
+    Get USDC balance for current user's wallet
+
+    Response:
+    {
+        "success": true,
+        "data": {
+            "balance": "100.50",
+            "formatted_balance": "100.50 USDC",
+            "wallet_address": "0x...",
+            "network": "base-sepolia"
+        }
+    }
+    """
+    try:
+        current_user_id = int(get_jwt_identity())
+        user = User.query.get(current_user_id)
+
+        if not user or not user.wallet_address:
+            return jsonify({
+                "success": False,
+                "error": "User has no associated wallet address"
+            }), 400
+
+        # Get USDC balance
+        balance_info = usdc_integration.get_balance(user.wallet_address)
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "balance": balance_info.get('balance', '0'),
+                "formatted_balance": balance_info.get('formatted_balance', '0 USDC'),
+                "wallet_address": user.wallet_address,
+                "network": usdc_integration.network
+            }
+        }), 200
+
+    except Exception as e:
+        logger.error(f"Failed to get USDC balance: {e}")
+        return jsonify({
+            "success": False,
+            "error": "Failed to retrieve USDC balance"
+        }), 500
+
+
+@usdc_bp.route('/send', methods=['POST'])
+@jwt_required()
+def send_usdc():
+    """
+    Send USDC to a recipient address
+
+    Request Body:
+    {
+        "amount": "10.50",
+        "recipient_address": "0x...",
+        "reason": "Contribution reward"
+    }
+
+    Response:
+    {
+        "success": true,
+        "data": {
+            "tx_hash": "0x...",
+            "amount": "10.50",
+            "recipient": "0x...",
+            "gas_used": "21000",
+            "network": "base-sepolia"
+        }
+    }
+    """
+    try:
+        current_user_id = int(get_jwt_identity())
+        user = User.query.get(current_user_id)
+
+        if not user or not user.wallet_address:
+            return jsonify({
+                "success": False,
+                "error": "User has no associated wallet address"
+            }), 400
+
+        data = request.get_json()
+
+        # Validate required fields
+        required_fields = ['amount', 'recipient_address']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({
+                    "success": False,
+                    "error": f"Missing required field: {field}"
+                }), 400
+
+        amount = data['amount']
+        recipient_address = data['recipient_address']
+        reason = data.get('reason', 'USDC Transfer')
+
+        # Validate amount
+        try:
+            amount_float = float(amount)
+            if amount_float <= 0:
+                return jsonify({
+                    "success": False,
+                    "error": "Amount must be greater than 0"
+                }), 400
+        except ValueError:
+            return jsonify({
+                "success": False,
+                "error": "Invalid amount format"
+            }), 400
+
+        # Send USDC
+        tx_result = usdc_integration.send_usdc(
+            from_address=user.wallet_address,
+            to_address=recipient_address,
+            amount=amount,
+            reason=reason
+        )
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "tx_hash": tx_result.get('tx_hash'),
+                "amount": amount,
+                "recipient": recipient_address,
+                "gas_used": tx_result.get('gas_used', '0'),
+                "network": usdc_integration.network,
+                "reason": reason
+            }
+        }), 200
+
+    except Exception as e:
+        logger.error(f"Failed to send USDC: {e}")
+        return jsonify({
+            "success": False,
+            "error": "Failed to send USDC"
         }), 500
 
 

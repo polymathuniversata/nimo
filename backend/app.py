@@ -3,8 +3,13 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 
 from config import active_config
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -32,6 +37,7 @@ def create_app(config_class=active_config):
     from routes.bond import bond_bp
     from routes.identity import identity_bp
     from routes.usdc import usdc_bp
+    from routes.blockchain import blockchain_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/user')
@@ -40,6 +46,7 @@ def create_app(config_class=active_config):
     app.register_blueprint(bond_bp, url_prefix='/api/bonds')
     app.register_blueprint(identity_bp)  # Identity routes have their own url_prefix
     app.register_blueprint(usdc_bp)  # USDC routes have their own url_prefix
+    app.register_blueprint(blockchain_bp, url_prefix='/api')
 
     # Error handlers
     @app.errorhandler(404)

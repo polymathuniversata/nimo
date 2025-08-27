@@ -13,6 +13,7 @@ import logging
 from services.metta_integration import MeTTaIntegration
 from services.did_verification import DIDVerificationError
 from services.metta_security import MeTTaSecurityError
+from app import db
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -22,6 +23,163 @@ identity_bp = Blueprint('identity', __name__, url_prefix='/api/identity')
 
 # Initialize MeTTa integration (with DID support)
 metta_integration = MeTTaIntegration()
+
+
+@identity_bp.route('/create', methods=['POST'])
+@jwt_required()
+def create_identity():
+    """
+    Create a new decentralized identity for the user
+
+    Request Body:
+    {
+        "username": "johndoe",
+        "metadata_uri": "ipfs://...",
+        "did": "did:nimo:...",
+        "wallet_address": "0x..."
+    }
+
+    Response:
+    {
+        "success": true,
+        "data": {
+            "identity_id": 123,
+            "did": "did:nimo:...",
+            "created_at": "2023-...",
+            "metta_atoms": [...]
+        }
+    }
+    """
+    try:
+        current_user_id = int(get_jwt_identity())
+        data = request.get_json()
+
+        # Validate required fields
+        required_fields = ['username', 'metadata_uri', 'did']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({
+                    "success": False,
+                    "error": f"Missing required field: {field}"
+                }), 400
+
+        username = data['username']
+        metadata_uri = data['metadata_uri']
+        did = data['did']
+        wallet_address = data.get('wallet_address')
+
+        # Check if username or DID already exists
+        from models.user import User
+        existing_user = User.query.filter(
+            (User.name == username) |
+            (User.wallet_address == wallet_address if wallet_address else False)
+        ).first()
+
+        if existing_user and existing_user.id != current_user_id:
+            return jsonify({
+                "success": False,
+                "error": "Username or wallet address already exists"
+            }), 409
+
+        # Update user with identity information
+        user = User.query.get(current_user_id)
+        if not user:
+            return jsonify({
+                "success": False,
+                "error": "User not found"
+            }), 404
+
+        user.name = username
+        user.wallet_address = wallet_address
+        user.did = did
+        user.metadata_uri = metadata_uri
+        user.identity_verified = True
+
+        db.session.commit()
+
+        # Create MeTTa atoms for the new identity
+        metta_atoms = []
+        if metta_integration.is_available():
+            try:
+                identity_atoms = metta_integration.create_identity_atoms(
+                    user_id=current_user_id,
+                    did=did,
+                    username=username,
+                    metadata_uri=metadata_uri
+                )
+                metta_atoms = identity_atoms
+            except Exception as e:
+                logger.warning(f"Failed to create MeTTa atoms: {e}")
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "identity_id": current_user_id,
+                "did": did,
+                "username": username,
+                "metadata_uri": metadata_uri,
+                "created_at": user.created_at.isoformat(),
+                "metta_atoms": metta_atoms
+            }
+        }), 201
+
+    except Exception as e:
+        logger.error(f"Identity creation failed: {e}")
+        return jsonify({
+            "success": False,
+            "error": "Failed to create identity"
+        }), 500
+
+
+@identity_bp.route('/', methods=['GET'])
+@jwt_required()
+def get_identity():
+    """
+    Get current user's identity information
+
+    Response:
+    {
+        "success": true,
+        "data": {
+            "user_id": 123,
+            "username": "johndoe",
+            "did": "did:nimo:...",
+            "wallet_address": "0x...",
+            "metadata_uri": "ipfs://...",
+            "identity_verified": true,
+            "created_at": "2023-..."
+        }
+    }
+    """
+    try:
+        current_user_id = int(get_jwt_identity())
+        user = User.query.get(current_user_id)
+
+        if not user:
+            return jsonify({
+                "success": False,
+                "error": "User not found"
+            }), 404
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "user_id": user.id,
+                "username": user.name,
+                "did": user.did,
+                "wallet_address": user.wallet_address,
+                "metadata_uri": user.metadata_uri,
+                "identity_verified": user.identity_verified,
+                "created_at": user.created_at.isoformat() if user.created_at else None
+            }
+        }), 200
+
+    except Exception as e:
+        logger.error(f"Failed to get identity: {e}")
+        return jsonify({
+            "success": False,
+            "error": "Failed to retrieve identity"
+        }), 500
 
 
 @identity_bp.route('/verify-did', methods=['POST'])

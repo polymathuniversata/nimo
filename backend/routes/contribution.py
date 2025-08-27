@@ -11,6 +11,9 @@ from services.token_service import award_tokens_for_verification
 from services.metta_integration import MeTTaIntegration
 from services.metta_reasoning import MeTTaReasoning
 
+# Create blueprint
+contribution_bp = Blueprint('contribution', __name__, url_prefix='/api/contributions')
+
 # Optional blockchain imports - if not available, skip blockchain features
 try:
     from services.blockchain_service import BlockchainService
@@ -20,9 +23,32 @@ except ImportError:
     BLOCKCHAIN_AVAILABLE = False
     print("Warning: Blockchain services not available")
 
-contribution_bp = Blueprint('contribution', __name__)
+@contribution_bp.route('/user', methods=['GET'])
+@jwt_required()
+def get_user_contributions():
+    """Get contributions for the current user (alias for backwards compatibility)"""
+    current_user_id = int(get_jwt_identity())
 
-@contribution_bp.route('/', methods=['GET'])
+    # Get pagination parameters
+    page = request.args.get('page', 1, type=int)
+    per_page = min(request.args.get('per_page', 10, type=int), 100)
+
+    # Get all contributions for the current user
+    contributions = Contribution.query.filter_by(user_id=current_user_id) \
+        .order_by(Contribution.created_at.desc()) \
+        .paginate(page=page, per_page=per_page, error_out=False)
+
+    return jsonify({
+        "contributions": [contribution.to_dict() for contribution in contributions.items],
+        "pagination": {
+            "page": page,
+            "per_page": per_page,
+            "total": contributions.total,
+            "pages": contributions.pages,
+            "has_next": contributions.has_next,
+            "has_prev": contributions.has_prev
+        }
+    }), 200
 @jwt_required()
 def get_contributions():
     current_user_id = int(get_jwt_identity())  # Convert string to int

@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * @title NimoToken
  * @dev ERC20 token for Nimo reputation system on Base
  * Used for governance, accessing opportunities, and measuring reputation
- * Includes voting capabilities and MeTTa integration
+ * Includes voting capabilities and MeTTa integration with MCP context support
  */
 contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
     using Strings for uint256;
@@ -20,11 +20,25 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
     bytes32 public constant GOVERNANCE_ROLE = keccak256("GOVERNANCE_ROLE");
-    bytes32 public constant GOVERNANCE_ROLE = keccak256("GOVERNANCE_ROLE");
+
+    // MCP Protocol Configuration
+    string public constant MCP_PROTOCOL_VERSION = "1.0.0";
+    bytes32 public constant MCP_CONTEXT_TYPE = keccak256("NimoToken");
 
     // Base network configuration
     uint256 public constant BASE_CHAIN_ID = 8453;
     uint256 public constant BASE_SEPOLIA_CHAIN_ID = 84532;
+
+    // MCP Context Structure for off-chain indexing
+    struct MCPContext {
+        bytes32 contextHash;
+        string actionType;
+        bytes32 entityId;
+        string metadataURI;
+        uint256 timestamp;
+        address actor;
+        bytes32 parentContext;
+    }
 
     // Token distribution tracking with MeTTa integration
     struct Distribution {
@@ -35,6 +49,7 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
         string mettaProof; // MeTTa proof of contribution
         uint256 confidence; // MeTTa confidence score
         string contributionType;
+        bytes32 contextHash; // MCP context hash
     }
 
     // Vesting schedule for team and advisors
@@ -45,12 +60,15 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
         uint256 startTime;
         uint256 duration;
         bool isActive;
+        bytes32 contextHash; // MCP context hash
     }
 
     // State variables
     mapping(uint256 => Distribution) public distributions;
     mapping(address => VestingSchedule) public vestingSchedules;
     mapping(address => uint256) public lastClaimTime;
+    mapping(bytes32 => MCPContext) public mcpContexts;
+    mapping(bytes32 => bytes32) public contextLinks;
 
     uint256 private _nextDistributionId = 1;
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18; // 1B tokens max supply
@@ -62,13 +80,46 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
     uint256 public burnRate = 100; // 1% burn rate for opportunities (basis points)
     uint256 public vestingDuration = 365 days; // Default vesting period
 
-    // Events
-    event TokensDistributed(address indexed recipient, uint256 amount, string reason, uint256 confidence);
-    event TokensBurned(address indexed from, uint256 amount, string reason);
-    event MeTTaProofAttached(uint256 indexed distributionId, string proof);
-    event VestingScheduleCreated(address indexed beneficiary, uint256 amount, uint256 duration);
-    event TokensClaimed(address indexed beneficiary, uint256 amount);
-    event ProtocolParameterUpdated(string parameter, uint256 oldValue, uint256 newValue);
+    // Events with MCP context support
+    event TokensDistributed(
+        address indexed recipient,
+        uint256 amount,
+        string reason,
+        uint256 confidence,
+        bytes32 indexed contextHash
+    );
+    event TokensBurned(
+        address indexed from,
+        uint256 amount,
+        string reason,
+        bytes32 indexed contextHash
+    );
+    event MeTTaProofAttached(
+        uint256 indexed distributionId,
+        string proof,
+        bytes32 indexed contextHash
+    );
+    event VestingScheduleCreated(
+        address indexed beneficiary,
+        uint256 amount,
+        uint256 duration,
+        bytes32 indexed contextHash
+    );
+    event TokensClaimed(
+        address indexed beneficiary,
+        uint256 amount,
+        bytes32 indexed contextHash
+    );
+    event ProtocolParameterUpdated(
+        string parameter,
+        uint256 oldValue,
+        uint256 newValue,
+        bytes32 indexed contextHash
+    );
+    event ContextLinked(
+        bytes32 indexed parentContext,
+        bytes32 indexed childContext
+    );
 
     constructor(
         string memory name,
@@ -88,7 +139,40 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
     }
 
     /**
-     * @dev Mint tokens for verified contributions with MeTTa validation
+     * @dev Generate MCP context hash for off-chain processing
+     * @param actionType Type of action being performed
+     * @param entityId Unique identifier for the entity
+     * @param metadataURI IPFS URI for additional context
+     * @return Context hash for event emission
+     */
+    function _generateContextHash(
+        string memory actionType,
+        bytes32 entityId,
+        string memory metadataURI
+    ) internal view returns (bytes32) {
+        return keccak256(abi.encodePacked(
+            MCP_PROTOCOL_VERSION,
+            "NimoToken",
+            actionType,
+            entityId,
+            metadataURI,
+            block.timestamp,
+            msg.sender
+        ));
+    }
+
+    /**
+     * @dev Link MCP contexts for relationship tracking
+     * @param parentContext Parent context hash
+     * @param childContext Child context hash
+     */
+    function _linkContexts(bytes32 parentContext, bytes32 childContext) internal {
+        contextLinks[childContext] = parentContext;
+        emit ContextLinked(parentContext, childContext);
+    }
+
+    /**
+     * @dev Mint tokens for verified contributions with MeTTa validation and MCP context
      * @param to Address to mint tokens to
      * @param amount Amount of tokens to mint
      * @param reason Reason for minting (contribution type)
@@ -113,6 +197,9 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
 
         uint256 distributionId = _nextDistributionId++;
 
+        // Generate MCP context hash for token distribution
+        bytes32 contextHash = _generateContextHash("token_distribution", bytes32(distributionId), mettaProof);
+
         distributions[distributionId] = Distribution({
             recipient: to,
             amount: amount,
@@ -120,17 +207,18 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
             timestamp: block.timestamp,
             mettaProof: mettaProof,
             confidence: confidence,
-            contributionType: contributionType
+            contributionType: contributionType,
+            contextHash: contextHash
         });
 
         _mint(to, amount);
 
-        emit TokensDistributed(to, amount, reason, confidence);
-        emit MeTTaProofAttached(distributionId, mettaProof);
+        emit TokensDistributed(to, amount, reason, confidence, contextHash);
+        emit MeTTaProofAttached(distributionId, mettaProof, contextHash);
     }
 
     /**
-     * @dev Burn tokens from an account for accessing opportunities
+     * @dev Burn tokens from an account for accessing opportunities with MCP context
      * @param from Address to burn tokens from
      * @param amount Amount of tokens to burn
      * @param reason Reason for burning (opportunity access)
@@ -147,13 +235,16 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
         uint256 burnAmount = (amount * burnRate) / 10000;
         uint256 actualBurn = burnAmount > 0 ? burnAmount : 1; // Minimum 1 wei burn
 
+        // Generate MCP context hash for token burn
+        bytes32 contextHash = _generateContextHash("token_burn", bytes32(uint256(uint160(from))), reason);
+
         _burn(from, actualBurn);
 
-        emit TokensBurned(from, actualBurn, reason);
+        emit TokensBurned(from, actualBurn, reason, contextHash);
     }
 
     /**
-     * @dev Create a vesting schedule for team/advisors
+     * @dev Create a vesting schedule for team/advisors with MCP context
      * @param beneficiary Address to receive vested tokens
      * @param amount Total amount to vest
      * @param duration Vesting duration in seconds
@@ -168,20 +259,24 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
         require(duration > 0, "Duration must be greater than 0");
         require(vestingSchedules[beneficiary].isActive == false, "Vesting schedule already exists");
 
+        // Generate MCP context hash for vesting schedule creation
+        bytes32 contextHash = _generateContextHash("vesting_creation", bytes32(uint256(uint160(beneficiary))), "");
+
         vestingSchedules[beneficiary] = VestingSchedule({
             beneficiary: beneficiary,
             totalAmount: amount,
             releasedAmount: 0,
             startTime: block.timestamp,
             duration: duration,
-            isActive: true
+            isActive: true,
+            contextHash: contextHash
         });
 
-        emit VestingScheduleCreated(beneficiary, amount, duration);
+        emit VestingScheduleCreated(beneficiary, amount, duration, contextHash);
     }
 
     /**
-     * @dev Claim vested tokens
+     * @dev Claim vested tokens with MCP context
      */
     function claimVestedTokens() external {
         VestingSchedule storage schedule = vestingSchedules[msg.sender];
@@ -196,9 +291,12 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
         schedule.releasedAmount += claimableAmount;
         lastClaimTime[msg.sender] = block.timestamp;
 
+        // Generate MCP context hash for token claim
+        bytes32 contextHash = _generateContextHash("token_claim", bytes32(uint256(uint160(msg.sender))), "");
+
         _mint(msg.sender, claimableAmount);
 
-        emit TokensClaimed(msg.sender, claimableAmount);
+        emit TokensClaimed(msg.sender, claimableAmount, contextHash);
     }
 
     /**
@@ -244,7 +342,7 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
     }
 
     /**
-     * @dev Update protocol parameters (governance only)
+     * @dev Update protocol parameters (governance only) with MCP context
      * @param parameter Parameter name
      * @param value New value
      */
@@ -270,7 +368,10 @@ contract NimoToken is ERC20, AccessControl, Pausable, ERC20Votes {
             revert("Unknown parameter");
         }
 
-        emit ProtocolParameterUpdated(parameter, oldValue, value);
+        // Generate MCP context hash for parameter update
+        bytes32 contextHash = _generateContextHash("parameter_update", keccak256(abi.encodePacked(parameter)), "");
+
+        emit ProtocolParameterUpdated(parameter, oldValue, value, contextHash);
     }
 
     /**

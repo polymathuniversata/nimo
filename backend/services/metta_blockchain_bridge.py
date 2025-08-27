@@ -9,17 +9,19 @@ MeTTa's autonomous decisions.
 import json
 import asyncio
 from typing import Dict, Any, Optional, List
-from backend.services.metta_reasoning import MeTTaReasoning
-from backend.services.blockchain_service import BlockchainService
-from backend.models.user import User
-from backend.models.contribution import Contribution, Verification
-from backend.models.bond import BlockchainTransaction
+from services.metta_integration import MeTTaIntegration
+from services.blockchain_service import BlockchainService
+from services.usdc_integration import USDCIntegration
+from models.user import User
+from models.contribution import Contribution, Verification
+from models.bond import BlockchainTransaction
 
 class MeTTaBlockchainBridge:
-    def __init__(self, metta_service: MeTTaReasoning, blockchain_service: BlockchainService):
+    def __init__(self, metta_service: MeTTaIntegration, blockchain_service: BlockchainService):
         """Initialize the bridge between MeTTa and blockchain services"""
         self.metta_service = metta_service
         self.blockchain_service = blockchain_service
+        self.usdc_integration = USDCIntegration()
     
     async def verify_contribution_on_chain(self, user_id: int, contribution_id: int, 
                                         evidence: Dict[str, Any]) -> Dict[str, Any]:
@@ -96,6 +98,23 @@ class MeTTaBlockchainBridge:
                 metta_proof=result['metta_proof']
             )
             
+            # Calculate USDC reward based on MeTTa confidence and token amount
+            usdc_calculation = self.usdc_integration.get_reward_calculation(
+                nimo_amount=result['tokens'],
+                confidence=result['confidence'],
+                contribution_type=contribution.contribution_type
+            )
+            
+            # Send USDC reward if conditions are met
+            usdc_tx_hash = None
+            if usdc_calculation['pays_usdc']:
+                usdc_tx_hash = self.usdc_integration.send_usdc_reward(
+                    to_address=blockchain_address,
+                    nimo_amount=result['tokens'],
+                    contribution_id=str(contribution_id),
+                    metta_proof=result['metta_proof']
+                )
+            
             return {
                 'status': 'verified',
                 'tokens_awarded': result['tokens'],
@@ -103,6 +122,11 @@ class MeTTaBlockchainBridge:
                 'confidence': result['confidence'],
                 'verification_tx': tx_hash,
                 'token_tx': token_tx,
+                'usdc_reward': {
+                    'calculation': usdc_calculation,
+                    'transaction': usdc_tx_hash,
+                    'amount_usd': usdc_calculation['final_usdc_amount'] if usdc_calculation['pays_usdc'] else 0
+                },
                 'metta_proof': result['metta_proof']
             }
         
