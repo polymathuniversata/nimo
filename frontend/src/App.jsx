@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { UserProvider } from "./contexts/UserContext";
-import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -9,70 +7,60 @@ import Footer from "./components/Footer";
 import Stats from "./components/Stats";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
-import Contributions from "./pages/Contributions";
-import Profile from "./pages/Profile";
-import Skills from "./pages/Skills";
 
 function App() {
-  return (
-    <UserProvider>
-      <div className="bg-[#020617] text-white font-inter overflow-x-hidden min-h-screen">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <Hero />
-                <Features />
-                <Stats />
-                <Footer />
-              </>
-            }
-          />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route
-            path="/*"
-            element={
-              <ProtectedRoutes />
-            }
-          />
-        </Routes>
-      </div>
-    </UserProvider>
-  );
-}
-
-function ProtectedRoutes() {
-  const [user] = useState(JSON.parse(localStorage.getItem('nimo_user')));
+  const [user, setUser] = useState(null);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("login");
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
 
   const handleConnectWallet = () => setWalletConnected(true);
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
-
   return (
-    <>
-      <Navbar />
+    <div className="bg-[#020617] text-white font-inter overflow-x-hidden min-h-screen">
       <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Hero />
+              <Features />
+              <Stats />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            user ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <AuthPage onLogin={handleLogin} />
+            )
+          }
+        />
         <Route
           path="/dashboard"
           element={
-            <Dashboard
-              user={user}
-              walletConnected={walletConnected}
-              onConnectWallet={handleConnectWallet}
-            />
+            user ? (
+              <Dashboard
+                user={user}
+                walletConnected={walletConnected}
+                onConnectWallet={handleConnectWallet}
+              />
+            ) : (
+              <Navigate to="/auth" replace />
+            )
           }
         />
-        <Route path="/contributions" element={<Contributions user={user} />} />
-        <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
