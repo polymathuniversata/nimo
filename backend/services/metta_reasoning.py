@@ -11,6 +11,10 @@ Updated based on research findings: docs/metta_research_findings.md
 import json
 import hashlib
 import os
+<<<<<<< HEAD
+import hyperon as pymetta
+=======
+>>>>>>> origin/main
 from typing import Dict, List, Any, Optional, Tuple, Union
 
 # Try importing hyperon (official MeTTa implementation)
@@ -1189,5 +1193,9 @@ class MeTTaReasoning:
         else:
             self.space = None
         self.added_atoms = []
+<<<<<<< HEAD
+        self._initialize_core_rules()
+=======
         self.cache = {}
         self._initialize_core_rules()
+>>>>>>> origin/main
