@@ -1,10 +1,7 @@
-import React from 'react'
-import AuthModal from './AuthModal'
-import { useUser } from '../contexts/UserContext'
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const { isAuthenticated } = useUser()
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const navigate = useNavigate();
 
   return (
     <section className="pt-32 pb-20 px-4 relative overflow-hidden">
@@ -22,19 +19,15 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {!isAuthenticated && (
-              <>
-                <button 
-                  onClick={() => setIsModalOpen(true)}
-                  className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-all transform hover:-translate-y-1"
-                >
-                  Get Started
-                </button>
-                <button className="px-8 py-4 border border-blue-400 text-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition-colors">
-                  Learn More
-                </button>
-              </>
-            )}
+            <button 
+              onClick={() => navigate("/auth")}
+              className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-all transform hover:-translate-y-1"
+            >
+              Get Started
+            </button>
+            <button className="px-8 py-4 border border-blue-400 text-blue-400 hover:bg-blue-400/10 rounded-lg font-semibold transition-colors">
+              Learn More
+            </button>
           </div>
         </div>
 
@@ -48,10 +41,8 @@ const Hero = () => {
           ))}
         </div>
       </div>
-
-      <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
