@@ -91,4 +91,4 @@ export const UserProvider = ({ children }) => {
 };
 
 // Hook to use context
-export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext(UserContext); // eslint-disable-line react-refresh/only-export-components

@@ -44,7 +44,7 @@ function App() {
 }
 
 function ProtectedRoutes() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('nimo_user')));
+  const [user] = useState(JSON.parse(localStorage.getItem('nimo_user')));
   const [walletConnected, setWalletConnected] = useState(false);
 
   const handleConnectWallet = () => setWalletConnected(true);

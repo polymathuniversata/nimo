@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ContributionCard from '../components/ContributionCard';
 
-const Contributions = ({ user }) => {
+const Contributions = ({ user }) => { // eslint-disable-line no-unused-vars
   const [contributions, setContributions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -130,7 +130,7 @@ const Contributions = ({ user }) => {
                   onClick={() => setShowAddModal(false)}
                   className="text-gray-400 hover:text-white text-2xl"
                 >
-                  ×
+                  ï¿½
                 </button>
               </div>
 
