@@ -11,8 +11,15 @@ Updated based on research findings: docs/metta_research_findings.md
 import json
 import hashlib
 import os
-import hyperon as pymetta
 from typing import Dict, List, Any, Optional, Tuple, Union
+
+# Conditional import for hyperon/MeTTa
+try:
+    import hyperon as pymetta
+    METTA_AVAILABLE = True
+except ImportError:
+    pymetta = None
+    METTA_AVAILABLE = False
 
 class MeTTaReasoning:
     def __init__(self, rules_dir=None, db_path=None):
@@ -23,6 +30,9 @@ class MeTTaReasoning:
             rules_dir (str, optional): Directory containing MeTTa rule files
             db_path (str, optional): Path to save/load MeTTa space serialization
         """
+        if not METTA_AVAILABLE:
+            raise ImportError("MeTTa/hyperon is not available. Please install hyperon package or set USE_METTA_REASONING=False")
+            
         self.space = pymetta.MeTTa()
         self.rules_dir = rules_dir or os.path.join(os.path.dirname(__file__), '../rules')
         self.db_path = db_path
@@ -1084,6 +1094,8 @@ class MeTTaReasoning:
 
     def clear_space(self) -> None:
         """Clear the MeTTa space and reinitialize rules"""
+        if not METTA_AVAILABLE:
+            return
         self.space = pymetta.MeTTa()
         self.added_atoms = []
         self._initialize_core_rules()
