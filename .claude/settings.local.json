@@ -31,7 +31,8 @@
       "Bash(git commit:*)",
       "Bash(find:*)",
       "Bash(git stash:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(git merge:*)"
     ],
     "deny": [],
     "ask": []
