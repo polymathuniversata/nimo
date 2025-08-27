@@ -276,7 +276,7 @@ class MeTTaIntegration:
         """
         # Make sure the contribution exists and is linked to the user
         contribution_check = run_metta_query(
-            f'!(match &self (Contribution "{contribution_id}" "{user_id}" $_) "exists")'
+            f'!(match (Contribution "{contribution_id}" "{user_id}" $_) "exists")'
         )
         
         if not contribution_check or "exists" not in contribution_check:
@@ -325,9 +325,9 @@ class MeTTaIntegration:
         Returns:
             dict: Validation result with confidence and explanation
         """
-        # Check if contribution exists
+        # Check if contribution exists - use simpler syntax
         contribution_check = run_metta_query(
-            f'!(match &self (Contribution "{contribution_id}" $_ $_) "exists")'
+            f'!(match (Contribution "{contribution_id}" $_ $_) "exists")'
         )
         
         if not contribution_check or "exists" not in contribution_check:
@@ -380,8 +380,9 @@ class MeTTaIntegration:
         Returns:
             list: List of contribution IDs
         """
+        # Use simpler MeTTa query syntax without &self
         results = run_metta_query(
-            f'!(match &self (Contribution $id "{user_id}" $_) (get-value $id))'
+            f'!(match (Contribution $id "{user_id}" $_) $id)'
         )
         
         # Parse results into a list of contribution IDs
@@ -404,8 +405,9 @@ class MeTTaIntegration:
         Returns:
             int: Token balance or 0 if not found
         """
+        # Use simpler MeTTa query syntax without &self
         result = run_metta_query(
-            f'!(match &self (TokenBalance "{user_id}" $balance) $balance)'
+            f'!(match (TokenBalance "{user_id}" $balance) $balance)'
         )
         
         if result:

@@ -36,7 +36,7 @@ def get_bonds():
 @bond_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_bond():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Validate required fields
@@ -103,7 +103,7 @@ def get_bond(bond_id):
 @bond_bp.route('/<int:bond_id>/invest', methods=['POST'])
 @jwt_required()
 def invest_in_bond(bond_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Validate amount
@@ -180,7 +180,7 @@ def invest_in_bond(bond_id):
 @bond_bp.route('/<int:bond_id>/milestones/<int:milestone_id>/verify', methods=['POST'])
 @jwt_required()
 def verify_milestone(bond_id, milestone_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # In a real system, we would check if the current user has verification privileges

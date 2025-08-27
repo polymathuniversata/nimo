@@ -30,12 +30,16 @@ def create_app(config_class=active_config):
     from routes.contribution import contribution_bp
     from routes.token import token_bp
     from routes.bond import bond_bp
+    from routes.identity import identity_bp
+    from routes.usdc import usdc_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/user')
     app.register_blueprint(contribution_bp, url_prefix='/api/contributions')
     app.register_blueprint(token_bp, url_prefix='/api/tokens')
     app.register_blueprint(bond_bp, url_prefix='/api/bonds')
+    app.register_blueprint(identity_bp)  # Identity routes have their own url_prefix
+    app.register_blueprint(usdc_bp)  # USDC routes have their own url_prefix
 
     # Error handlers
     @app.errorhandler(404)
@@ -60,7 +64,8 @@ def create_app(config_class=active_config):
                 "users": "/api/user/*", 
                 "contributions": "/api/contributions/*",
                 "tokens": "/api/tokens/*",
-                "bonds": "/api/bonds/*"
+                "bonds": "/api/bonds/*",
+                "usdc": "/api/usdc/*"
             }
         }, 200
 
@@ -77,7 +82,14 @@ def create_app(config_class=active_config):
                 "POST /api/contributions - Create contribution",
                 "POST /api/contributions/verify - MeTTa verification",
                 "GET /api/tokens/balance/{user_id} - Token balance",
-                "POST /api/bonds - Create bond"
+                "POST /api/bonds - Create bond",
+                "POST /api/identity/verify-did - Verify DID",
+                "POST /api/identity/verify-ens - Verify ENS name",
+                "GET /api/identity/supported-methods - Get supported DID methods",
+                "GET /api/usdc/status - USDC integration status",
+                "GET /api/usdc/balance/{address} - Check USDC balance",
+                "POST /api/usdc/calculate-reward - Calculate USDC rewards",
+                "POST /api/usdc/contribution-reward-preview - Preview complete reward"
             ]
         }, 200
 

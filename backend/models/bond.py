@@ -5,17 +5,24 @@ class BlockchainTransaction(db.Model):
     __tablename__ = 'blockchain_transactions'
     
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    contribution_id = db.Column(db.Integer, db.ForeignKey('contributions.id'))
     tx_hash = db.Column(db.String(128), unique=True, nullable=False)
-    tx_type = db.Column(db.String(50), nullable=False)  # contribution, identity, token, bond
+    transaction_type = db.Column(db.String(50), nullable=False)  # contribution, identity, token, bond, verification, token_mint
+    tx_type = db.Column(db.String(50), nullable=False)  # legacy alias for transaction_type
     reference_id = db.Column(db.Integer)  # ID of the related object
     data = db.Column(db.Text)  # JSON data
     status = db.Column(db.String(50), default='pending')  # pending, confirmed, failed
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     confirmed_at = db.Column(db.DateTime)
     
-    def __init__(self, tx_hash, tx_type, reference_id=None, data=None):
+    def __init__(self, tx_hash, transaction_type=None, tx_type=None, user_id=None, contribution_id=None, reference_id=None, data=None):
         self.tx_hash = tx_hash
-        self.tx_type = tx_type
+        # Use transaction_type if provided, otherwise fall back to tx_type
+        self.transaction_type = transaction_type or tx_type or 'unknown'
+        self.tx_type = self.transaction_type  # Keep legacy field in sync
+        self.user_id = user_id
+        self.contribution_id = contribution_id
         self.reference_id = reference_id
         self.data = data
     

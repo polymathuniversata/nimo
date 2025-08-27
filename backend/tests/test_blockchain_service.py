@@ -25,18 +25,21 @@ class MockWeb3:
         self.is_connected_value = True
         self.gas_price = 1000000000  # 1 gwei in wei
         self.eth = MockEth()
+        self.from_wei = self._from_wei
+        self.to_wei = self._to_wei
+        self.account = MockAccount()
     
     def is_connected(self):
         return self.is_connected_value
     
-    def to_wei(self, value, unit):
+    def _to_wei(self, value, unit):
         if unit == 'gwei':
             return value * 1000000000
         elif unit == 'ether':
             return value * 1000000000000000000
         return value
     
-    def from_wei(self, value, unit):
+    def _from_wei(self, value, unit):
         if unit == 'gwei':
             return value / 1000000000
         elif unit == 'ether':
@@ -129,6 +132,13 @@ class MockFilter:
         return []  # No new events for testing
 
 
+class MockAccount:
+    """Mock Web3 account interface"""
+    
+    def sign_transaction(self, transaction, private_key):
+        return Mock(rawTransaction=b'0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')
+
+
 class MockFunction:
     """Mock contract function"""
     
@@ -150,11 +160,23 @@ class MockFunction:
         return 1000  # Mock return value
 
 
+# Mock current_app at module level to avoid Flask context issues
+mock_current_app = Mock()
+mock_current_app.logger = Mock()
+mock_current_app.config = {'USE_METTA_REASONING': False}
+
+with patch('services.blockchain_service.current_app', mock_current_app):
+    pass  # This ensures the patch is applied before class definition
+
 class TestBlockchainService(unittest.TestCase):
     """Test the Blockchain Service"""
     
     def setUp(self):
         """Set up test environment"""
+        # Start Flask current_app patch
+        self.current_app_patcher = patch('services.blockchain_service.current_app', mock_current_app)
+        self.current_app_patcher.start()
+        
         # Mock environment variables
         self.env_patcher = patch.dict(os.environ, {
             'NETWORK': 'base-sepolia',
@@ -178,17 +200,46 @@ class TestBlockchainService(unittest.TestCase):
         self.mock_account.key = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
         self.mock_account_class.from_key.return_value = self.mock_account
         
-        # Mock contract ABI loading
+        # Mock contract ABI loading and contract creation
         with patch('builtins.open', mock_open_abi()):
             with patch('os.path.exists', return_value=True):
                 with patch('json.load', return_value={'abi': []}):
-                    self.blockchain_service = BlockchainService()
+                    with patch('services.blockchain_service.BlockchainService._load_contract_abis', return_value={'identity': [], 'token': []}):
+                        with patch('services.blockchain_service.BlockchainService._get_contract') as mock_get_contract:
+                            # Mock the contracts
+                            mock_identity_contract = Mock()
+                            mock_token_contract = Mock()
+
+                            # Mock contract functions
+                            mock_identity_contract.functions.createIdentity.return_value = MockFunction()
+                            mock_identity_contract.functions.addContribution.return_value = MockFunction()
+                            mock_identity_contract.functions.verifyContribution.return_value = MockFunction()
+                            mock_identity_contract.functions.batchVerifyContributions.return_value = MockFunction()
+
+                            mock_token_contract.functions.balanceOf.return_value = MockFunction()
+                            mock_token_contract.functions.mintForContribution.return_value = MockFunction()
+
+                            mock_get_contract.side_effect = lambda contract_type: {
+                                'identity': mock_identity_contract,
+                                'token': mock_token_contract
+                            }.get(contract_type)
+
+                            self.blockchain_service = BlockchainService()
+                            
+                            # Mock _send_transaction to return a transaction hash and populate pending_transactions
+                            self.blockchain_service._send_transaction = Mock(return_value='0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')
+                            self.blockchain_service.pending_transactions['0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'] = {
+                                'hash': '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+                                'timestamp': '2024-01-01T00:00:00',
+                                'status': 'pending'
+                            }
     
     def tearDown(self):
         """Clean up after test"""
         self.env_patcher.stop()
         self.web3_patcher.stop()
         self.account_patcher.stop()
+        self.current_app_patcher.stop()
     
     def test_initialization(self):
         """Test blockchain service initialization"""

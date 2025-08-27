@@ -9,7 +9,7 @@ token_bp = Blueprint('token', __name__)
 @token_bp.route('/balance', methods=['GET'])
 @jwt_required()
 def get_balance():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     token = Token.query.filter_by(user_id=current_user_id).first()
     
@@ -28,7 +28,7 @@ def get_balance():
 @token_bp.route('/transactions', methods=['GET'])
 @jwt_required()
 def get_transactions():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     # Get user's token record
     token = Token.query.filter_by(user_id=current_user_id).first()
@@ -56,7 +56,7 @@ def get_transactions():
 @token_bp.route('/transfer', methods=['POST'])
 @jwt_required()
 def transfer_tokens():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Validate required fields

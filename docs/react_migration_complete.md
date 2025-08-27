@@ -269,7 +269,7 @@ export const UserProvider = ({ children }) => {
 
 ### **🚀 Start Development Server**
 ```bash
-cd frontend/client
+cd frontend
 npm run dev
 # Serves at http://localhost:5173 with hot reload
 ```
