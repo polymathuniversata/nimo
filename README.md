@@ -60,19 +60,19 @@ Nimo/
 │   ├── NimoToken.sol     # ERC20 reputation tokens
 │   └── scripts/          # Deployment scripts
 ├── backend/          # Flask REST API server
-│   ├── models/       # Database models (SQLAlchemy)
+│   ├── models/       # Data models (blockchain-compatible)
 │   ├── routes/       # API endpoints
 │   ├── services/     # Business logic, MeTTa & blockchain integration
+│   ├── blockchain/   # Smart contract interfaces
 │   └── utils/        # Helper functions
 ├── frontend/         # 🆕 React.js + Vite + Tailwind CSS
-│   └── client/       # New React application
-│       ├── src/
-│       │   ├── components/  # React JSX components
-│       │   ├── pages/      # React pages
-│       │   ├── contexts/   # React Context API
-│       │   └── hooks/      # Custom React hooks
-│       ├── package.json    # React dependencies
-│       └── vite.config.js  # Vite configuration
+│   ├── src/
+│   │   ├── components/  # React JSX components
+│   │   ├── pages/      # React pages
+│   │   ├── contexts/   # React Context API
+│   │   └── hooks/      # Custom React hooks
+│   ├── package.json    # React dependencies
+│   └── vite.config.js  # Vite configuration
 ├── docs/            # Technical documentation
 ├── tests/           # MeTTa test cases
 └── main.metta       # MeTTa demonstration script
@@ -125,18 +125,22 @@ Nimo/
 - **React Context API**: State management
 - **React Icons**: Icon system
 
-### **⚙️ Backend (MeTTa Integration Complete)**
+### **⚙️ Backend (Blockchain-First Architecture)**
 - **Flask (Python)**: RESTful API server
-- **SQLAlchemy**: Database ORM
+- **Blockchain-as-Backend**: Base network as primary data layer
 - **MeTTa Integration**: AI reasoning engine (✅ COMPLETE)
 - **JWT Authentication**: Secure authentication
 - **Web3.py**: Blockchain integration
+- **IPFS Integration**: Decentralized file storage
 
-### **⛓️ Blockchain & Smart Contracts**
-- **Base Network (Ethereum L2)**: Low-cost transactions
+### **⛓️ Blockchain & Smart Contracts (Primary Backend)**
+- **Base Network (Ethereum L2)**: Primary data storage (~$0.01/tx)
+- **Smart Contract Storage**: Users, contributions, bonds on-chain
 - **Solidity + OpenZeppelin**: Secure smart contracts
 - **Foundry**: Contract development and deployment
 - **Identity NFTs**: On-chain verifiable identities
+- **IPFS**: Large file storage (evidence, metadata)
+- **Event Listeners**: Real-time blockchain sync
 
 ### **🧠 AI & Logic**
 - **MeTTa Language**: Autonomous reasoning and decision-making
@@ -172,15 +176,14 @@ Nimo/
    source venv/bin/activate
    
    pip install -r requirements.txt
-   flask db init
-   flask db migrate
-   flask db upgrade
+   # Initialize blockchain connection (no database needed)
+   python -c "from services.blockchain_service import BlockchainService; bs = BlockchainService(); print('Blockchain connected:', bs.is_connected())"
    flask run
    ```
 
 3. **Frontend Setup** 🆕 **React.js Stack** (in a new terminal)
    ```bash
-   cd frontend/client
+   cd frontend
    npm install
    npm run dev
    # React app with hot reload runs on http://localhost:5173
@@ -228,7 +231,45 @@ metta main.metta
 - [MeTTa Research Findings](docs/metta_research_findings.md) - Latest research on MeTTa integration best practices
 - [Backend Implementation Status](docs/backend_implementation_status.md) - Current implementation status and roadmap
 
+## Blockchain-as-Backend Architecture
+
+### **🔗 Why Blockchain Backend?**
+- **True Decentralization**: No single point of failure or censorship
+- **Immutable Records**: Contributions and verifications permanently stored
+- **Transparent Verification**: All MeTTa proofs auditable on-chain
+- **Low Cost**: Base network transactions cost ~$0.01
+- **Global Access**: Accessible from anywhere without server dependencies
+- **Built-in Tokenomics**: Native NIMO tokens integrated into data layer
+
+### **📊 Data Architecture**
+```
+Smart Contracts (Base Network):
+├── NimoIdentity.sol     → User profiles, contributions, verifications
+├── NimoToken.sol        → Reputation tokens, transfers, rewards
+├── NimoBonds.sol        → Diaspora bonds, investments, milestones
+└── NimoGovernance.sol   → DAO proposals, voting, upgrades
+
+IPFS Storage:
+├── User avatars & documents
+├── Contribution evidence files
+├── Bond documentation
+└── Large metadata objects
+
+Backend Services:
+├── Web3 query layer (reads blockchain state)
+├── Transaction service (writes to blockchain)
+├── MeTTa verification engine
+└── IPFS file management
+```
+
+### **⚡ Performance Strategy**
+- **Caching Layer**: Redis cache for frequent blockchain queries
+- **Event Listeners**: Real-time updates via contract events
+- **Batch Operations**: Gas-optimized bulk transactions
+- **IPFS CDN**: Fast file delivery with decentralized storage
+
 ## Why It Matters
-- Creates a portable, tamper-proof record of experience
-- Powers a youth-led gig and grant ecosystem without dependency on centralized CVs or diplomas
+- Creates a truly portable, tamper-proof record of experience
+- Powers a youth-led gig and grant ecosystem without dependency on centralized servers
 - Turns participation in community into on-chain economic value
+- Enables global access without geographical restrictions or server downtime

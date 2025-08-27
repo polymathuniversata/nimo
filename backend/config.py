@@ -26,16 +26,33 @@ class Config:
         pass
     
     # Blockchain configuration
-    BLOCKCHAIN_NETWORK = os.environ.get('BLOCKCHAIN_NETWORK', 'base-goerli')
-    CONTRACT_ADDRESS = os.environ.get('CONTRACT_ADDRESS', '')
-    PROVIDER_URL = os.environ.get('PROVIDER_URL', 'https://goerli.base.org')
+    BLOCKCHAIN_NETWORK = os.environ.get('BLOCKCHAIN_NETWORK', 'base-sepolia')
+    WEB3_PROVIDER_URL = os.environ.get('WEB3_PROVIDER_URL', 'https://sepolia.base.org')
+    
+    # Contract addresses based on network
+    if BLOCKCHAIN_NETWORK == 'base-sepolia':
+        NIMO_IDENTITY_CONTRACT = os.environ.get('NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA', '')
+        NIMO_TOKEN_CONTRACT = os.environ.get('NIMO_TOKEN_CONTRACT_BASE_SEPOLIA', '')
+        USDC_CONTRACT = os.environ.get('USDC_CONTRACT_BASE_SEPOLIA', '0x036CbD53842c5426634e7929541eC2318f3dCF7e')
+    elif BLOCKCHAIN_NETWORK == 'base-mainnet':
+        NIMO_IDENTITY_CONTRACT = os.environ.get('NIMO_IDENTITY_CONTRACT_BASE_MAINNET', '')
+        NIMO_TOKEN_CONTRACT = os.environ.get('NIMO_TOKEN_CONTRACT_BASE_MAINNET', '')
+        USDC_CONTRACT = os.environ.get('USDC_CONTRACT_BASE_MAINNET', '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913')
+    else:
+        NIMO_IDENTITY_CONTRACT = os.environ.get('NIMO_IDENTITY_CONTRACT', '')
+        NIMO_TOKEN_CONTRACT = os.environ.get('NIMO_TOKEN_CONTRACT', '')
+        USDC_CONTRACT = os.environ.get('USDC_CONTRACT', '')
+    
+    # Legacy support
+    CONTRACT_ADDRESS = NIMO_IDENTITY_CONTRACT
+    PROVIDER_URL = WEB3_PROVIDER_URL
 
 
 class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL', 'sqlite:///dev.db')
+        'DATABASE_URL', 'sqlite:///app.db')
 
 
 class TestingConfig(Config):

@@ -2,19 +2,19 @@
 
 ## System Architecture
 
-Nimo is a decentralized identity and proof of contribution network built on MeTTa language. The system consists of a hybrid architecture combining traditional web technologies with MeTTa-based decentralized logic:
+Nimo is a decentralized identity and proof of contribution network built on MeTTa language. The system consists of a hybrid architecture combining modern web technologies with MeTTa-based decentralized logic and blockchain-first data storage.
 
 ### High-Level Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Frontend      │    │   Backend       │    │   MeTTa Core    │    │  Smart Contracts│
-│   (Vue/Quasar)  │◄──►│   (Flask API)   │◄──►│   (Logic Layer) │◄──►│   (Ethereum)    │
+│   (React/Vite)  │◄──►│   (Flask API)   │◄──►│   (Logic Layer) │◄──►│   (Base Network)│
 └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │                       │
          │              ┌─────────────────┐              │              ┌─────────────────┐
          │              │   Database      │              │              │   Blockchain    │
-         └──────────────│   (SQLAlchemy)  │──────────────┼──────────────│   (Events/State)│
+         └──────────────│   (Caching)     │──────────────┼──────────────│   (Events/State)│
                         └─────────────────┘              │              └─────────────────┘
                                  │                       │                       │
                         ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -23,20 +23,21 @@ Nimo is a decentralized identity and proof of contribution network built on MeTT
                         └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Hybrid Architecture: MeTTa + Smart Contracts
+### Hybrid Architecture: MeTTa + React + Blockchain
 
 Nimo implements a novel hybrid architecture that combines:
 - **MeTTa Language**: For autonomous reasoning and decision-making
+- **React 19.1.1**: For modern, responsive user interface
 - **Smart Contracts**: For decentralized state management and token economics
-- **Traditional Backend**: For performance-critical operations and user management
-- **Blockchain Integration**: For immutable identity and reputation tracking
+- **Flask Backend**: For API services and MeTTa integration
+- **Base Network**: For low-cost, scalable blockchain storage
 
 The system consists of several interconnected modules:
 
 ### Core Components
 
 1. **Decentralized Identity System (MeTTa + NFT)**
-   - NFT-based identity certificates on Ethereum
+   - NFT-based identity certificates on Base Network
    - MeTTa reasoning for identity verification logic
    - Unique usernames mapped to blockchain addresses
    - Skill tracking with cryptographic proofs
@@ -49,6 +50,16 @@ The system consists of several interconnected modules:
 
 3. **MeTTa Autonomous Reasoning**
    - Contribution verification logic in MeTTa
+   - Autonomous token award calculations
+   - Complex reputation scoring algorithms
+   - Bridge to execute decisions on-chain
+
+4. **React Frontend**
+   - Modern React 19.1.1 with hooks and functional components
+   - Vite 7.1.2 for fast development and building
+   - Tailwind CSS for responsive, utility-first styling
+   - React Context API for state management
+   - React Router DOM for client-side routing
    - Autonomous token award calculations
    - Complex reputation scoring algorithms
    - Bridge to execute decisions on-chain

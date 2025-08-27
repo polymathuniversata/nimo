@@ -62,9 +62,22 @@ def run_metta_query(metta_code):
     temp_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "temp_script.metta")
     with open(temp_file, "w") as f:
         f.write(metta_code)
+        f.write('\n')  # Add newline
     
     try:
-        return run_metta_script(temp_file)
+        # Try running with echo to pipe the code directly
+        cmd = [METTA_REPL, temp_file]
+        result = subprocess.run(cmd, 
+                               capture_output=True,
+                               text=True,
+                               timeout=10)  # Add timeout
+        
+        # Return the stdout, which should contain the MeTTa output
+        return result.stdout.strip()
+    except subprocess.TimeoutExpired:
+        return "Error: MeTTa query timed out"
+    except subprocess.CalledProcessError as e:
+        return f"Error: {e.stderr}"
     finally:
         # Clean up the temporary file
         if os.path.exists(temp_file):

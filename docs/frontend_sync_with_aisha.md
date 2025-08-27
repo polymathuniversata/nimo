@@ -5,6 +5,77 @@
 
 Aisha has successfully completed the massive frontend migration! The entire Vue.js/Quasar stack has been replaced with a modern React.js application.
 
+## 🚨 **IMPORTANT: Recent Changes - Please Read Before Pulling**
+
+**Date: August 27, 2025**
+
+Hi Aisha,
+
+We've made significant changes to the frontend structure. **Please follow these steps carefully when pulling the latest changes:**
+
+### **What Changed:**
+1. ✅ **React app moved** from `frontend/client/` to `frontend/` root
+2. ✅ **All Vue/Quasar files deleted** - complete cleanup performed
+3. ✅ **Directory structure simplified** - only React app remains in frontend/
+4. ✅ **Environment variables updated** - now using VITE_ prefix instead of VUE_APP_
+
+### **Steps to Pull Changes Safely:**
+
+```bash
+# 1. Commit or stash your current work
+git add .
+git commit -m "backup: current work before migration sync"
+# OR
+git stash push -m "backup: current work before migration sync"
+
+# 2. Pull the latest changes
+git pull origin main
+
+# 3. Navigate to the new frontend location
+cd frontend
+
+# 4. Install dependencies (fresh install recommended)
+rm -rf node_modules package-lock.json
+npm install
+
+# 5. Start the development server
+npm run dev
+
+# 6. Restore your stashed work if needed
+git stash pop
+```
+
+### **New Project Structure:**
+```
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│   ├── hooks/
+│   └── utils/
+├── public/
+├── package.json
+├── vite.config.js
+└── index.html
+```
+
+**Key Points:**
+- The React app is now in `frontend/` (not `frontend/client/`)
+- All `.vue` files have been removed
+- All Quasar/Pinia references removed
+- Using React Router DOM instead of Vue Router
+- Using Context API instead of Pinia
+- Environment variables now use `VITE_` prefix
+
+### **If You Encounter Issues:**
+1. **Delete node_modules and reinstall**: `rm -rf node_modules && npm install`
+2. **Check environment variables**: Update any `VUE_APP_*` to `VITE_*`
+3. **Update import paths**: All imports should now reference the new structure
+4. **Contact me immediately** if you have merge conflicts or build errors
+
+---
+
 ## Development Progress
 
 Hi Aisha,
@@ -47,12 +118,17 @@ Based on our implementation plans, I suggest we prioritize these areas:
 
 ### 1. Complete Wallet Integration
 
-The `WalletConnect.vue` component and `wallet.js` store have the basic structure in place, but we need to enhance:
+The wallet connection components and context have the basic structure in place, but we need to enhance:
 
 - Error handling for wallet connection failures
 - Network switching UX (especially for Base network)
 - Transaction signing and confirmation UI
 - Support for multiple wallet providers
+
+**New React Structure:**
+- Wallet context: `src/context/WalletContext.jsx`
+- Wallet components: `src/components/wallet/`
+- Hook: `src/hooks/useWallet.js`
 
 ### 2. Identity Management Flow
 
@@ -123,6 +199,7 @@ I suggest we coordinate on testing with:
    - Create tests for shared components first
    - Focus on wallet integration testing
    - Test form validation and submission
+   - Use React Testing Library + Jest
 
 2. **Integration Testing**
    - Weekly integration sessions (Fridays)
@@ -132,10 +209,10 @@ I suggest we coordinate on testing with:
 ## Technical Challenges & Solutions
 
 ### Challenge 1: MetaMask Base Network Integration
-**Solution:** I've implemented Base network detection and auto-switching in the wallet store. You can use the `switchToBaseNetwork()` method to prompt users to switch networks.
+**Solution:** I've implemented Base network detection and auto-switching in the wallet context. You can use the `switchToBaseNetwork()` method from the `useWallet` hook to prompt users to switch networks.
 
 ### Challenge 2: Transaction Signing
-**Solution:** The wallet store provides a `signMessage()` method for authentication and a `sendTransaction()` method for contract interactions.
+**Solution:** The wallet context provides a `signMessage()` method for authentication and a `sendTransaction()` method for contract interactions.
 
 ### Challenge 3: IPFS Evidence Upload
 **Solution:** I'm implementing an IPFS service in the backend. For frontend, we'll need a file upload component that can handle multiple files and track upload progress.

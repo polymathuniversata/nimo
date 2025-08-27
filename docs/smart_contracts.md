@@ -2,6 +2,63 @@
 
 This guide covers smart contract development, deployment, and integration for the Nimo platform.
 
+## 🚀 **CURRENT PRIORITY: Base Sepolia Deployment**
+
+**Status**: Smart contracts are **designed and ready for deployment**. The NimoIdentity and NimoToken contracts are complete and need to be deployed to Base Sepolia testnet to unblock frontend Web3 integration.
+
+### Immediate Action Required
+
+#### Step 1: Environment Setup
+```bash
+cd contracts
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+forge install OpenZeppelin/openzeppelin-contracts
+```
+
+#### Step 2: Get Base Sepolia ETH
+- Visit https://bridge.base.org/deposit
+- Get testnet ETH for deployment (minimal amount needed ~0.01 ETH)
+
+#### Step 3: Configure Environment
+```bash
+# Create .env file in contracts directory
+PRIVATE_KEY=your_private_key_here
+BASESCAN_API_KEY=your_basescan_api_key
+```
+
+#### Step 4: Deploy Contracts
+```bash
+# Deploy to Base Sepolia using Foundry
+forge script script/Deploy.s.sol:DeployScript \
+  --rpc-url https://sepolia.base.org \
+  --broadcast \
+  --verify \
+  --chain-id 84532
+```
+
+#### Step 5: Update Backend Configuration
+After deployment, update `backend/.env`:
+```bash
+NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA=0x_deployed_address_here
+NIMO_TOKEN_CONTRACT_BASE_SEPOLIA=0x_deployed_address_here
+```
+
+### Expected Results
+- ✅ NimoToken deployed with 1M initial supply
+- ✅ NimoIdentity deployed with identity management
+- ✅ Roles configured (MINTER_ROLE, VERIFIER_ROLE, METTA_AGENT_ROLE)
+- ✅ Contract integration ready for frontend
+- ✅ Backend can interact with deployed contracts
+
+### Next Steps After Deployment
+1. **Frontend Integration**: Add Web3 wallet connection
+2. **Contract Interaction**: Implement hooks for token balance, identity creation
+3. **Testing**: End-to-end user flows with blockchain
+4. **Production**: Deploy to Base mainnet when ready
+
+---
+
 ## Overview
 
 Nimo's smart contracts provide the decentralized backbone for identity management, reputation tokens, and impact bonds. The contracts integrate with MeTTa reasoning agents to create an autonomous system for verifying contributions and awarding tokens.

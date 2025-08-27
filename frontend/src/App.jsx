@@ -21,7 +21,7 @@ function App() {
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
-import Stats from "./components/Stats";  /// remove it
+import Stats from "./components/Stats";
 import Footer from "./components/Footer";
 import AuthModal from "./components/AuthModal";
 import Dashboard from "./pages/Dashboard";

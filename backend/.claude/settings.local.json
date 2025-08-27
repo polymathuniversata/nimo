@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo/**)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo\\hyperon-experimental\\target/**)",
+      "Bash(python:*)",
+      "Bash(\"E:\\Polymath Universata\\Projects\\Nimo\\hyperon-experimental\\target\\debug\\metta-repl.exe\" --help)",
+      "Bash(\"E:\\Polymath Universata\\Projects\\Nimo\\hyperon-experimental\\target\\debug\\metta-repl.exe\" test_metta.metta)",
+      "Bash(del test_metta.metta)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo/**)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo\\docs/**)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo\\docs/**)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo/**)",
+      "Read(/E:\\Polymath Universata\\Projects\\Nimo/**)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "E:\\Polymath Universata\\Projects\\Nimo\\hyperon-experimental\\python"
+    ]
+  }
+}

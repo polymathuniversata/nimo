@@ -15,14 +15,7 @@ from flask import current_app
 class BlockchainService:
     def __init__(self, web3_provider_url: str = None, contract_addresses: Dict = None, network: str = None):
         """Initialize blockchain service with Web3 provider and contract addresses"""
-        self.network = network or os.getenv('NETWORK', 'base-sepolia')
-        self.web3_provider_url = web3_provider_url or self._get_network_rpc_url()
-        self.web3 = Web3(Web3.HTTPProvider(self.web3_provider_url))
-        
-        # Enhanced contract addresses with network support
-        self.contract_addresses = contract_addresses or self._get_network_contracts()
-        
-        # Base network configuration
+        # Base network configuration (defined first)
         self.base_config = {
             'base-sepolia': {
                 'chain_id': 84532,
@@ -39,6 +32,13 @@ class BlockchainService:
                 'gas_limit_multiplier': 1.1
             }
         }
+        
+        self.network = network or os.getenv('NETWORK', 'base-sepolia')
+        self.web3_provider_url = web3_provider_url or self._get_network_rpc_url()
+        self.web3 = Web3(Web3.HTTPProvider(self.web3_provider_url))
+        
+        # Enhanced contract addresses with network support
+        self.contract_addresses = contract_addresses or self._get_network_contracts()
         
         # Load contract ABIs
         self.contract_abis = self._load_contract_abis()
@@ -61,10 +61,10 @@ class BlockchainService:
     def _load_contract_abis(self) -> Dict:
         """Load contract ABIs from build files"""
         abis = {}
-        contracts_dir = os.path.join(os.path.dirname(__file__), '../../contracts/build')
+        contracts_dir = os.path.join(os.path.dirname(__file__), '../../contracts/out')
         
         for contract_name in ['NimoIdentity', 'NimoToken']:
-            abi_file = os.path.join(contracts_dir, f'{contract_name}.json')
+            abi_file = os.path.join(contracts_dir, f'{contract_name}.sol', f'{contract_name}.json')
             if os.path.exists(abi_file):
                 with open(abi_file, 'r') as f:
                     contract_data = json.load(f)

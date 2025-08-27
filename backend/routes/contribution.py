@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import asyncio
+import datetime
 
 from app import db
 from models.contribution import Contribution, Verification
@@ -8,16 +9,23 @@ from models.user import User, Token, TokenTransaction
 from models.bond import BlockchainTransaction
 from services.token_service import award_tokens_for_verification
 from services.metta_integration import MeTTaIntegration
-from services.metta_reasoning import MeTTaReasoning  # For backward compatibility
-from services.blockchain_service import BlockchainService
-from services.metta_blockchain_bridge import MeTTaBlockchainBridge
+from services.metta_reasoning import MeTTaReasoning
+
+# Optional blockchain imports - if not available, skip blockchain features
+try:
+    from services.blockchain_service import BlockchainService
+    from services.metta_blockchain_bridge import MeTTaBlockchainBridge
+    BLOCKCHAIN_AVAILABLE = True
+except ImportError:
+    BLOCKCHAIN_AVAILABLE = False
+    print("Warning: Blockchain services not available")
 
 contribution_bp = Blueprint('contribution', __name__)
 
 @contribution_bp.route('/', methods=['GET'])
 @jwt_required()
 def get_contributions():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     # Get pagination parameters
     page = request.args.get('page', 1, type=int)
@@ -114,7 +122,7 @@ def get_contributions():
 @contribution_bp.route('/', methods=['POST'])
 @jwt_required()
 def add_contribution():
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Input validation
@@ -211,7 +219,7 @@ def _check_rate_limit(user, action_type):
     
     if action_type == 'contribution_creation':
         # Allow maximum 10 contributions per hour
-        if not hasattr(user, 'last_contribution_time'):
+        if not hasattr(user, 'last_contribution_time') or user.last_contribution_time is None:
             return False
             
         # This is a simplified check - in production, use proper rate limiting
@@ -237,7 +245,7 @@ def get_contribution(contrib_id):
 @jwt_required()
 def explain_verification(contrib_id):
     """Get MeTTa explanation for a contribution verification"""
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     # Get contribution
     contribution = Contribution.query.get(contrib_id)
@@ -332,7 +340,7 @@ def explain_verification(contrib_id):
 @jwt_required()
 async def verify_contribution(contrib_id):
     """Verify a contribution using MeTTa reasoning"""
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Check if user has permission to verify contributions
@@ -350,32 +358,37 @@ async def verify_contribution(contrib_id):
         # First, check if we should use MeTTa reasoning
         use_metta = current_app.config.get('USE_METTA_REASONING', False)
         
-        if use_metta and hasattr(contribution, 'evidence') and contribution.evidence:
+        if use_metta and contribution.evidence_dict:
             # Use new MeTTa integration
             metta_integration = MeTTaIntegration(
-                rules_path=current_app.config.get('METTA_RULES_PATH'),
+                rules_dir=current_app.config.get('METTA_RULES_DIR'),
                 db_path=current_app.config.get('METTA_DB_PATH')
             )
             
-            # Use legacy services for blockchain integration
-            blockchain_service = BlockchainService()
-            
-            # Initialize old bridge for backwards compatibility
-            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
-            bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+            # Initialize blockchain services if available
+            blockchain_service = None
+            bridge = None
+            if BLOCKCHAIN_AVAILABLE:
+                try:
+                    blockchain_service = BlockchainService()
+                    metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+                    bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+                except Exception as e:
+                    current_app.logger.warning(f"Blockchain service initialization failed: {e}")
             
             # First use the new integration to validate the contribution
+            evidence_dict = contribution.evidence_dict or {}
             contribution_data = {
                 "user_id": contribution.user_id,
                 "category": getattr(contribution, 'contribution_type', 'other'),
                 "title": contribution.title,
                 "evidence": [
                     {
-                        "type": contribution.evidence.get('type', 'url'),
-                        "url": contribution.evidence.get('url', ''),
+                        "type": evidence_dict.get('type', 'url'),
+                        "url": evidence_dict.get('url', ''),
                         "id": f"evidence-{contrib_id}"
                     }
-                ] if contribution.evidence and contribution.evidence.get('url') else []
+                ] if evidence_dict.get('url') else []
             }
             
             # Validate with MeTTa integration
@@ -384,12 +397,21 @@ async def verify_contribution(contrib_id):
                 contribution_data=contribution_data
             )
             
-            # Execute verification through bridge for blockchain integration
-            result = await bridge.verify_contribution_on_chain(
-                user_id=contribution.user_id,
-                contribution_id=contrib_id,
-                evidence=contribution.evidence
-            )
+            # Execute verification through bridge for blockchain integration if available
+            result = validation_result.copy()  # Start with MeTTa results
+            
+            if bridge:
+                try:
+                    blockchain_result = await bridge.verify_contribution_on_chain(
+                        user_id=contribution.user_id,
+                        contribution_id=contrib_id,
+                        evidence=evidence_dict
+                    )
+                    # Merge blockchain results with MeTTa results
+                    result.update(blockchain_result)
+                except Exception as e:
+                    current_app.logger.warning(f"Blockchain verification failed: {e}")
+                    # Continue with MeTTa-only results
             
             # Merge the results
             result.update({
@@ -503,7 +525,7 @@ async def verify_contribution(contrib_id):
 @jwt_required()
 async def batch_verify_contributions():
     """Batch verify multiple contributions for efficiency"""
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     data = request.get_json()
     
     # Check if user has permission to verify contributions
@@ -527,9 +549,18 @@ async def batch_verify_contributions():
         use_metta = current_app.config.get('USE_METTA_REASONING', False)
         
         if use_metta:
-            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
-            blockchain_service = BlockchainService()
-            bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+            # Initialize services with availability check
+            bridge = None
+            if BLOCKCHAIN_AVAILABLE:
+                try:
+                    metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+                    blockchain_service = BlockchainService()
+                    bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+                except Exception as e:
+                    current_app.logger.warning(f"Blockchain services not available for batch processing: {e}")
+            
+            if not bridge:
+                return jsonify({"error": "Blockchain integration required for batch verification"}), 400
             
             # Prepare batch data
             verification_batch = []
@@ -592,7 +623,7 @@ async def batch_verify_contributions():
 @jwt_required()
 def get_contribution_analytics():
     """Get analytics for contributions"""
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     # Get query parameters
     time_period = request.args.get('period', '30d')  # 7d, 30d, 90d, all
@@ -647,14 +678,20 @@ def get_contribution_analytics():
         if current_app.config.get('USE_METTA_REASONING', False):
             try:
                 metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
-                blockchain_service = BlockchainService()
-                bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
                 
-                # This would be async in a real implementation
-                metta_analytics = {
-                    'verification_stats': metta_service.get_verification_stats(),
-                    'network_info': blockchain_service.get_network_info()
-                }
+                analytics = {}
+                if hasattr(metta_service, 'get_verification_stats'):
+                    analytics['verification_stats'] = metta_service.get_verification_stats()
+                
+                if BLOCKCHAIN_AVAILABLE:
+                    try:
+                        blockchain_service = BlockchainService()
+                        if hasattr(blockchain_service, 'get_network_info'):
+                            analytics['network_info'] = blockchain_service.get_network_info()
+                    except Exception:
+                        pass
+                
+                metta_analytics = analytics if analytics else None
             except Exception as e:
                 current_app.logger.warning(f"Could not get MeTTa analytics: {e}")
         
@@ -685,7 +722,7 @@ def get_contribution_analytics():
 @jwt_required() 
 def get_verification_report(contrib_id):
     """Get detailed verification report for a contribution"""
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())  # Convert string to int
     
     # Get contribution
     contribution = Contribution.query.get(contrib_id)

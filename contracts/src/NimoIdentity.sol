@@ -278,7 +278,8 @@ contract NimoIdentity is ERC721, AccessControl, ReentrancyGuard {
         return impactBonds[bondId].investments[investor];
     }
     
-    function isMilestoneComplete(uint256 bondId, string memory milestone) external view returns (bool) {
-        return impactBonds[bondId].milestoneComplete[milestone];
+    // Override supportsInterface to resolve conflict between ERC721 and AccessControl
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }
