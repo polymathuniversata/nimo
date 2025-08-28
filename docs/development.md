@@ -31,11 +31,11 @@ This guide covers the development workflow, testing, and deployment processes fo
 3. **Automated Backend Setup**
    ```bash
    # Linux/Mac
-   chmod +x setup_backend.sh
-   ./setup_backend.sh
+   chmod +x backend/setup_backend.sh
+   ./backend/setup_backend.sh
 
    # Windows
-   .\setup_backend.ps1
+   .\backend\setup_backend.ps1
    ```
 
 4. **Manual Backend Setup**
@@ -93,7 +93,7 @@ This guide covers the development workflow, testing, and deployment processes fo
 3. **Test MeTTa Logic** (Terminal 3)
    ```bash
    # From project root
-   metta main.metta
+   metta backend/main.metta
    ```
 
 ### Code Organization

@@ -47,7 +47,7 @@ When contributing MeTTa code, please follow these guidelines:
 
 - Use descriptive atom names
 - Comment complex logic
-- Follow the pattern established in the main.metta file
+- Follow the pattern established in the backend/main.metta file
 
 ## Commit Messages
 

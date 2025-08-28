@@ -198,6 +198,6 @@ Write-Host ""
 Write-Host "For detailed documentation, see:" -ForegroundColor Cyan
 Write-Host "- docs\backend_implementation_status.md"
 Write-Host "- docs\METTA_INTEGRATION_ANALYSIS.md"
-Write-Host "- CARDANO_MIGRATION_GUIDE.md"
+Write-Host "- docs\CARDANO_MIGRATION_GUIDE.md"
 Write-Host ""
 Write-Status "Setup script finished. Happy coding! 🚀"

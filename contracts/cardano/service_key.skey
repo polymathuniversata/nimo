@@ -1,0 +1,5 @@
+{
+  "type": "PaymentSigningKeyShelley_ed25519",
+  "description": "Nimo Platform Service Key",
+  "cborHex": "c060c9f6b50c14ff1f93c116fc24b13d4092f093c3fbfc9da87ed7b8c2f336af"
+}

@@ -84,9 +84,9 @@ Nimo/
 │   └── vite.config.js     # Vite configuration
 ├── docs/                  # Technical documentation
 ├── tests/                 # MeTTa test cases
-├── main.metta            # MeTTa demonstration script
-├── setup_backend.sh      # Linux/Mac automated setup
-└── setup_backend.ps1     # Windows automated setup
+├── backend/main.metta    # MeTTa demonstration script
+├── backend/setup_backend.sh      # Linux/Mac automated setup
+└── backend/setup_backend.ps1     # Windows automated setup
 ```
 
 ## Sample MeTTa Atoms (Cardano-Enhanced)
@@ -179,13 +179,13 @@ Nimo/
 
 **Linux/Mac:**
 ```bash
-chmod +x setup_backend.sh
-./setup_backend.sh
+chmod +x backend/setup_backend.sh
+./backend/setup_backend.sh
 ```
 
 **Windows:**
 ```powershell
-.\setup_backend.ps1
+.\backend\setup_backend.ps1
 ```
 
 ### Manual Development Setup
@@ -248,13 +248,13 @@ chmod +x setup_backend.sh
 ### Running MeTTa Examples
 ```bash
 # From project root
-metta main.metta
+metta backend/main.metta
 ```
 
 ## 📚 Documentation
 - [Backend Implementation Status](docs/backend_implementation_status.md) - Current status and roadmap
 - [MeTTa Integration Analysis](docs/METTA_INTEGRATION_ANALYSIS.md) - AI reasoning details
-- [Cardano Migration Guide](CARDANO_MIGRATION_GUIDE.md) - Migration from Ethereum/Base
+- [Cardano Migration Guide](docs/CARDANO_MIGRATION_GUIDE.md) - Migration from Ethereum/Base
 - [Frontend Integration Guide](docs/frontend_integration_guide.md) - React frontend details
 - [API Documentation](docs/api_documentation.md) - Complete API reference
 - [Blockchain Security Guide](docs/blockchain_security_guide.md) - Security implementation

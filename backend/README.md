@@ -57,13 +57,13 @@ The backend follows a **blockchain-first architecture** where:
 
 **Linux/Mac:**
 ```bash
-chmod +x ../setup_backend.sh
-../setup_backend.sh
+chmod +x setup_backend.sh
+./setup_backend.sh
 ```
 
 **Windows:**
 ```powershell
-..\setup_backend.ps1
+.\setup_backend.ps1
 ```
 
 ### Manual Setup
@@ -617,7 +617,7 @@ curl http://localhost:5000/api/cardano/blockfrost-status
 - [Main Project README](../README.md) - Overall project overview
 - [Backend Implementation Status](../docs/backend_implementation_status.md) - Current status and roadmap
 - [MeTTa Integration Analysis](../docs/METTA_INTEGRATION_ANALYSIS.md) - AI reasoning details
-- [Cardano Migration Guide](../CARDANO_MIGRATION_GUIDE.md) - Migration from Ethereum/Base
+- [Cardano Migration Guide](../docs/CARDANO_MIGRATION_GUIDE.md) - Migration from Ethereum/Base
 - [Frontend Integration Guide](../docs/frontend_integration_guide.md) - React frontend details
 - [API Documentation](../docs/api_documentation.md) - Complete API reference
 - [Blockchain Security Guide](../docs/blockchain_security_guide.md) - Security implementation
