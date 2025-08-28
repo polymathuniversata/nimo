@@ -119,6 +119,12 @@ class USDCIntegration:
                 'rpc_url': os.getenv('BASE_MAINNET_RPC_URL', 'https://mainnet.base.org'),
                 'usdc_address': os.getenv('USDC_CONTRACT_BASE_MAINNET', '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'),
                 'explorer_url': 'https://basescan.org'
+            },
+            'polygon-mumbai': {
+                'chain_id': 80001,
+                'rpc_url': os.getenv('WEB3_PROVIDER_URL', 'https://polygon-mumbai.g.alchemy.com/v2/demo'),
+                'usdc_address': os.getenv('USDC_CONTRACT_POLYGON_MUMBAI', '0x4CE536b148BF86Ce30E2A28E610e3B2df973d9Af'),
+                'explorer_url': 'https://mumbai.polygonscan.com'
             }
         }
         
@@ -148,7 +154,7 @@ class USDCIntegration:
         return None
     
     def is_connected(self) -> bool:
-        """Check if connected to Base network"""
+        """Check if connected to blockchain network"""
         return self.web3.is_connected()
     
     def get_usdc_balance(self, address: str) -> Decimal:

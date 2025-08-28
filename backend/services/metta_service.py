@@ -210,6 +210,36 @@ class MeTTaIntegration:
             
         return atom
     
+    def _add_contribution_from_data(self, contribution_id, data):
+        """
+        Add contribution data to MeTTa space from dictionary
+        
+        Args:
+            contribution_id (str): Contribution ID
+            data (dict): Contribution data
+        """
+        try:
+            user_id = data.get('user_id', '')
+            category = data.get('category', 'other')
+            title = data.get('title')
+            
+            # Add the contribution to MeTTa space
+            self.add_contribution(contribution_id, user_id, category, title)
+            
+            # Add evidence if provided
+            evidence_list = data.get('evidence', [])
+            if isinstance(evidence_list, list):
+                for i, evidence in enumerate(evidence_list):
+                    if isinstance(evidence, dict):
+                        evidence_type = evidence.get('type', 'url')
+                        evidence_url = evidence.get('url', '')
+                        evidence_id = evidence.get('id', f"evidence-{contribution_id}-{i}")
+                        
+                        if evidence_url:
+                            self.add_evidence(contribution_id, evidence_type, evidence_url, evidence_id)
+        except Exception as e:
+            print(f"Error adding contribution from data: {e}")
+    
     def add_evidence(self, contribution_id, evidence_type, evidence_url, evidence_id=None):
         """
         Add evidence for a contribution
@@ -315,16 +345,21 @@ class MeTTaIntegration:
         
         return 0.5
     
-    def validate_contribution(self, contribution_id):
+    def validate_contribution(self, contribution_id, contribution_data=None):
         """
         Validate a contribution using MeTTa reasoning
         
         Args:
             contribution_id (str): Contribution ID
+            contribution_data (dict, optional): Contribution data to add first
             
         Returns:
             dict: Validation result with confidence and explanation
         """
+        # If contribution data is provided, add it to MeTTa space first
+        if contribution_data:
+            self._add_contribution_from_data(contribution_id, contribution_data)
+        
         # Check if contribution exists - use simpler syntax
         contribution_check = run_metta_query(
             f'!(match (Contribution "{contribution_id}" $_ $_) "exists")'

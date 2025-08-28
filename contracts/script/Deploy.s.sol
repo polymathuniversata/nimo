@@ -10,10 +10,10 @@ contract DeployScript is Script {
     uint256 constant INITIAL_TOKEN_SUPPLY = 1_000_000 * 10**18; // 1M tokens with 18 decimals
     
     function run() external {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        uint256 deployerPrivateKey = vm.envUint("BLOCKCHAIN_SERVICE_PRIVATE_KEY");
         address deployer = vm.addr(deployerPrivateKey);
         
-        console.log("Deploying contracts to Base network...");
+        console.log("Deploying contracts to Polygon Mumbai network...");
         console.log("Deployer address:", deployer);
         console.log("Deployer balance:", deployer.balance);
         
@@ -78,7 +78,7 @@ contract DeployScript is Script {
         address deployer
     ) internal view {
         console.log("\n=== DEPLOYMENT SUMMARY ===");
-        console.log("Network: Base");
+        console.log("Network: Polygon Mumbai");
         console.log("Chain ID:", block.chainid);
         console.log("Block Number:", block.number);
         console.log("Deployer:", deployer);
@@ -125,6 +125,8 @@ contract DeployScript is Script {
     function getChainName(uint256 chainId) internal pure returns (string memory) {
         if (chainId == 8453) return "base";
         if (chainId == 84532) return "base-sepolia";
+        if (chainId == 80001) return "polygon-mumbai";
+        if (chainId == 137) return "polygon";
         if (chainId == 1) return "ethereum";
         if (chainId == 11155111) return "sepolia";
         if (chainId == 31337 || chainId == 1337) return "localhost";

@@ -20,7 +20,7 @@ from decimal import Decimal
 sys.path.append(str(Path(__file__).parent))
 
 from services.usdc_integration import USDCIntegration
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(message)s')
@@ -110,7 +110,7 @@ def demo_metta_reasoning():
     print("\n🧠 DEMO 3: MeTTa REASONING ENGINE")
     print("-" * 40)
     
-    metta = MeTTaIntegration()
+    metta = get_metta_service()
     
     print("🔍 MeTTa Rule Examples:")
     print("• Evidence validation (GitHub, documents, websites)")

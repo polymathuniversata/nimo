@@ -184,7 +184,7 @@ class TestMeTTaBlockchainBridge(unittest.TestCase):
         """Set up test environment"""
         self.metta = Mock(spec=MeTTaReasoning)
         self.blockchain = MockBlockchainService()
-        self.bridge = MeTTaBlockchainBridge(self.metta, self.blockchain)
+        self.bridge = MeTTaBlockchainBridge(self.blockchain, self.metta)
         
         # Mock the User, Contribution, and Verification models
         self.user_patch = patch('backend.models.user.User')

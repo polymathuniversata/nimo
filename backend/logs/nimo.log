@@ -1,0 +1,309 @@
+2025-08-27 22:44:55,426 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 22:44:56,099 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 22:45:02,293 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 22:45:03,458 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 22:45:06,560 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 22:45:07,373 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 22:49:51,405 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 22:49:57,212 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 22:50:02,951 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 22:50:07,777 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 22:50:09,828 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 22:50:41,640 - nimo.requests        - INFO     - [req:ced4ec1c] [req:ced4ec1c] [req:ced4ec1c] GET /api/health
+2025-08-27 22:50:41,643 - nimo.requests        - INFO     - [req:ced4ec1c] [req:ced4ec1c] [req:ced4ec1c] Response 200
+2025-08-27 22:51:21,520 - nimo.requests        - INFO     - [req:b622eecf] [req:b622eecf] [req:b622eecf] GET /
+2025-08-27 22:51:21,520 - nimo.requests        - INFO     - [req:b622eecf] [req:b622eecf] [req:b622eecf] Response 200
+2025-08-27 22:52:44,876 - nimo.requests        - INFO     - [req:4a844f10] [req:4a844f10] [req:4a844f10] GET /api/health
+2025-08-27 22:52:44,876 - nimo.requests        - INFO     - [req:4a844f10] [req:4a844f10] [req:4a844f10] Response 200
+2025-08-27 22:54:18,773 - nimo.requests        - INFO     - [req:02ec9372] [req:02ec9372] [req:02ec9372] GET /api/contributions
+2025-08-27 22:54:18,773 - nimo.requests        - INFO     - [req:02ec9372] [req:02ec9372] [req:02ec9372] Response 404
+2025-08-27 22:54:21,096 - nimo.requests        - INFO     - [req:accca832] [req:accca832] [req:accca832] GET /api/bonds
+2025-08-27 22:54:21,096 - nimo.requests        - INFO     - [req:accca832] [req:accca832] [req:accca832] Response 308
+2025-08-27 22:54:31,752 - nimo.requests        - INFO     - [req:6e2efbbd] [req:6e2efbbd] [req:6e2efbbd] GET /api/tokens/balance
+2025-08-27 22:54:31,752 - nimo.requests        - INFO     - [req:6e2efbbd] [req:6e2efbbd] [req:6e2efbbd] Response 401
+2025-08-27 22:54:44,626 - nimo.requests        - INFO     - [req:83a029ec] [req:83a029ec] [req:83a029ec] GET /api
+2025-08-27 22:54:44,642 - nimo.requests        - INFO     - [req:83a029ec] [req:83a029ec] [req:83a029ec] Response 200
+2025-08-27 23:42:49,728 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:42:49,736 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:42:58,668 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:42:58,821 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:43:01,423 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:43:01,613 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:44:43,749 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:44:43,887 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:44:48,840 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:44:48,981 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:44:51,042 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:44:51,177 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:46:42,157 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:46:42,226 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:46:44,940 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:46:45,022 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:46:46,397 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:46:46,423 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:50:24,065 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:50:24,106 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:50:28,810 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:50:28,940 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:50:31,168 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:50:31,265 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:50:37,054 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:50:37,054 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:50:41,776 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:50:43,733 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:51:09,516 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-27 23:51:12,300 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-27 23:51:13,835 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-27 23:51:25,073 - nimo.requests        - INFO     - [req:32e9a7a3] [req:32e9a7a3] [req:32e9a7a3] GET /api/contributions
+2025-08-27 23:51:25,073 - nimo.requests        - INFO     - [req:32e9a7a3] [req:32e9a7a3] [req:32e9a7a3] Response 200
+2025-08-27 23:51:27,305 - nimo.requests        - INFO     - [req:900c598b] [req:900c598b] [req:900c598b] GET /api/bonds
+2025-08-27 23:51:27,305 - nimo.requests        - INFO     - [req:900c598b] [req:900c598b] [req:900c598b] Response 200
+2025-08-27 23:52:14,053 - nimo.requests        - INFO     - [req:186ec62e] [req:186ec62e] [req:186ec62e] GET /api/contributions
+2025-08-27 23:52:14,053 - nimo.requests        - INFO     - [req:186ec62e] [req:186ec62e] [req:186ec62e] Response 200
+2025-08-27 23:52:14,060 - nimo.requests        - INFO     - [req:c132ed12] [req:c132ed12] [req:c132ed12] GET /api/bonds
+2025-08-27 23:52:14,061 - nimo.requests        - INFO     - [req:c132ed12] [req:c132ed12] [req:c132ed12] Response 200
+2025-08-27 23:52:14,064 - nimo.requests        - INFO     - [req:8a29736b] [req:8a29736b] [req:8a29736b] GET /api/tokens/balance
+2025-08-27 23:52:14,066 - nimo.requests        - INFO     - [req:8a29736b] [req:8a29736b] [req:8a29736b] Response 401
+2025-08-27 23:56:12,398 - nimo.requests        - INFO     - [req:c552db3f] [req:c552db3f] [req:c552db3f] GET /api/tokens/balance
+2025-08-27 23:56:12,398 - nimo.requests        - INFO     - [req:c552db3f] [req:c552db3f] [req:c552db3f] Response 401
+2025-08-27 23:56:12,488 - nimo.requests        - INFO     - [req:62fd358d] [req:62fd358d] [req:62fd358d] GET /api/bonds
+2025-08-27 23:56:12,488 - nimo.requests        - INFO     - [req:62fd358d] [req:62fd358d] [req:62fd358d] Response 200
+2025-08-27 23:56:12,624 - nimo.requests        - INFO     - [req:e98ccf98] [req:e98ccf98] [req:e98ccf98] GET /api/contributions
+2025-08-27 23:56:12,649 - nimo.requests        - INFO     - [req:e98ccf98] [req:e98ccf98] [req:e98ccf98] Response 200
+2025-08-28 00:02:13,265 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 00:02:17,139 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 00:02:20,580 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 00:02:24,142 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 00:02:25,824 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 00:04:38,014 - nimo.requests        - INFO     - [req:e93a0958] [req:e93a0958] [req:e93a0958] GET /api/contributions
+2025-08-28 00:04:38,023 - nimo.requests        - INFO     - [req:e93a0958] [req:e93a0958] [req:e93a0958] Response 200
+2025-08-28 00:04:38,079 - nimo.requests        - INFO     - [req:c959124a] [req:c959124a] [req:c959124a] GET /api/tokens/balance
+2025-08-28 00:04:38,079 - nimo.requests        - INFO     - [req:c959124a] [req:c959124a] [req:c959124a] Response 401
+2025-08-28 00:04:38,088 - nimo.requests        - INFO     - [req:2687572a] [req:2687572a] [req:2687572a] GET /api/bonds
+2025-08-28 00:04:38,088 - nimo.requests        - INFO     - [req:2687572a] [req:2687572a] [req:2687572a] Response 200
+2025-08-28 00:07:46,683 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 00:07:46,787 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 00:07:54,260 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 00:07:54,435 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 00:07:57,110 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 00:07:57,389 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 00:08:25,807 - nimo.requests        - INFO     - [req:e274250f] [req:e274250f] [req:e274250f] GET /api/contributions
+2025-08-28 00:08:25,810 - nimo.requests        - INFO     - [req:e274250f] [req:e274250f] [req:e274250f] Response 200
+2025-08-28 00:08:25,811 - nimo.requests        - INFO     - [req:841a4a0d] [req:841a4a0d] [req:841a4a0d] GET /api/bonds
+2025-08-28 00:08:25,811 - nimo.requests        - INFO     - [req:841a4a0d] [req:841a4a0d] [req:841a4a0d] Response 200
+2025-08-28 00:08:25,838 - nimo.requests        - INFO     - [req:1796c5de] [req:1796c5de] [req:1796c5de] GET /api/tokens/balance
+2025-08-28 00:08:25,840 - nimo.requests        - INFO     - [req:1796c5de] [req:1796c5de] [req:1796c5de] Response 401
+2025-08-28 00:08:43,572 - nimo.requests        - INFO     - [req:5d3e156d] [req:5d3e156d] [req:5d3e156d] GET /api/contributions
+2025-08-28 00:08:43,572 - nimo.requests        - INFO     - [req:5d3e156d] [req:5d3e156d] [req:5d3e156d] Response 200
+2025-08-28 00:08:43,587 - nimo.requests        - INFO     - [req:b64d5d02] [req:b64d5d02] [req:b64d5d02] GET /api/bonds
+2025-08-28 00:08:43,589 - nimo.requests        - INFO     - [req:b64d5d02] [req:b64d5d02] [req:b64d5d02] Response 200
+2025-08-28 00:08:43,594 - nimo.requests        - INFO     - [req:db1073b9] [req:db1073b9] [req:db1073b9] GET /api/tokens/balance
+2025-08-28 00:08:43,595 - nimo.requests        - INFO     - [req:db1073b9] [req:db1073b9] [req:db1073b9] Response 401
+2025-08-28 00:12:31,227 - nimo.requests        - INFO     - [req:2694de55] [req:2694de55] [req:2694de55] GET /api/contributions
+2025-08-28 00:12:31,228 - nimo.requests        - INFO     - [req:5d36d826] [req:5d36d826] [req:5d36d826] GET /api/bonds
+2025-08-28 00:12:31,230 - nimo.requests        - INFO     - [req:d3dab8c9] [req:d3dab8c9] [req:d3dab8c9] GET /api/tokens/balance
+2025-08-28 00:12:31,232 - nimo.requests        - INFO     - [req:2694de55] [req:2694de55] [req:2694de55] Response 200
+2025-08-28 00:12:31,233 - nimo.requests        - INFO     - [req:5d36d826] [req:5d36d826] [req:5d36d826] Response 200
+2025-08-28 00:12:31,234 - nimo.requests        - INFO     - [req:d3dab8c9] [req:d3dab8c9] [req:d3dab8c9] Response 401
+2025-08-28 00:16:59,234 - nimo.requests        - INFO     - [req:7ed71c6b] [req:7ed71c6b] [req:7ed71c6b] GET /api/bonds
+2025-08-28 00:16:59,237 - nimo.requests        - INFO     - [req:7ed71c6b] [req:7ed71c6b] [req:7ed71c6b] Response 200
+2025-08-28 00:16:59,240 - nimo.requests        - INFO     - [req:bb6f5461] [req:bb6f5461] [req:bb6f5461] GET /api/contributions
+2025-08-28 00:16:59,240 - nimo.requests        - INFO     - [req:bb6f5461] [req:bb6f5461] [req:bb6f5461] Response 200
+2025-08-28 00:16:59,247 - nimo.requests        - INFO     - [req:beb339b8] [req:beb339b8] [req:beb339b8] GET /api/tokens/balance
+2025-08-28 00:16:59,251 - nimo.requests        - INFO     - [req:beb339b8] [req:beb339b8] [req:beb339b8] Response 401
+2025-08-28 00:18:47,654 - nimo.requests        - INFO     - [req:868339f4] [req:868339f4] [req:868339f4] GET /api/contributions
+2025-08-28 00:18:47,656 - nimo.requests        - INFO     - [req:a855fc9c] [req:a855fc9c] [req:a855fc9c] GET /api/bonds
+2025-08-28 00:18:47,656 - nimo.requests        - INFO     - [req:6b7532e4] [req:6b7532e4] [req:6b7532e4] GET /api/tokens/balance
+2025-08-28 00:18:47,658 - nimo.requests        - INFO     - [req:868339f4] [req:868339f4] [req:868339f4] Response 200
+2025-08-28 00:18:47,660 - nimo.requests        - INFO     - [req:a855fc9c] [req:a855fc9c] [req:a855fc9c] Response 200
+2025-08-28 00:18:47,662 - nimo.requests        - INFO     - [req:6b7532e4] [req:6b7532e4] [req:6b7532e4] Response 401
+2025-08-28 00:20:50,068 - nimo.requests        - INFO     - [req:be2acc19] [req:be2acc19] [req:be2acc19] GET /api/tokens/balance
+2025-08-28 00:20:50,069 - nimo.requests        - INFO     - [req:be2acc19] [req:be2acc19] [req:be2acc19] Response 401
+2025-08-28 00:20:50,117 - nimo.requests        - INFO     - [req:45bcbd21] [req:45bcbd21] [req:45bcbd21] GET /api/bonds
+2025-08-28 00:20:50,117 - nimo.requests        - INFO     - [req:45bcbd21] [req:45bcbd21] [req:45bcbd21] Response 200
+2025-08-28 00:20:50,130 - nimo.requests        - INFO     - [req:b18c221d] [req:b18c221d] [req:b18c221d] GET /api/contributions
+2025-08-28 00:20:50,131 - nimo.requests        - INFO     - [req:b18c221d] [req:b18c221d] [req:b18c221d] Response 200
+2025-08-28 00:26:05,112 - nimo.requests        - INFO     - [req:8ba6620f] [req:8ba6620f] [req:8ba6620f] GET /api/contributions
+2025-08-28 00:26:05,114 - nimo.requests        - INFO     - [req:28fbb2f2] [req:28fbb2f2] [req:28fbb2f2] GET /api/bonds
+2025-08-28 00:26:05,115 - nimo.requests        - INFO     - [req:8ba6620f] [req:8ba6620f] [req:8ba6620f] Response 200
+2025-08-28 00:26:05,115 - nimo.requests        - INFO     - [req:9e0decbd] [req:9e0decbd] [req:9e0decbd] GET /api/tokens/balance
+2025-08-28 00:26:05,117 - nimo.requests        - INFO     - [req:28fbb2f2] [req:28fbb2f2] [req:28fbb2f2] Response 200
+2025-08-28 00:26:05,120 - nimo.requests        - INFO     - [req:9e0decbd] [req:9e0decbd] [req:9e0decbd] Response 401
+2025-08-28 00:27:06,060 - nimo.requests        - INFO     - [req:d1f9d155] [req:d1f9d155] [req:d1f9d155] GET /api/contributions
+2025-08-28 00:27:06,062 - nimo.requests        - INFO     - [req:d1f9d155] [req:d1f9d155] [req:d1f9d155] Response 200
+2025-08-28 00:27:06,064 - nimo.requests        - INFO     - [req:2076d712] [req:2076d712] [req:2076d712] GET /api/bonds
+2025-08-28 00:27:06,066 - nimo.requests        - INFO     - [req:2076d712] [req:2076d712] [req:2076d712] Response 200
+2025-08-28 00:27:06,073 - nimo.requests        - INFO     - [req:9b0aef0f] [req:9b0aef0f] [req:9b0aef0f] GET /api/tokens/balance
+2025-08-28 00:27:06,073 - nimo.requests        - INFO     - [req:9b0aef0f] [req:9b0aef0f] [req:9b0aef0f] Response 401
+2025-08-28 00:30:30,606 - nimo.requests        - INFO     - [req:9263ca2e] [req:9263ca2e] [req:9263ca2e] GET /api/contributions
+2025-08-28 00:30:30,606 - nimo.requests        - INFO     - [req:baaec373] [req:baaec373] [req:baaec373] GET /api/bonds
+2025-08-28 00:30:30,606 - nimo.requests        - INFO     - [req:522c8818] [req:522c8818] [req:522c8818] GET /api/tokens/balance
+2025-08-28 00:30:30,609 - nimo.requests        - INFO     - [req:9263ca2e] [req:9263ca2e] [req:9263ca2e] Response 200
+2025-08-28 00:30:30,611 - nimo.requests        - INFO     - [req:baaec373] [req:baaec373] [req:baaec373] Response 200
+2025-08-28 00:30:30,614 - nimo.requests        - INFO     - [req:522c8818] [req:522c8818] [req:522c8818] Response 401
+2025-08-28 00:44:43,074 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 00:44:43,077 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:12:49,460 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:12:51,877 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:15:42,438 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:15:49,538 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:15:52,111 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:16:39,574 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:16:46,185 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:16:48,912 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:17:16,178 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:17:22,609 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:17:25,635 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:25:11,932 - nimo.requests        - INFO     - [req:2efbb934] [req:2efbb934] [req:2efbb934] GET /api/contributions
+2025-08-28 07:25:11,935 - nimo.requests        - INFO     - [req:75746c25] [req:75746c25] [req:75746c25] GET /api/bonds
+2025-08-28 07:25:11,936 - nimo.requests        - INFO     - [req:ab4cfe51] [req:ab4cfe51] [req:ab4cfe51] GET /api/tokens/balance
+2025-08-28 07:25:11,937 - nimo.requests        - INFO     - [req:2efbb934] [req:2efbb934] [req:2efbb934] Response 200
+2025-08-28 07:25:11,939 - nimo.requests        - INFO     - [req:75746c25] [req:75746c25] [req:75746c25] Response 200
+2025-08-28 07:25:11,941 - nimo.requests        - INFO     - [req:ab4cfe51] [req:ab4cfe51] [req:ab4cfe51] Response 401
+2025-08-28 07:25:55,934 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:26:11,530 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:26:22,999 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:26:27,712 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:26:37,845 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:26:42,973 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:26:47,564 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:26:51,521 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:27:44,814 - nimo.requests        - INFO     - [req:66eaeb27] [req:66eaeb27] [req:66eaeb27] GET /api/health
+2025-08-28 07:27:44,815 - nimo.requests        - INFO     - [req:66eaeb27] [req:66eaeb27] [req:66eaeb27] Response 200
+2025-08-28 07:28:49,101 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:28:59,132 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:29:01,228 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:30:33,127 - nimo.requests        - INFO     - [req:1a44ae6d] [req:1a44ae6d] [req:1a44ae6d] GET /api/contributions
+2025-08-28 07:30:33,128 - nimo.requests        - INFO     - [req:1a44ae6d] [req:1a44ae6d] [req:1a44ae6d] Response 200
+2025-08-28 07:30:41,338 - nimo.requests        - INFO     - [req:87c5e0f1] [req:87c5e0f1] [req:87c5e0f1] POST /api/contributions/verify
+2025-08-28 07:30:41,340 - nimo.requests        - INFO     - [req:87c5e0f1] [req:87c5e0f1] [req:87c5e0f1] Response 404
+2025-08-28 07:34:26,955 - nimo.requests        - INFO     - [req:5d2541e6] [req:5d2541e6] [req:5d2541e6] POST /api/contributions/verify
+2025-08-28 07:34:26,957 - nimo.requests        - INFO     - [req:5d2541e6] [req:5d2541e6] [req:5d2541e6] Response 404
+2025-08-28 07:34:53,595 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:35:05,800 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:35:11,178 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:35:11,632 - nimo.requests        - INFO     - [req:66cd7fdc] [req:66cd7fdc] [req:66cd7fdc] GET /api
+2025-08-28 07:35:11,647 - nimo.requests        - INFO     - [req:66cd7fdc] [req:66cd7fdc] [req:66cd7fdc] Response 200
+2025-08-28 07:36:00,847 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:36:08,019 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:36:11,080 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:54:55,379 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:55:12,046 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:55:21,783 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:55:46,912 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:56:14,129 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 07:56:47,712 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:57:28,284 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:57:48,204 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:58:24,208 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:58:26,112 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 07:58:42,206 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 07:58:43,804 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:00:01,835 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:00:04,374 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:00:37,655 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:00:39,189 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:01:11,250 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:01:12,642 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:02:03,231 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:02:05,431 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:10:07,845 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:10:12,103 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:12:11,496 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:12:15,455 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:12:21,177 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:12:23,167 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:12:49,452 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:12:52,524 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:13:16,759 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:13:18,258 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:13:21,027 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:13:22,707 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:13:27,986 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:13:29,441 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:14:46,966 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:14:49,642 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:15:01,911 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:15:03,454 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:15:32,800 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:15:34,885 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:15:56,503 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:15:59,694 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:02,700 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:04,406 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:07,078 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:08,945 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:13,939 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:15,699 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:18,204 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:20,269 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:33,354 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:36,188 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:16:36,201 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:16:36,222 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:16:47,823 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:16:50,455 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:16:50,487 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:16:50,534 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:17:28,910 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:17:31,365 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:17:31,387 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:17:31,424 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:37:29,647 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:37:33,469 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:37:33,484 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:37:33,547 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:38:28,125 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:38:30,938 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:38:30,970 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:38:31,027 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:39:17,104 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:39:43,618 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:39:43,690 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:39:43,837 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:41:40,204 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:41:43,087 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:41:43,112 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:41:43,177 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 08:42:39,302 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 08:42:41,727 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 08:42:41,756 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 08:42:41,788 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 09:13:29,713 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 09:13:32,526 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 09:13:32,553 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 09:13:32,630 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 09:15:30,629 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 09:15:34,633 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 09:15:34,683 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 09:15:34,747 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 09:17:29,744 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 09:17:33,155 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 09:17:33,194 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 09:17:33,244 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 09:39:29,234 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 09:39:32,113 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 09:39:32,169 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 09:39:32,373 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 09:43:29,793 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 09:43:32,539 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 09:43:32,584 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 09:43:32,687 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 10:11:49,367 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 10:11:53,554 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 10:11:53,582 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 10:11:53,665 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 10:13:32,166 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 10:13:37,336 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 10:13:37,353 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 10:13:37,442 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 10:15:33,969 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 10:15:38,358 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 10:15:38,392 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 10:15:38,471 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 10:17:32,357 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 10:17:37,513 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 10:17:37,549 - routes.identity      - WARNING  - Blockchain service initialization failed: Non-hexadecimal digit found. NFT minting will be disabled.
+2025-08-28 10:17:37,631 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 12:54:26,622 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 12:54:51,576 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False

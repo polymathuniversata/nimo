@@ -6,6 +6,9 @@ import os
 import sys
 import subprocess
 import json
+import tempfile
+import uuid
+import time
 
 # Define the path to the MeTTa REPL executable
 HYPERON_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 
@@ -58,14 +61,18 @@ def run_metta_query(metta_code):
     Returns:
         The output of the MeTTa query
     """
-    # Create a temporary script file
-    temp_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "temp_script.metta")
-    with open(temp_file, "w") as f:
-        f.write(metta_code)
-        f.write('\n')  # Add newline
+    # Create a unique temporary script file with timestamp and UUID to avoid conflicts
+    timestamp = str(int(time.time() * 1000))  # milliseconds timestamp
+    unique_id = str(uuid.uuid4())[:8]  # short UUID
+    temp_file = os.path.join(tempfile.gettempdir(), f"metta_query_{timestamp}_{unique_id}.metta")
     
     try:
-        # Try running with echo to pipe the code directly
+        # Write the MeTTa code to temporary file with proper encoding and error handling
+        with open(temp_file, "w", encoding='utf-8') as f:
+            f.write(metta_code)
+            f.write('\n')  # Add newline
+        
+        # Run MeTTa REPL with the temporary file
         cmd = [METTA_REPL, temp_file]
         result = subprocess.run(cmd, 
                                capture_output=True,
@@ -74,14 +81,34 @@ def run_metta_query(metta_code):
         
         # Return the stdout, which should contain the MeTTa output
         return result.stdout.strip()
+        
     except subprocess.TimeoutExpired:
         return "Error: MeTTa query timed out"
     except subprocess.CalledProcessError as e:
-        return f"Error: {e.stderr}"
+        return f"Error: {e.stderr if e.stderr else 'Unknown subprocess error'}"
+    except FileNotFoundError as e:
+        return f"Error: Could not access MeTTa REPL - {e}"
+    except PermissionError as e:
+        return f"Error: Permission denied when accessing temporary file - {e}"
+    except Exception as e:
+        return f"Error: Unexpected error - {e}"
     finally:
-        # Clean up the temporary file
-        if os.path.exists(temp_file):
-            os.remove(temp_file)
+        # Clean up the temporary file with error handling
+        try:
+            if os.path.exists(temp_file):
+                # Wait a small amount to ensure process releases the file
+                time.sleep(0.1)
+                os.remove(temp_file)
+        except (PermissionError, OSError) as e:
+            # Log the cleanup error but don't fail the function
+            print(f"Warning: Could not clean up temporary file {temp_file}: {e}")
+            # Attempt alternative cleanup by renaming first
+            try:
+                backup_name = f"{temp_file}.cleanup_{int(time.time())}"
+                os.rename(temp_file, backup_name)
+                os.remove(backup_name)
+            except Exception:
+                pass  # If cleanup fails, the temp directory will eventually clean itself
 
 if __name__ == "__main__":
     # Example usage

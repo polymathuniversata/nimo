@@ -15,7 +15,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 
 from services.usdc_integration import USDCIntegration
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 from services.metta_blockchain_bridge import MeTTaBlockchainBridge
 from services.blockchain_service import BlockchainService
 
@@ -27,12 +27,12 @@ class USDCIntegrationTester:
     def __init__(self):
         """Initialize test environment"""
         self.usdc_integration = USDCIntegration()
-        self.metta_integration = MeTTaIntegration()
+        self.metta_integration = get_metta_service()
         
         # Try to initialize blockchain service (will gracefully fail if not configured)
         try:
             self.blockchain_service = BlockchainService()
-            self.bridge = MeTTaBlockchainBridge(self.metta_integration, self.blockchain_service)
+            self.bridge = MeTTaBlockchainBridge(self.blockchain_service, self.metta_integration)
         except Exception as e:
             logger.warning(f"Blockchain service not available: {e}")
             self.blockchain_service = None

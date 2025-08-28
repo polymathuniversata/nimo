@@ -12,7 +12,19 @@ import os
 import json
 import re
 from typing import Dict, List, Any, Optional, Tuple, Union
-from .metta_runner import run_metta_script, run_metta_query
+try:
+    from .metta_runner import run_metta_script, run_metta_query
+    METTA_AVAILABLE = True
+except ImportError:
+    print("Warning: No MeTTa implementation available. Using mock implementation.")
+    METTA_AVAILABLE = False
+    
+    # Mock implementations
+    def run_metta_script(script):
+        return "Mock MeTTa result"
+    
+    def run_metta_query(query):
+        return "Mock MeTTa query result"
 from .metta_service import MeTTaIntegration as BaseMeTTaIntegration
 from .metta_security import MeTTaSanitizer, MeTTaSecurityError, create_safe_metta_atom, MeTTaAuditor
 from .did_verification import DIDVerifier, MeTTaDIDIntegration, DIDVerificationError

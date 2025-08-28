@@ -10,7 +10,7 @@ from typing import Dict, Any
 import logging
 
 from services.usdc_integration import USDCIntegration
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 from app import db
 from models.user import User
 
@@ -22,7 +22,7 @@ usdc_bp = Blueprint('usdc', __name__, url_prefix='/api/usdc')
 
 # Initialize services
 usdc_integration = USDCIntegration()
-metta_integration = MeTTaIntegration()
+metta_integration = get_metta_service()
 
 
 @usdc_bp.route('/status', methods=['GET'])

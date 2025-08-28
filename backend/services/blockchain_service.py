@@ -11,6 +11,10 @@ from typing import Dict, List, Optional
 from web3 import Web3
 from eth_account import Account
 from flask import current_app
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class BlockchainService:
     def __init__(self, web3_provider_url: str = None, contract_addresses: Dict = None, network: str = None):
@@ -30,6 +34,13 @@ class BlockchainService:
                 'explorer_url': 'https://basescan.org',
                 'gas_price_gwei': 0.1,  # Base mainnet has very low gas costs
                 'gas_limit_multiplier': 1.1
+            },
+            'polygon-mumbai': {
+                'chain_id': 80001,
+                'rpc_url': 'https://rpc-mumbai.maticvigil.com',
+                'explorer_url': 'https://mumbai.polygonscan.com',
+                'gas_price_gwei': 1.0,  # Polygon Mumbai gas prices
+                'gas_limit_multiplier': 1.3
             }
         }
         
@@ -64,11 +75,20 @@ class BlockchainService:
         contracts_dir = os.path.join(os.path.dirname(__file__), '../../contracts/out')
         
         for contract_name in ['NimoIdentity', 'NimoToken']:
-            abi_file = os.path.join(contracts_dir, f'{contract_name}.sol', f'{contract_name}.json')
+            # Try clean ABI file first, then fall back to original
+            clean_abi_file = os.path.join(contracts_dir, f'{contract_name}.sol', f'{contract_name}_clean.json')
+            original_abi_file = os.path.join(contracts_dir, f'{contract_name}.sol', f'{contract_name}.json')
+            
+            abi_file = clean_abi_file if os.path.exists(clean_abi_file) else original_abi_file
+            
             if os.path.exists(abi_file):
                 with open(abi_file, 'r') as f:
                     contract_data = json.load(f)
-                    abis[contract_name.lower().replace('nimo', '')] = contract_data['abi']
+                    # Handle both formats: raw ABI array or object with 'abi' key
+                    if isinstance(contract_data, list):
+                        abis[contract_name.lower().replace('nimo', '')] = contract_data
+                    elif isinstance(contract_data, dict) and 'abi' in contract_data:
+                        abis[contract_name.lower().replace('nimo', '')] = contract_data['abi']
         
         return abis
     
@@ -103,6 +123,11 @@ class BlockchainService:
                 'identity': os.getenv('NIMO_IDENTITY_CONTRACT_BASE_MAINNET'),
                 'token': os.getenv('NIMO_TOKEN_CONTRACT_BASE_MAINNET')
             }
+        elif self.network == 'polygon-mumbai':
+            return {
+                'identity': os.getenv('NIMO_IDENTITY_CONTRACT_POLYGON_MUMBAI'),
+                'token': os.getenv('NIMO_TOKEN_CONTRACT_POLYGON_MUMBAI')
+            }
         else:
             return {
                 'identity': os.getenv('NIMO_IDENTITY_CONTRACT'),
@@ -112,9 +137,17 @@ class BlockchainService:
     def _load_service_account(self):
         """Load service account for contract interactions"""
         private_key = os.getenv('BLOCKCHAIN_SERVICE_PRIVATE_KEY')
-        if private_key:
+        
+        # Check if private key is set and not a placeholder
+        if not private_key or private_key == 'your_service_private_key_here':
+            print("Warning: BLOCKCHAIN_SERVICE_PRIVATE_KEY not configured or is placeholder")
+            return None
+            
+        try:
             return Account.from_key(private_key)
-        return None
+        except Exception as e:
+            print(f"Error: Invalid BLOCKCHAIN_SERVICE_PRIVATE_KEY: {e}")
+            return None
     
     def is_connected(self) -> bool:
         """Check if connected to blockchain"""

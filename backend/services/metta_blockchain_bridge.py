@@ -9,7 +9,7 @@ MeTTa's autonomous decisions.
 import json
 import asyncio
 from typing import Dict, Any, Optional, List
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 from services.blockchain_service import BlockchainService
 from services.usdc_integration import USDCIntegration
 from models.user import User
@@ -17,9 +17,9 @@ from models.contribution import Contribution, Verification
 from models.bond import BlockchainTransaction
 
 class MeTTaBlockchainBridge:
-    def __init__(self, metta_service: MeTTaIntegration, blockchain_service: BlockchainService):
+    def __init__(self, blockchain_service: BlockchainService, metta_service=None):
         """Initialize the bridge between MeTTa and blockchain services"""
-        self.metta_service = metta_service
+        self.metta_service = metta_service if metta_service is not None else get_metta_service()
         self.blockchain_service = blockchain_service
         self.usdc_integration = USDCIntegration()
     

@@ -1,0 +1,10 @@
+{
+  "network": "polygon-mumbai",
+  "account_address": "0x4CE536b148BF86Ce30E2A28E610e3B2df973d9Af",
+  "private_key_set": true,
+  "next_steps": [
+    "Get MATIC from Polygon faucet",
+    "Run deployment script",
+    "Update .env with deployed contract addresses"
+  ]
+}

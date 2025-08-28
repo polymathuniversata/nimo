@@ -8,11 +8,11 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import the MeTTa integration
-from services.metta_service import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 
 def main():
     # Initialize MeTTa integration
-    metta = MeTTaIntegration()
+    metta = get_metta_service()
     
     # Define users
     metta.define_user("user1", "Alice")

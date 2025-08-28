@@ -10,9 +10,10 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from typing import Dict, Any
 import logging
 
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 from services.did_verification import DIDVerificationError
 from services.metta_security import MeTTaSecurityError
+from services.blockchain_service import BlockchainService
 from app import db
 
 # Configure logging
@@ -21,8 +22,15 @@ logger = logging.getLogger(__name__)
 # Create blueprint
 identity_bp = Blueprint('identity', __name__, url_prefix='/api/identity')
 
-# Initialize MeTTa integration (with DID support)
-metta_integration = MeTTaIntegration()
+# Initialize services
+metta_integration = get_metta_service()
+
+# Initialize blockchain service with error handling
+blockchain_service = None
+try:
+    blockchain_service = BlockchainService()
+except Exception as e:
+    logger.warning(f"Blockchain service initialization failed: {e}. NFT minting will be disabled.")
 
 
 @identity_bp.route('/create', methods=['POST'])
@@ -97,6 +105,25 @@ def create_identity():
 
         db.session.commit()
 
+        # Create NFT identity on blockchain
+        nft_tx_hash = None
+        if blockchain_service and blockchain_service.is_connected() and wallet_address:
+            try:
+                logger.info(f"Creating identity NFT on blockchain for {username}")
+                nft_tx_hash = blockchain_service.create_identity_on_chain(
+                    username=username,
+                    metadata_uri=metadata_uri,
+                    user_address=wallet_address
+                )
+                
+                if nft_tx_hash:
+                    logger.info(f"NFT identity created with tx hash: {nft_tx_hash}")
+                else:
+                    logger.warning("Failed to create NFT identity on blockchain")
+                    
+            except Exception as e:
+                logger.error(f"Blockchain NFT creation failed: {e}")
+
         # Create MeTTa atoms for the new identity
         metta_atoms = []
         if metta_integration.is_available():
@@ -105,7 +132,8 @@ def create_identity():
                     user_id=current_user_id,
                     did=did,
                     username=username,
-                    metadata_uri=metadata_uri
+                    metadata_uri=metadata_uri,
+                    nft_tx_hash=nft_tx_hash
                 )
                 metta_atoms = identity_atoms
             except Exception as e:
@@ -118,6 +146,8 @@ def create_identity():
                 "did": did,
                 "username": username,
                 "metadata_uri": metadata_uri,
+                "nft_tx_hash": nft_tx_hash,
+                "nft_minted": nft_tx_hash is not None,
                 "created_at": user.created_at.isoformat(),
                 "metta_atoms": metta_atoms
             }

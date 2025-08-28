@@ -8,8 +8,7 @@ from models.contribution import Contribution, Verification
 from models.user import User, Token, TokenTransaction
 from models.bond import BlockchainTransaction
 from services.token_service import award_tokens_for_verification
-from services.metta_integration import MeTTaIntegration
-from services.metta_reasoning import MeTTaReasoning
+from services.metta_integration_enhanced import get_metta_service
 
 # Create blueprint
 contribution_bp = Blueprint('contribution', __name__, url_prefix='/api/contributions')
@@ -314,7 +313,7 @@ def explain_verification(contrib_id):
     if use_metta and hasattr(contribution, 'evidence') and contribution.evidence:
         try:
             # Use MeTTa for detailed explanation
-            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+            metta_service = get_metta_service()
             
             # Generate explanation based on contribution and verifications
             explanation = {
@@ -386,10 +385,7 @@ async def verify_contribution(contrib_id):
         
         if use_metta and contribution.evidence_dict:
             # Use new MeTTa integration
-            metta_integration = MeTTaIntegration(
-                rules_dir=current_app.config.get('METTA_RULES_DIR'),
-                db_path=current_app.config.get('METTA_DB_PATH')
-            )
+            metta_integration = get_metta_service()
             
             # Initialize blockchain services if available
             blockchain_service = None
@@ -397,8 +393,8 @@ async def verify_contribution(contrib_id):
             if BLOCKCHAIN_AVAILABLE:
                 try:
                     blockchain_service = BlockchainService()
-                    metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
-                    bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+                    metta_service = get_metta_service()
+                    bridge = MeTTaBlockchainBridge(blockchain_service, metta_service)
                 except Exception as e:
                     current_app.logger.warning(f"Blockchain service initialization failed: {e}")
             
@@ -579,9 +575,9 @@ async def batch_verify_contributions():
             bridge = None
             if BLOCKCHAIN_AVAILABLE:
                 try:
-                    metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+                    metta_service = get_metta_service()
                     blockchain_service = BlockchainService()
-                    bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+                    bridge = MeTTaBlockchainBridge(blockchain_service, metta_service)
                 except Exception as e:
                     current_app.logger.warning(f"Blockchain services not available for batch processing: {e}")
             
@@ -703,7 +699,7 @@ def get_contribution_analytics():
         metta_analytics = None
         if current_app.config.get('USE_METTA_REASONING', False):
             try:
-                metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+                metta_service = get_metta_service()
                 
                 analytics = {}
                 if hasattr(metta_service, 'get_verification_stats'):
@@ -763,9 +759,9 @@ def get_verification_report(contrib_id):
     try:
         # Generate comprehensive report
         if current_app.config.get('USE_METTA_REASONING', False):
-            metta_service = MeTTaReasoning(db_path=current_app.config.get('METTA_DB_PATH'))
+            metta_service = get_metta_service()
             blockchain_service = BlockchainService()
-            bridge = MeTTaBlockchainBridge(metta_service, blockchain_service)
+            bridge = MeTTaBlockchainBridge(blockchain_service, metta_service)
             
             report = bridge.generate_verification_report(contrib_id)
         else:

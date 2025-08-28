@@ -23,7 +23,7 @@ from decimal import Decimal
 sys.path.append(str(Path(__file__).parent))
 
 from services.usdc_integration import USDCIntegration
-from services.metta_integration import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 
 # Configure logging
 logging.basicConfig(
@@ -36,7 +36,7 @@ class CompleteFlowTester:
     def __init__(self):
         """Initialize complete flow test environment"""
         self.usdc_integration = USDCIntegration()
-        self.metta_integration = MeTTaIntegration()
+        self.metta_integration = get_metta_service()
         
         # Test scenarios
         self.test_scenarios = [

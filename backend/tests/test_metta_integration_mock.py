@@ -20,7 +20,7 @@ sys.path.append(backend_dir)
 
 # Import the MeTTa service
 from services.metta_service_hyperon import MeTTaService
-from services.metta_service import MeTTaIntegration
+from services.metta_integration_enhanced import get_metta_service
 
 def test_metta_service_mock():
     """Test the MeTTa service in mock mode"""
@@ -124,7 +124,7 @@ def test_metta_integration():
     logger.info("Testing MeTTa integration layer...")
     
     # Initialize the integration
-    integration = MeTTaIntegration()
+    integration = get_metta_service()
     
     # Define a user
     user_id = "integration-user-1"
