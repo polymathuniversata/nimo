@@ -1,22 +1,25 @@
 # Development Guide
-**Updated: August 26, 2025 - React.js Migration Complete**
+**Updated: August 28, 2025 - Cardano Migration Complete**
 
 This guide covers the development workflow, testing, and deployment processes for the Nimo platform.
 
-## 🚀 **MAJOR UPDATE: Frontend Stack Completely Modernized**
-- **Vue.js/Quasar** → **React.js/Vite/Tailwind CSS**
-- **Modern Development Experience** with lightning-fast builds
-- **All backend MeTTa integration preserved**
+## 🚀 **MAJOR UPDATE: Cardano Migration Complete**
+- **Ethereum/Base** → **Cardano Blockchain** migration complete
+- **USDC Tokens** → **Native ADA & NIMO Tokens**
+- **Solidity Contracts** → **Plutus Smart Contracts**
+- **Web3.py** → **PyCardano & Blockfrost API**
+- **All backend MeTTa integration preserved and enhanced**
 
 ## Development Workflow
 
 ### Setting Up the Development Environment
 
 1. **System Requirements**
-   - Python 3.8+ with pip
-   - Node.js 18+ with npm (updated for React 19.1.1)
+   - Python 3.9+ with pip
+   - Node.js 18+ with npm (for React 19.1.1)
    - Git for version control
    - MeTTa runtime (optional, for core logic testing)
+   - Cardano wallet (for testing)
    - Modern browser for React DevTools
 
 2. **Clone and Setup**
@@ -25,7 +28,17 @@ This guide covers the development workflow, testing, and deployment processes fo
    cd Nimo
    ```
 
-3. **Backend Setup**
+3. **Automated Backend Setup**
+   ```bash
+   # Linux/Mac
+   chmod +x setup_backend.sh
+   ./setup_backend.sh
+
+   # Windows
+   .\setup_backend.ps1
+   ```
+
+4. **Manual Backend Setup**
    ```bash
    cd backend
    python -m venv venv

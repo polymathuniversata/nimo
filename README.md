@@ -1,16 +1,19 @@
 # Nimo: Decentralized Youth Identity & Proof of Contribution Network
-**🚀 MAJOR UPDATE: React.js Migration Complete - August 26, 2025**
+**🚀 CARDANO MIGRATION COMPLETE - August 28, 2025**
 
 [![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.1.2-purple.svg)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.4-teal.svg)](https://tailwindcss.com/)
 [![Flask](https://img.shields.io/badge/Flask-Backend-green.svg)](https://flask.palletsprojects.com/)
+[![Cardano](https://img.shields.io/badge/Cardano-Blockchain-blue.svg)](https://cardano.org/)
 [![MeTTa](https://img.shields.io/badge/MeTTa-AI_Integration-orange.svg)](https://github.com/trueagi-io/hyperon-experimental)
 
-## ✅ **Frontend Stack Completely Modernized**
-- **Vue.js/Quasar** → **React.js/Vite/Tailwind CSS** migration complete
-- **Modern Development Experience** with lightning-fast builds
-- **All backend MeTTa integration preserved** and operational
+## ✅ **Cardano Migration Complete**
+- **Ethereum/Base** → **Cardano Blockchain** migration complete
+- **USDC Tokens** → **Native ADA & NIMO Tokens**
+- **Solidity Contracts** → **Plutus Smart Contracts**
+- **Web3.py** → **PyCardano & Blockfrost API**
+- **All backend MeTTa integration preserved** and enhanced
 
 ## 🤖 MeTTa Autonomous Agents
 - **Intelligent Verification**: AI agents analyze contributions and calculate appropriate rewards
@@ -20,7 +23,7 @@
 - **Fraud Detection**: Sophisticated pattern recognition to detect fraudulent contributions
 
 ## Overview
-Nimo is a decentralized reputation system built on MeTTa language that enables African youth to create persistent digital identities, earn reputation tokens for real-world contributions, and use their identity and reputation to unlock access to opportunities like internships, grants, gigs, and DAO proposals.
+Nimo is a decentralized reputation system built on **Cardano blockchain** and **MeTTa language** that enables African youth to create persistent digital identities, earn reputation tokens for real-world contributions, and use their identity and reputation to unlock access to opportunities like internships, grants, gigs, and DAO proposals.
 
 ## Problem Statement
 Millions of African youth participate in informal work, activism, and decentralized learning but lack verifiable digital identity or proof of their contributions, limiting their access to jobs, capital, and global platforms.
@@ -28,17 +31,19 @@ Millions of African youth participate in informal work, activism, and decentrali
 ## Features
 
 ### 🏗️ Decentralized Identity & NFTs
-- **NFT Identity Certificates**: Each identity is a unique, transferable NFT on Ethereum
+- **NFT Identity Certificates**: Each identity is a unique, transferable NFT on Cardano
 - **MeTTa-Powered Logic**: Autonomous reasoning for identity verification and reputation
 - **Cross-Platform Portability**: Use your identity across multiple platforms and applications
 
-### 🎯 Smart Contract Integration  
+### 🎯 Smart Contract Integration
 - **On-Chain Contributions**: Immutable record of all contributions and verifications
 - **Automated Token Awards**: Smart contracts execute MeTTa decisions automatically
 - **Role-Based Access Control**: Verifiers, MeTTa agents, and users with different permissions
 
-### 💰 Token Economy & Governance
-- **ERC20 Reputation Tokens**: Earn tradeable tokens for verified contributions
+### 💰 Native Token Economy (ADA & NIMO)
+- **NIMO Native Tokens**: Cardano native assets for reputation rewards
+- **ADA Rewards**: Direct ADA transfers for high-confidence contributions
+- **Conversion Rate**: 1 ADA = 100 NIMO tokens (configurable)
 - **DAO Governance**: Token holders vote on platform decisions and upgrades
 - **Opportunity Access**: Spend tokens to unlock jobs, grants, and opportunities
 
@@ -55,35 +60,46 @@ Millions of African youth participate in informal work, activism, and decentrali
 ## Project Structure
 ```
 Nimo/
-├── contracts/         # Smart contracts (Solidity)
-│   ├── NimoIdentity.sol  # Identity NFT & contribution tracking
-│   ├── NimoToken.sol     # ERC20 reputation tokens
-│   └── scripts/          # Deployment scripts
-├── backend/          # Flask REST API server
-│   ├── models/       # Data models (blockchain-compatible)
-│   ├── routes/       # API endpoints
-│   ├── services/     # Business logic, MeTTa & blockchain integration
-│   ├── blockchain/   # Smart contract interfaces
-│   └── utils/        # Helper functions
-├── frontend/         # 🆕 React.js + Vite + Tailwind CSS
+├── contracts/              # Plutus smart contracts (Cardano)
+│   ├── cardano/           # Cardano-specific contracts
+│   │   ├── NimoToken.hs   # NIMO token minting policy
+│   │   ├── ContributionValidator.hs  # Contribution validation
+│   │   └── scripts/       # Deployment scripts
+│   └── scripts/           # Deployment utilities
+├── backend/               # Flask REST API server
+│   ├── models/            # Data models (Cardano-compatible)
+│   ├── routes/            # API endpoints
+│   ├── services/          # Business logic, MeTTa & Cardano integration
+│   │   ├── cardano_service.py     # Cardano blockchain integration
+│   │   ├── metta_integration_enhanced.py  # MeTTa AI reasoning
+│   │   └── blockchain/    # Cardano contract interfaces
+│   └── utils/             # Helper functions
+├── frontend/              # React.js + Vite + Tailwind CSS
 │   ├── src/
-│   │   ├── components/  # React JSX components
-│   │   ├── pages/      # React pages
-│   │   ├── contexts/   # React Context API
-│   │   └── hooks/      # Custom React hooks
-│   ├── package.json    # React dependencies
-│   └── vite.config.js  # Vite configuration
-├── docs/            # Technical documentation
-├── tests/           # MeTTa test cases
-└── main.metta       # MeTTa demonstration script
+│   │   ├── components/    # React JSX components
+│   │   ├── pages/         # React pages
+│   │   ├── contexts/      # React Context API
+│   │   └── hooks/         # Custom React hooks
+│   ├── package.json       # React dependencies
+│   └── vite.config.js     # Vite configuration
+├── docs/                  # Technical documentation
+├── tests/                 # MeTTa test cases
+├── main.metta            # MeTTa demonstration script
+├── setup_backend.sh      # Linux/Mac automated setup
+└── setup_backend.ps1     # Windows automated setup
 ```
 
-## Sample MeTTa Atoms
+## Sample MeTTa Atoms (Cardano-Enhanced)
 ```
 ; User Identity and Skills
 (User "user-123" "Kwame")
 (HasSkill "user-123" "Python" 4)
 (HasSkill "user-123" "community_building" 3)
+
+; Cardano Addresses and Balances
+(CardanoAddress "user-123" "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a429mgm3sjwq")
+(ADABalance "user-123" 1500000)  ; In lovelace (1.5 ADA)
+(NIMOBalance "user-123" 50000)   ; 500 NIMO tokens
 
 ; Contributions and Evidence
 (Contribution "contrib-456" "user-123" "coding")
@@ -96,7 +112,7 @@ Nimo/
 (TokenBalance "user-123" 320)
 ```
 
-## Autonomous Agent Logic
+## Autonomous Agent Logic (Cardano-Integrated)
 ```
 ; Verification rule with confidence scoring
 (= (VerifyContribution $contrib-id)
@@ -105,14 +121,15 @@ Nimo/
         (SkillMatch $contrib-id $user-id)
         (ImpactAssessment $contrib-id "moderate")))
 
-; Dynamic token award based on evidence quality and verification
+; Dynamic ADA/NIMO reward based on evidence quality and verification
 (= (CalculateTokenAward $contrib-id)
    (let* (($category (GetContributionCategory $contrib-id))
           ($base-amount (BaseTokenAmount $category))
           ($confidence (CalculateConfidence $contrib-id))
           ($quality-bonus (* $confidence 50))
+          ($cardano-fee (EstimateCardanoFee $contrib-id))
           ($total-amount (+ $base-amount $quality-bonus)))
-     $total-amount))
+     (- $total-amount $cardano-fee)))
 ```
 
 ## Technology Stack 🔧
@@ -125,22 +142,22 @@ Nimo/
 - **React Context API**: State management
 - **React Icons**: Icon system
 
-### **⚙️ Backend (Blockchain-First Architecture)**
+### **⚙️ Backend (Cardano-First Architecture)**
 - **Flask (Python)**: RESTful API server
-- **Blockchain-as-Backend**: Base network as primary data layer
+- **Cardano Blockchain**: Primary data storage (low-cost transactions)
+- **PyCardano**: Python library for Cardano transaction building
+- **Blockfrost API**: Cardano network access and monitoring
 - **MeTTa Integration**: AI reasoning engine (✅ COMPLETE)
 - **JWT Authentication**: Secure authentication
-- **Web3.py**: Blockchain integration
-- **IPFS Integration**: Decentralized file storage
+- **SQLAlchemy**: Database ORM for caching
 
-### **⛓️ Blockchain & Smart Contracts (Primary Backend)**
-- **Base Network (Ethereum L2)**: Primary data storage (~$0.01/tx)
-- **Smart Contract Storage**: Users, contributions, bonds on-chain
-- **Solidity + OpenZeppelin**: Secure smart contracts
-- **Foundry**: Contract development and deployment
-- **Identity NFTs**: On-chain verifiable identities
-- **IPFS**: Large file storage (evidence, metadata)
-- **Event Listeners**: Real-time blockchain sync
+### **⛓️ Cardano Blockchain & Smart Contracts**
+- **Cardano Networks**: Preview, Preprod, and Mainnet support
+- **Plutus Smart Contracts**: Functional smart contracts in Haskell
+- **Native Token Support**: Built-in multi-asset functionality
+- **Blockfrost API**: Comprehensive blockchain data access
+- **Cardano Addresses**: Bech32 address format support
+- **Transaction Metadata**: Rich metadata support for MeTTa proofs
 
 ### **🧠 AI & Logic**
 - **MeTTa Language**: Autonomous reasoning and decision-making
@@ -148,17 +165,30 @@ Nimo/
 - **Fraud Detection**: Pattern recognition and anomaly detection
 - **Confidence Scoring**: Multi-factor verification confidence
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.9+
 - Node.js 16+
-- Foundry (for smart contract development)
+- Blockfrost API account (for Cardano network access)
 - MeTTa runtime (optional for core testing)
-- Ethereum wallet (MetaMask) with Base network configured
-- Base Sepolia ETH for testnet deployment
+- Cardano wallet (for service operations)
+- Test ADA (for Cardano testnet deployment)
 
-### Development Setup
+### Automated Setup (Recommended)
+
+**Linux/Mac:**
+```bash
+chmod +x setup_backend.sh
+./setup_backend.sh
+```
+
+**Windows:**
+```powershell
+.\setup_backend.ps1
+```
+
+### Manual Development Setup
 
 1. **Clone the repository**
    ```bash
@@ -221,33 +251,33 @@ Nimo/
 metta main.metta
 ```
 
-## Documentation
-- [Technical Documentation](docs/technical.md) - System architecture and MeTTa integration
-- [User Guide](docs/user_guide.md) - How to use the platform
-- [Backend API](backend/README.md) - REST API endpoints
-- [Workflow Diagrams](docs/) - Visual system architecture
-- [MeTTa Implementation Plan](docs/metta_implementation_plan.md) - Detailed MeTTa integration plan
-- [MeTTa User Guide](docs/metta_user_guide.md) - How to use and extend the MeTTa integration
-- [MeTTa Research Findings](docs/metta_research_findings.md) - Latest research on MeTTa integration best practices
-- [Backend Implementation Status](docs/backend_implementation_status.md) - Current implementation status and roadmap
+## 📚 Documentation
+- [Backend Implementation Status](docs/backend_implementation_status.md) - Current status and roadmap
+- [MeTTa Integration Analysis](docs/METTA_INTEGRATION_ANALYSIS.md) - AI reasoning details
+- [Cardano Migration Guide](CARDANO_MIGRATION_GUIDE.md) - Migration from Ethereum/Base
+- [Frontend Integration Guide](docs/frontend_integration_guide.md) - React frontend details
+- [API Documentation](docs/api_documentation.md) - Complete API reference
+- [Blockchain Security Guide](docs/blockchain_security_guide.md) - Security implementation
+- [Backend README](backend/README.md) - Detailed backend setup and API docs
 
-## Blockchain-as-Backend Architecture
+## 🌐 Cardano Network Architecture
 
-### **🔗 Why Blockchain Backend?**
-- **True Decentralization**: No single point of failure or censorship
-- **Immutable Records**: Contributions and verifications permanently stored
-- **Transparent Verification**: All MeTTa proofs auditable on-chain
-- **Low Cost**: Base network transactions cost ~$0.01
-- **Global Access**: Accessible from anywhere without server dependencies
-- **Built-in Tokenomics**: Native NIMO tokens integrated into data layer
+### **🔗 Why Cardano Blockchain?**
+- **Sustainability**: Proof-of-Stake with 99.95% lower energy consumption than Bitcoin
+- **Low Cost**: Average transaction ~0.17 ADA (~$0.08)
+- **Reliability**: High uptime and network stability
+- **Native Assets**: Built-in multi-asset support without smart contracts
+- **Formal Verification**: Mathematically-proven smart contract correctness
+- **Rich Metadata**: Native support for complex data structures
 
 ### **📊 Data Architecture**
 ```
-Smart Contracts (Base Network):
-├── NimoIdentity.sol     → User profiles, contributions, verifications
-├── NimoToken.sol        → Reputation tokens, transfers, rewards
-├── NimoBonds.sol        → Diaspora bonds, investments, milestones
-└── NimoGovernance.sol   → DAO proposals, voting, upgrades
+Cardano Blockchain:
+├── Native Tokens (NIMO)     → Reputation tokens via minting policies
+├── ADA Transfers            → Direct ADA rewards for contributions
+├── Plutus Validators        → Contribution verification logic
+├── Transaction Metadata     → MeTTa proofs and reasoning data
+└── Addresses (Bech32)       → User wallet addresses
 
 IPFS Storage:
 ├── User avatars & documents
@@ -256,20 +286,56 @@ IPFS Storage:
 └── Large metadata objects
 
 Backend Services:
-├── Web3 query layer (reads blockchain state)
-├── Transaction service (writes to blockchain)
+├── Blockfrost API layer (reads blockchain state)
+├── PyCardano transaction service (writes to blockchain)
 ├── MeTTa verification engine
 └── IPFS file management
 ```
 
 ### **⚡ Performance Strategy**
-- **Caching Layer**: Redis cache for frequent blockchain queries
-- **Event Listeners**: Real-time updates via contract events
-- **Batch Operations**: Gas-optimized bulk transactions
-- **IPFS CDN**: Fast file delivery with decentralized storage
+- **Blockfrost API**: Fast blockchain data access
+- **Transaction Batching**: Optimized for low Cardano fees
+- **Metadata Richness**: Store MeTTa proofs on-chain
+- **Event Monitoring**: Real-time transaction tracking
+- **Caching Layer**: Redis for frequent queries
 
 ## Why It Matters
 - Creates a truly portable, tamper-proof record of experience
 - Powers a youth-led gig and grant ecosystem without dependency on centralized servers
 - Turns participation in community into on-chain economic value
 - Enables global access without geographical restrictions or server downtime
+- Provides sustainable blockchain infrastructure with formal verification
+
+## 🤝 Contributing
+
+We welcome contributions from developers, researchers, and community members!
+
+### Development Workflow
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes with proper tests
+4. Update documentation as needed
+5. Submit a pull request
+
+### Areas for Contribution
+- **MeTTa Rule Development**: Enhance AI reasoning capabilities
+- **Plutus Smart Contracts**: Improve on-chain logic
+- **Frontend Components**: Build user interfaces
+- **Documentation**: Improve guides and tutorials
+- **Testing**: Add comprehensive test coverage
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Cardano Foundation** for the sustainable blockchain infrastructure
+- **TrueAGI** for the MeTTa reasoning engine
+- **Blockfrost** for comprehensive Cardano API services
+- **Open Source Community** for the tools and libraries that make this possible
+
+---
+
+**🚀 Nimo Platform - Building the Future of Decentralized Reputation on Cardano**
+**Last Updated: August 28, 2025**

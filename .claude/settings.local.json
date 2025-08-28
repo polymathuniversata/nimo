@@ -35,7 +35,12 @@
       "Bash(git merge:*)",
       "Bash(forge build:*)",
       "Bash(curl:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "WebFetch(domain:docs.cardano.org)",
+      "Bash(copy .env.cardano .env)",
+      "Bash(export BLOCKFROST_PROJECT_ID_PREVIEW=\"previewE4gMDEDVG3RIR0dUgKI5xdyMghADUubq\")",
+      "Bash(BLOCKFROST_PROJECT_ID_PREVIEW=\"previewE4gMDEDVG3RIR0dUgKI5xdyMghADUubq\" python deploy_nimo_token.py --network preview --initial-mint 1000000)",
+      "Bash(BLOCKFROST_PROJECT_ID_PREVIEW=\"previewE4gMDEDVG3RIR0dUgKI5xdyMghADUubq\" python -c \"from pycardano import Network; print(''PyCardano imported successfully'')\")"
     ],
     "deny": [],
     "ask": []

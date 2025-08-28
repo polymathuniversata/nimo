@@ -1,0 +1,57 @@
+{
+  "type": "PlutusScriptV2",
+  "description": "NIMO Token Minting Policy",
+  "cborHex": "",
+  "policy": {
+    "keyHash": "",
+    "type": "sig"
+  },
+  "metadata": {
+    "name": "NIMO Token Policy",
+    "description": "Minting policy for NIMO reputation tokens on Nimo Platform",
+    "version": "1.0.0",
+    "authors": ["Nimo Platform Team"],
+    "license": "MIT",
+    "website": "https://nimo.platform",
+    "repository": "https://github.com/nimo-platform/contracts"
+  },
+  "rules": {
+    "minting": {
+      "authorized_minters": [
+        "addr_test1service_address_here"
+      ],
+      "max_supply": null,
+      "metadata_required": true,
+      "proof_validation": true
+    },
+    "burning": {
+      "allowed": true,
+      "authorized_burners": [
+        "addr_test1service_address_here"
+      ]
+    },
+    "metadata_standards": {
+      "cip25": true,
+      "cip68": false
+    }
+  },
+  "deployment": {
+    "testnet": {
+      "preview": {
+        "policy_id": "",
+        "deployed_at": null,
+        "tx_hash": ""
+      },
+      "preprod": {
+        "policy_id": "",
+        "deployed_at": null,
+        "tx_hash": ""
+      }
+    },
+    "mainnet": {
+      "policy_id": "",
+      "deployed_at": null,
+      "tx_hash": ""
+    }
+  }
+}

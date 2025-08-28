@@ -93,7 +93,7 @@ def create_app(config_class=active_config):
     from routes.token import token_bp
     from routes.bond import bond_bp
     from routes.identity import identity_bp
-    from routes.usdc import usdc_bp
+    from routes.cardano import cardano_bp  # Replaced USDC with Cardano
     from routes.blockchain import blockchain_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
@@ -102,7 +102,7 @@ def create_app(config_class=active_config):
     app.register_blueprint(token_bp, url_prefix='/api/tokens')
     app.register_blueprint(bond_bp, url_prefix='/api/bonds')
     app.register_blueprint(identity_bp)  # Identity routes have their own url_prefix
-    app.register_blueprint(usdc_bp)  # USDC routes have their own url_prefix
+    app.register_blueprint(cardano_bp)  # Cardano routes have their own url_prefix
     app.register_blueprint(blockchain_bp, url_prefix='/api')
 
     # Enhanced error handlers
@@ -150,7 +150,7 @@ def create_app(config_class=active_config):
                 "contributions": "/api/contributions/*",
                 "tokens": "/api/tokens/*",
                 "bonds": "/api/bonds/*",
-                "usdc": "/api/usdc/*"
+                "cardano": "/api/cardano/*"
             }
         }, 200
 
@@ -171,10 +171,11 @@ def create_app(config_class=active_config):
                 "POST /api/identity/verify-did - Verify DID",
                 "POST /api/identity/verify-ens - Verify ENS name",
                 "GET /api/identity/supported-methods - Get supported DID methods",
-                "GET /api/usdc/status - USDC integration status",
-                "GET /api/usdc/balance/{address} - Check USDC balance",
-                "POST /api/usdc/calculate-reward - Calculate USDC rewards",
-                "POST /api/usdc/contribution-reward-preview - Preview complete reward"
+                "GET /api/cardano/status - Cardano integration status",
+                "GET /api/cardano/balance/{address} - Check ADA/NIMO balance",
+                "POST /api/cardano/calculate-reward - Calculate ADA rewards",
+                "POST /api/cardano/contribution-reward-preview - Preview complete reward",
+                "GET /api/cardano/faucet-info - Get testnet faucet information"
             ]
         }, 200
 

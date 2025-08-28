@@ -307,3 +307,48 @@
 2025-08-28 10:17:37,631 - werkzeug             - WARNING  -  * Debugger is active!
 2025-08-28 12:54:26,622 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
 2025-08-28 12:54:51,576 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 14:13:12,411 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 14:13:25,968 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 14:39:36,074 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 14:39:43,294 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:00:02,687 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:00:03,616 - nimo.requests        - INFO     - [req:035a5339] [req:035a5339] [req:035a5339] GET /api/cardano/faucet-info
+2025-08-28 15:00:03,616 - nimo.requests        - INFO     - [req:035a5339] [req:035a5339] [req:035a5339] Response 200
+2025-08-28 15:01:36,071 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:01:38,916 - nimo.requests        - INFO     - [req:f4818581] [req:f4818581] [req:f4818581] GET /api/cardano/faucet-info
+2025-08-28 15:01:38,917 - nimo.requests        - INFO     - [req:f4818581] [req:f4818581] [req:f4818581] Response 200
+2025-08-28 15:07:25,362 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:07:26,120 - nimo.requests        - INFO     - [req:c65974e5] [req:c65974e5] [req:c65974e5] GET /api/cardano/faucet-info
+2025-08-28 15:07:26,121 - nimo.requests        - INFO     - [req:c65974e5] [req:c65974e5] [req:c65974e5] Response 200
+2025-08-28 15:12:20,216 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:12:34,681 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:20:10,500 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:20:45,326 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:21:23,403 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:21:25,886 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:21:28,078 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:21:29,446 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:21:32,002 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:21:34,985 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:21:35,105 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 15:22:18,454 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:22:21,166 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:23:25,841 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:23:28,021 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:23:32,344 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:24:38,175 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:24:38,329 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 15:28:44,092 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:28:48,067 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:28:50,801 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:28:50,959 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 15:32:10,273 - nimo.requests        - INFO     - [req:1f902bcc] [req:1f902bcc] [req:1f902bcc] GET /api/contributions
+2025-08-28 15:32:10,275 - nimo.requests        - INFO     - [req:1f902bcc] [req:1f902bcc] [req:1f902bcc] Response 200
+2025-08-28 15:32:10,276 - nimo.requests        - INFO     - [req:a3fdd90a] [req:a3fdd90a] [req:a3fdd90a] GET /api/bonds
+2025-08-28 15:32:10,278 - nimo.requests        - INFO     - [req:c31f0992] [req:c31f0992] [req:c31f0992] GET /api/tokens/balance
+2025-08-28 15:32:10,280 - nimo.requests        - INFO     - [req:a3fdd90a] [req:a3fdd90a] [req:a3fdd90a] Response 200
+2025-08-28 15:32:10,283 - nimo.requests        - INFO     - [req:c31f0992] [req:c31f0992] [req:c31f0992] Response 401
+2025-08-28 15:37:32,626 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 15:37:35,167 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 15:37:38,815 - cardano_service_preview - WARNING  - Service signing key not configured
+2025-08-28 15:37:38,931 - werkzeug             - WARNING  -  * Debugger is active!

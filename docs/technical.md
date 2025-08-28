@@ -2,14 +2,14 @@
 
 ## System Architecture
 
-Nimo is a decentralized identity and proof of contribution network built on MeTTa language. The system consists of a hybrid architecture combining modern web technologies with MeTTa-based decentralized logic and blockchain-first data storage.
+Nimo is a decentralized identity and proof of contribution network built on **Cardano blockchain** and **MeTTa language**. The system consists of a hybrid architecture combining modern web technologies with MeTTa-based decentralized logic and blockchain-first data storage.
 
 ### High-Level Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   Backend       │    │   MeTTa Core    │    │  Smart Contracts│
-│   (React/Vite)  │◄──►│   (Flask API)   │◄──►│   (Logic Layer) │◄──►│   (Base Network)│
+│   Frontend      │    │   Backend       │    │   MeTTa Core    │    │ Plutus Contracts│
+│   (React/Vite)  │◄──►│   (Flask API)   │◄──►│   (Logic Layer) │◄──►│   (Cardano)     │
 └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │                       │
          │              ┌─────────────────┐              │              ┌─────────────────┐
@@ -19,34 +19,34 @@ Nimo is a decentralized identity and proof of contribution network built on MeTT
                                  │                       │                       │
                         ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
                         │   IPFS/Arweave  │    │  MeTTa-to-Chain │    │   Token Economy │
-                        │  (Metadata)     │    │    Bridge       │    │   (ERC20/NFT)   │
+                        │  (Metadata)     │    │    Bridge       │    │   (ADA/NIMO)    │
                         └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Hybrid Architecture: MeTTa + React + Blockchain
+### Hybrid Architecture: MeTTa + React + Cardano
 
 Nimo implements a novel hybrid architecture that combines:
 - **MeTTa Language**: For autonomous reasoning and decision-making
 - **React 19.1.1**: For modern, responsive user interface
-- **Smart Contracts**: For decentralized state management and token economics
+- **Plutus Smart Contracts**: For decentralized state management and token economics
 - **Flask Backend**: For API services and MeTTa integration
-- **Base Network**: For low-cost, scalable blockchain storage
+- **Cardano Blockchain**: For sustainable, low-cost blockchain storage
 
 The system consists of several interconnected modules:
 
 ### Core Components
 
-1. **Decentralized Identity System (MeTTa + NFT)**
-   - NFT-based identity certificates on Base Network
+1. **Decentralized Identity System (MeTTa + Cardano)**
+   - Native token-based identity certificates on Cardano
    - MeTTa reasoning for identity verification logic
-   - Unique usernames mapped to blockchain addresses
+   - Unique usernames mapped to Cardano addresses
    - Skill tracking with cryptographic proofs
 
-2. **Smart Contract Layer**
-   - **NimoIdentity Contract**: Manages identity NFTs and contributions
-   - **NimoToken Contract**: ERC20 tokens for reputation and governance
-   - **Impact Bond System**: Decentralized funding mechanisms
-   - **Role-based Access Control**: Verifiers, MeTTa agents, administrators
+2. **Plutus Smart Contract Layer**
+   - **NIMO Token Policy**: Native token minting policy for reputation tokens
+   - **Contribution Validator**: Plutus validator for contribution verification
+   - **Identity Management**: Decentralized identity system with DID support
+   - **Reward Distribution**: Automated ADA and NIMO reward distribution
 
 3. **MeTTa Autonomous Reasoning**
    - Contribution verification logic in MeTTa

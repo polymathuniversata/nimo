@@ -1,0 +1,73 @@
+# Cardano Integration Requirements for Nimo Platform
+# Install with: pip install -r requirements_cardano.txt
+
+# Core Cardano Python libraries
+pycardano>=0.11.0
+blockfrost-python>=0.5.4
+
+# Cryptography support
+pynacl>=1.5.0
+cryptography>=3.4.8
+
+# Additional dependencies that may be needed
+cbor2>=5.4.3
+bech32>=1.2.0
+
+# HTTP and async support
+aiohttp>=3.8.0
+httpx>=0.24.0
+
+# Data validation and serialization
+pydantic>=2.0.0
+jsonschema>=4.17.0
+
+# Optional: For advanced Plutus development
+# plutus-core  # Usually requires manual compilation
+# cardano-python-tools  # Community tools
+
+# Development and testing
+pytest-asyncio>=0.21.0
+faker>=18.0.0  # For test data generation
+
+# ================================
+# INSTALLATION INSTRUCTIONS
+# ================================
+
+# 1. Create virtual environment (recommended)
+# python -m venv nimo_env
+# source nimo_env/bin/activate  # Linux/Mac
+# nimo_env\Scripts\activate     # Windows
+
+# 2. Install base requirements
+# pip install -r requirements.txt
+
+# 3. Install Cardano dependencies
+# pip install -r requirements_cardano.txt
+
+# 4. Install MeTTa/Hyperon (if not using mock mode)
+# pip install hyperon
+# OR use the automated setup script: .\setup_metta.ps1
+
+# 5. Verify installation
+# python -c "import pycardano; print('PyCardano: OK')"
+# python -c "import blockfrost; print('Blockfrost: OK')"
+# python -c "import hyperon; print('MeTTa/Hyperon: OK')"
+
+# ================================
+# ENVIRONMENT CONFIGURATION
+# ================================
+
+# Required environment variables for Cardano:
+# CARDANO_NETWORK=preview  # preview, preprod, mainnet
+# BLOCKFROST_PROJECT_ID_PREVIEW=your_preview_api_key
+# BLOCKFROST_PROJECT_ID_PREPROD=your_preprod_api_key
+# BLOCKFROST_PROJECT_ID_MAINNET=your_mainnet_api_key
+
+# Optional: Service wallet for automated operations
+# CARDANO_SERVICE_PRIVATE_KEY=your_service_wallet_key
+# CARDANO_SERVICE_KEY_FILE=service_key.skey
+
+# MeTTa configuration:
+# USE_METTA_REASONING=true
+# METTA_MODE=real  # or 'mock' for testing
+# METTA_CONFIDENCE_THRESHOLD=0.7

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from 'react';
 import type { Contribution, Bond, NFTData } from './types';
-import { ContributionsSection, MarketplaceSection, IdentitySection } from "./components/Sections";
+import { ContributionsSection, MarketplaceSection, IdentitySection, DashboardSection, AnalyticsSection, ProfileSection } from "./components/Sections";
 
 // API functions
 const API_BASE = 'http://localhost:5000';
@@ -251,14 +251,18 @@ const IdentityNFT: React.FC<IdentityNFTProps> = ({ walletAddress, tokenBalance, 
     
     // Create NFT data
     const newNftData: NFTData = {
-      id: Date.now().toString(),
-      address: walletAddress,
-      reputation: 750 + Math.floor(Math.random() * 250),
+      id: Date.now(),
+      walletAddress: walletAddress,
+      tokenBalance: tokenBalance,
       verificationLevel: 'MeTTa Verified',
-      specialties: ['African Innovation', 'Community Impact', 'Sustainable Development'],
-      mintDate: new Date().toISOString(),
       uniqueId: `AI-${Math.floor(Math.random() * 10000)}`,
+      mintDate: new Date().toISOString(),
+      reputation: 750 + Math.floor(Math.random() * 250),
+      specialties: ['African Innovation', 'Community Impact', 'Sustainable Development'],
       traits: {
+        reputation: 750 + Math.floor(Math.random() * 250),
+        verificationLevel: 'MeTTa Verified',
+        joinDate: new Date().toISOString(),
         innovator_type: 'Community Builder',
         impact_focus: 'Infrastructure',
         collaboration_score: 85 + Math.floor(Math.random() * 15)
@@ -836,371 +840,6 @@ const RewardsPanel: React.FC<{ contributions: Contribution[] }> = ({ contributio
 };
 
 // Enhanced Dashboard Sections
-const DashboardSection: React.FC<{ contributions: Contribution[]; bonds: Bond[]; tokenBalance: number; walletAddress: string | null }> = ({ contributions, bonds, tokenBalance, walletAddress }) => {
-  const totalRewards = contributions.reduce((sum, c) => {
-    return sum + (c.verifications?.length > 0 ? 
-      (c.impact_level === 'transformative' ? 500 :
-       c.impact_level === 'significant' ? 300 :
-       c.impact_level === 'moderate' ? 150 : 75) : 0);
-  }, 0);
-
-  return (
-    <div style={{ padding: '2rem 0' }}>
-      <h2 style={{ fontSize: '1.8rem', marginBottom: '2rem', color: '#ff7b00' }}>📊 Your Impact Dashboard</h2>
-      
-      {/* Quick Stats */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-        gap: '1.5rem', 
-        marginBottom: '2rem' 
-      }}>
-        <div style={{
-          backgroundColor: 'rgba(255,123,0,0.1)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,123,0,0.2)',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: '2rem', color: '#ff7b00', marginBottom: '0.5rem' }}>
-            {contributions.length}
-          </div>
-          <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>Total Contributions</div>
-        </div>
-        
-        <div style={{
-          backgroundColor: 'rgba(0,255,136,0.1)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(0,255,136,0.2)',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: '2rem', color: '#00ff88', marginBottom: '0.5rem' }}>
-            {totalRewards}
-          </div>
-          <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>NIMO Earned</div>
-        </div>
-        
-        <div style={{
-          backgroundColor: 'rgba(135,206,235,0.1)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(135,206,235,0.2)',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: '2rem', color: '#87ceeb', marginBottom: '0.5rem' }}>
-            {contributions.filter(c => c.verifications?.length > 0).length}
-          </div>
-          <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>Verified Projects</div>
-        </div>
-        
-        <div style={{
-          backgroundColor: 'rgba(255,215,0,0.1)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,215,0,0.2)',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: '2rem', color: '#ffd700', marginBottom: '0.5rem' }}>
-            {Math.floor(Math.random() * 50) + 25}
-          </div>
-          <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>Community Rank</div>
-        </div>
-      </div>
-      
-      {/* Recent Activity */}
-      <div style={{
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        padding: '1.5rem',
-        borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        <h3 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>🕐 Recent Activity</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          {contributions.slice(0, 3).map((contrib, idx) => (
-            <div key={idx} style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0.8rem',
-              backgroundColor: 'rgba(0,0,0,0.2)',
-              borderRadius: '8px'
-            }}>
-              <div>
-                <div style={{ fontSize: '0.9rem', marginBottom: '0.2rem' }}>{contrib.title}</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.6 }}>
-                  {new Date(contrib.created_at).toLocaleDateString()}
-                </div>
-              </div>
-              <div style={{
-                padding: '4px 8px',
-                borderRadius: '8px',
-                fontSize: '0.7rem',
-                backgroundColor: contrib.verifications?.length > 0 ? 'rgba(0,255,136,0.2)' : 'rgba(255,193,7,0.2)',
-                color: contrib.verifications?.length > 0 ? '#00ff88' : '#ffc107'
-              }}>
-                {contrib.verifications?.length > 0 ? '✅ Verified' : '⏳ Pending'}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ProfileSection: React.FC<{ walletAddress: string | null; nftData: NFTData | null; contributions: Contribution[] }> = ({ walletAddress, nftData, contributions }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    name: 'African Innovator',
-    bio: 'Passionate about sustainable development and community empowerment.',
-    location: 'Kenya',
-    skills: ['Community Development', 'Sustainability', 'Project Management'],
-    website: '',
-    social: { twitter: '', linkedin: '' }
-  });
-
-  return (
-    <div style={{ padding: '2rem 0' }}>
-      <h2 style={{ fontSize: '1.8rem', marginBottom: '2rem', color: '#ff7b00' }}>👤 Profile</h2>
-      
-      {/* Profile Header */}
-      <div style={{
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        padding: '2rem',
-        borderRadius: '16px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        marginBottom: '2rem'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'start', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            backgroundColor: '#ff7b00',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2rem'
-          }}>
-            🌍
-          </div>
-          
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-              <h3 style={{ margin: 0, fontSize: '1.5rem' }}>{profileData.name}</h3>
-              {nftData && (
-                <span style={{
-                  backgroundColor: 'rgba(0,255,136,0.2)',
-                  color: '#00ff88',
-                  padding: '2px 8px',
-                  borderRadius: '12px',
-                  fontSize: '0.7rem'
-                }}>
-                  🎭 NFT Verified
-                </span>
-              )}
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>📍 {profileData.location}</span>
-              <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>🔗 {walletAddress?.substring(0, 6)}...{walletAddress?.substring(38)}</span>
-            </div>
-            
-            <p style={{ margin: '0 0 1rem 0', opacity: 0.8, lineHeight: 1.4 }}>{profileData.bio}</p>
-            
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {profileData.skills.map((skill, idx) => (
-                <span key={idx} style={{
-                  backgroundColor: 'rgba(255,123,0,0.2)',
-                  color: '#ff7b00',
-                  padding: '4px 8px',
-                  borderRadius: '12px',
-                  fontSize: '0.8rem'
-                }}>
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          <button 
-            onClick={() => setIsEditing(!isEditing)}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: 'rgba(255,123,0,0.2)',
-              border: '1px solid #ff7b00',
-              borderRadius: '6px',
-              color: '#ff7b00',
-              cursor: 'pointer'
-            }}
-          >
-            ✏️ Edit Profile
-          </button>
-        </div>
-      </div>
-      
-      {/* Statistics */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '1.5rem'
-      }}>
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}>
-          <h4 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>🏆 Achievements</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '0.9rem' }}>First Contribution</span>
-              <span style={{ fontSize: '0.9rem' }}>✅</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '0.9rem' }}>MeTTa Verified</span>
-              <span style={{ fontSize: '0.9rem' }}>✅</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '0.9rem' }}>Community Builder</span>
-              <span style={{ fontSize: '0.9rem' }}>⏳</span>
-            </div>
-          </div>
-        </div>
-        
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}>
-          <h4 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>📈 Impact Metrics</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-                <span style={{ fontSize: '0.9rem' }}>People Reached</span>
-                <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>1,200+</span>
-              </div>
-            </div>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-                <span style={{ fontSize: '0.9rem' }}>Projects Completed</span>
-                <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>{contributions.length}</span>
-              </div>
-            </div>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-                <span style={{ fontSize: '0.9rem' }}>Communities Served</span>
-                <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>5</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const AnalyticsSection: React.FC<{ contributions: Contribution[]; bonds: Bond[] }> = ({ contributions, bonds }) => {
-  const monthlyData = [
-    { month: 'Jan', contributions: 2, rewards: 300 },
-    { month: 'Feb', contributions: 1, rewards: 150 },
-    { month: 'Mar', contributions: 3, rewards: 450 },
-    { month: 'Apr', contributions: 2, rewards: 350 },
-  ];
-  
-  return (
-    <div style={{ padding: '2rem 0' }}>
-      <h2 style={{ fontSize: '1.8rem', marginBottom: '2rem', color: '#ff7b00' }}>📊 Analytics</h2>
-      
-      {/* Performance Charts */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '2rem',
-        marginBottom: '2rem'
-      }}>
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}>
-          <h3 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>📈 Monthly Activity</h3>
-          <div style={{ height: '200px', display: 'flex', alignItems: 'end', justifyContent: 'space-around', gap: '1rem' }}>
-            {monthlyData.map((data, idx) => (
-              <div key={idx} style={{ textAlign: 'center', flex: 1 }}>
-                <div style={{
-                  height: `${(data.contributions / 3) * 150}px`,
-                  backgroundColor: '#ff7b00',
-                  marginBottom: '0.5rem',
-                  borderRadius: '4px 4px 0 0',
-                  minHeight: '20px'
-                }}></div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{data.month}</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.6 }}>{data.contributions}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}>
-          <h3 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>💰 Reward Trends</h3>
-          <div style={{ height: '200px', display: 'flex', alignItems: 'end', justifyContent: 'space-around', gap: '1rem' }}>
-            {monthlyData.map((data, idx) => (
-              <div key={idx} style={{ textAlign: 'center', flex: 1 }}>
-                <div style={{
-                  height: `${(data.rewards / 450) * 150}px`,
-                  backgroundColor: '#00ff88',
-                  marginBottom: '0.5rem',
-                  borderRadius: '4px 4px 0 0',
-                  minHeight: '20px'
-                }}></div>
-                <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{data.month}</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.6 }}>{data.rewards} NIMO</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      
-      {/* Impact Breakdown */}
-      <div style={{
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        padding: '1.5rem',
-        borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        <h3 style={{ margin: '0 0 1rem 0', color: '#ff7b00' }}>🎯 Impact Categories</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          {[
-            { category: 'Infrastructure', count: 2, color: '#ff7b00' },
-            { category: 'Healthcare', count: 1, color: '#00ff88' },
-            { category: 'Education', count: 1, color: '#87ceeb' },
-            { category: 'Sustainability', count: 1, color: '#ffd700' }
-          ].map((item, idx) => (
-            <div key={idx} style={{
-              padding: '1rem',
-              backgroundColor: 'rgba(0,0,0,0.2)',
-              borderRadius: '8px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '1.5rem', color: item.color, marginBottom: '0.5rem' }}>{item.count}</div>
-              <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>{item.category}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Main Index Component
 const Index = () => {
   const [contributions, setContributions] = useState<Contribution[]>([]);
@@ -1366,25 +1005,6 @@ const Index = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div style={{ 
-        minHeight: '100vh', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        backgroundColor: '#1a1a1a',
-        color: 'white'
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🌍</div>
-          <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Loading Nimo Platform...</div>
-          <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>Initializing MeTTa AI verification system</div>
-        </div>
-      </div>
-    );
-  }
-
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'dashboard':
@@ -1411,7 +1031,7 @@ const Index = () => {
       color: 'white', 
       fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
-      {/* Header */}
+      {/* Navigation */}
       <nav style={{ 
         padding: '1rem 2rem', 
         borderBottom: '1px solid rgba(255,255,255,0.1)',
@@ -1422,7 +1042,66 @@ const Index = () => {
         gap: '1rem'
       }}>
         <h1 style={{ margin: 0, fontSize: '1.5rem' }}>🌍 Nimo Platform</h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        
+        {/* Navigation Links */}
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button
+            onClick={() => setActiveSection('dashboard')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: activeSection === 'dashboard' ? '#ff7b00' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '6px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            📊 Dashboard
+          </button>
+          <button
+            onClick={() => setActiveSection('marketplace')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: activeSection === 'marketplace' ? '#ff7b00' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '6px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            🏪 Marketplace
+          </button>
+          <button
+            onClick={() => setActiveSection('contributions')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: activeSection === 'contributions' ? '#ff7b00' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '6px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            📝 Contributions
+          </button>
+          <button
+            onClick={() => setActiveSection('identity')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: activeSection === 'identity' ? '#ff7b00' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '6px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            🎭 Identity
+          </button>
+          
           <div style={{ 
             backgroundColor: 'rgba(255,165,0,0.2)', 
             padding: '0.5rem 1rem', 
@@ -1470,15 +1149,18 @@ const Index = () => {
           >
             📝 Submit Contribution
           </button>
-          <button style={{ 
-            padding: '12px 24px', 
-            backgroundColor: 'transparent', 
-            border: '1px solid #ff7b00', 
-            borderRadius: '6px', 
-            color: '#ff7b00', 
-            fontSize: '1rem', 
-            cursor: 'pointer' 
-          }}>
+          <button 
+            onClick={() => setActiveSection('marketplace')}
+            style={{ 
+              padding: '12px 24px', 
+              backgroundColor: 'transparent', 
+              border: '1px solid #ff7b00', 
+              borderRadius: '6px', 
+              color: '#ff7b00', 
+              fontSize: '1rem', 
+              cursor: 'pointer' 
+            }}
+          >
             🔍 Explore Marketplace
           </button>
         </div>
@@ -1497,7 +1179,7 @@ const Index = () => {
           </div>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ff7b00' }}>
-              ${bonds.reduce((sum, bond) => sum + bond.value, 0).toLocaleString()}
+              ${bonds.reduce((sum, bond) => sum + bond.available, 0).toLocaleString()}
             </div>
             <div>Total Impact Value</div>
           </div>
@@ -1510,160 +1192,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Main Dashboard */}
-      <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
-          {/* Identity NFT */}
-          <IdentityNFT walletAddress={walletAddress} tokenBalance={tokenBalance} onNFTCreated={handleNFTCreated} />
-          
-          {/* Automated Rewards */}
-          <RewardsPanel contributions={contributions} />
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
-          {/* Contributions */}
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h2 style={{ fontSize: '1.5rem', margin: 0, color: '#ff7b00' }}>🏗️ Your Contributions</h2>
-              <span style={{ 
-                fontSize: '0.8rem', 
-                backgroundColor: 'rgba(255,123,0,0.2)', 
-                padding: '4px 8px', 
-                borderRadius: '12px' 
-              }}>
-                🤖 MeTTa Verified
-              </span>
-            </div>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {contributions.map(contribution => (
-                <div key={contribution.id} style={{ 
-                  backgroundColor: 'rgba(255,255,255,0.05)', 
-                  padding: '1.5rem', 
-                  borderRadius: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  position: 'relative'
-                }}>
-                  {contribution.id > 99 && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '-1px',
-                      right: '-1px',
-                      backgroundColor: '#ff7b00',
-                      color: 'white',
-                      padding: '2px 6px',
-                      borderRadius: '0 8px 0 8px',
-                      fontSize: '0.7rem'
-                    }}>
-                      NEW
-                    </div>
-                  )}
-                  
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{contribution.title}</h3>
-                    <span style={{ 
-                      padding: '2px 8px', 
-                      borderRadius: '12px', 
-                      fontSize: '0.8rem',
-                      backgroundColor: contribution.verifications?.length > 0 ? 'rgba(0,255,136,0.2)' : 'rgba(255,193,7,0.2)',
-                      color: contribution.verifications?.length > 0 ? '#00ff88' : '#ffc107'
-                    }}>
-                      {contribution.verifications?.length > 0 ? '✅ Verified' : '⏳ Processing'}
-                    </span>
-                  </div>
-                  <p style={{ margin: '0.5rem 0', opacity: 0.8, fontSize: '0.9rem' }}>{contribution.description}</p>
-                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(255,123,0,0.2)', borderRadius: '4px' }}>
-                      {contribution.contribution_type}
-                    </span>
-                    <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(255,123,0,0.2)', borderRadius: '4px' }}>
-                      {contribution.impact_level} impact
-                    </span>
-                    {contribution.verifications?.length > 0 && (
-                      <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(0,255,136,0.2)', borderRadius: '4px' }}>
-                        +{contribution.impact_level === 'transformative' ? '500' :
-                          contribution.impact_level === 'significant' ? '300' :
-                          contribution.impact_level === 'moderate' ? '150' : '75'} NIMO
-                      </span>
-                    )}
-                  </div>
-                  {contribution.verifications?.length > 0 && (
-                    <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.7 }}>
-                      🤖 Verified by: {contribution.verifications[0].verifier_name}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Impact Bonds */}
-          <div>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#ff7b00' }}>💰 Impact Investment Opportunities</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {bonds.map(bond => (
-                <div key={bond.id} style={{ 
-                  backgroundColor: 'rgba(255,255,255,0.05)', 
-                  padding: '1.5rem', 
-                  borderRadius: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.5rem' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{bond.title}</h3>
-                    <span style={{ fontSize: '1rem', fontWeight: 'bold', color: '#00ff88' }}>
-                      ${bond.value.toLocaleString()}
-                    </span>
-                  </div>
-                  <p style={{ margin: '0.5rem 0', opacity: 0.8, fontSize: '0.9rem' }}>{bond.description}</p>
-                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(0,255,136,0.2)', borderRadius: '4px' }}>
-                      {bond.cause}
-                    </span>
-                    <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(255,123,0,0.2)', borderRadius: '4px' }}>
-                      {bond.status}
-                    </span>
-                    <span style={{ fontSize: '0.8rem', padding: '2px 6px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>
-                      🔗 Blockchain Secured
-                    </span>
-                  </div>
-                  {bond.milestones?.length > 0 && (
-                    <div style={{ fontSize: '0.8rem', marginBottom: '1rem' }}>
-                      <div style={{ opacity: 0.7, marginBottom: '0.3rem' }}>Progress Milestones:</div>
-                      {bond.milestones.map(milestone => (
-                        <div key={milestone.id} style={{ 
-                          display: 'flex', 
-                          justifyContent: 'space-between', 
-                          padding: '0.2rem 0' 
-                        }}>
-                          <span style={{ opacity: milestone.completed ? 0.9 : 0.6 }}>
-                            {milestone.completed ? '✅' : '⏳'} {milestone.title}
-                          </span>
-                          <span>${milestone.target_amount.toLocaleString()}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <button 
-                    disabled={!isWalletConnected}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px', 
-                      backgroundColor: isWalletConnected ? 'rgba(0,255,136,0.2)' : 'rgba(255,255,255,0.1)', 
-                      border: '1px solid rgba(0,255,136,0.5)', 
-                      color: isWalletConnected ? '#00ff88' : '#666', 
-                      borderRadius: '6px', 
-                      cursor: isWalletConnected ? 'pointer' : 'not-allowed',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    {isWalletConnected ? '🚀 Invest in Bond' : '🔗 Connect Wallet to Invest'}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Main Content */}
+      <main style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
+        {renderActiveSection()}
+      </main>
 
       {/* Footer */}
       <footer style={{ 

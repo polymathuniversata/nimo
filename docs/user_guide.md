@@ -2,23 +2,24 @@
 
 ## Introduction
 
-Nimo is a decentralized platform that allows African youth to create verifiable digital identities and earn reputation tokens for their real-world contributions. Built on Ethereum with MeTTa-powered autonomous agents, Nimo provides a permanent, tamper-proof record of your achievements and contributions.
+Nimo is a decentralized platform that allows African youth to create verifiable digital identities and earn reputation tokens for their real-world contributions. Built on **Cardano blockchain** with MeTTa-powered autonomous agents, Nimo provides a permanent, tamper-proof record of your achievements and contributions.
 
 ### What Makes Nimo Unique
 
-- 🏗️ **NFT Identity**: Your identity is a unique, transferable NFT on the blockchain
+- 🏗️ **Native Token Identity**: Your identity is represented by native Cardano tokens
 - 🤖 **AI Verification**: MeTTa autonomous agents intelligently verify contributions
-- 💰 **Token Economy**: Earn tradeable ERC20 tokens for verified contributions  
+- 💰 **ADA & NIMO Tokens**: Earn ADA rewards and NIMO reputation tokens
 - 🌍 **Global Access**: Use your identity across platforms and opportunities worldwide
-- 🔒 **Permanent Record**: Immutable blockchain storage ensures your reputation is never lost
+- 🔒 **Permanent Record**: Immutable Cardano blockchain storage ensures your reputation is never lost
+- 🌱 **Sustainable**: Proof-of-Stake blockchain with minimal environmental impact
 
 ## Getting Started
 
 ### Creating Your Identity
 
 **Prerequisites:**
-- Ethereum wallet (MetaMask recommended)
-- Small amount of ETH for gas fees
+- Cardano wallet (Yoroi, Daedalus, or Eternl recommended)
+- Small amount of ADA for transaction fees
 - Access to the Nimo platform
 
 **Step-by-step process:**
@@ -26,29 +27,33 @@ Nimo is a decentralized platform that allows African youth to create verifiable 
 1. **Connect Your Wallet**
    - Visit the Nimo platform
    - Click "Connect Wallet" and approve the connection
-   - Ensure you're on the correct network (Ethereum mainnet or testnet)
+   - Ensure you're on the correct Cardano network (Mainnet or Testnet)
 
-2. **Create Your NFT Identity**
-   - Choose a unique username (this becomes part of your NFT)
+2. **Create Your Token-Based Identity**
+   - Choose a unique username
    - Add your skills and expertise areas
    - Upload a profile picture (stored on IPFS)
    - Provide location and bio information
    - Click "Create Identity" and sign the transaction
 
-3. **Your Identity NFT is Minted**
-   - Receive a unique NFT representing your identity
-   - NFT includes your username and metadata URI
-   - Initial reputation score: 0
-   - Initial token balance: 0
+3. **Your Identity is Established**
+   - Receive native tokens representing your identity
+   - Initial reputation score: 0 NIMO tokens
+   - Initial ADA balance: 0 (rewards earned through contributions)
+   - Identity stored on Cardano blockchain with MeTTa metadata
 
 **Technical Details:**
-Your identity is stored as both MeTTa atoms and an NFT:
+Your identity is stored as both MeTTa atoms and Cardano native tokens:
 ```
 MeTTa: (user "YourName")
        (skill "YourName" "Python")
        (location "YourName" "Nairobi")
+       (cardanoAddress "YourName" "addr1qx...")
 
-NFT:   Token ID: 1
+Cardano: Native tokens with metadata
+         ADA balance for rewards
+         NIMO tokens for reputation
+```
        Owner: 0x742d35Cc...
        Metadata: ipfs://QmProfile...
 ```

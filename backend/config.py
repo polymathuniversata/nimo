@@ -78,44 +78,30 @@ class Config:
     except ImportError:
         pass
     
-    # Blockchain configuration
-    BLOCKCHAIN_NETWORK = os.environ.get('BLOCKCHAIN_NETWORK', 'polygon-mumbai')
-    WEB3_PROVIDER_URL = os.environ.get('WEB3_PROVIDER_URL', 'https://rpc-mumbai.maticvigil.com')
+    # Cardano blockchain configuration
+    CARDANO_NETWORK = os.environ.get('CARDANO_NETWORK', 'preview')  # preview, preprod, mainnet
     
-    # Contract addresses based on network
-    if BLOCKCHAIN_NETWORK == 'base-sepolia':
-        NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA = os.environ.get('NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA', '0x56186c1e64ca8043DEF78d06Aff222212ea5df71')
-        NIMO_TOKEN_CONTRACT_BASE_SEPOLIA = os.environ.get('NIMO_TOKEN_CONTRACT_BASE_SEPOLIA', '0x53Eba1e079F885482238EE8bf01C4A9f09DE458f')
-        USDC_CONTRACT_BASE_SEPOLIA = os.environ.get('USDC_CONTRACT_BASE_SEPOLIA', '0x036CbD53842c5426634e7929541eC2318f3dCF7e')
-        
-        # Set the generic contract addresses for current network
-        NIMO_IDENTITY_CONTRACT = NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA
-        NIMO_TOKEN_CONTRACT = NIMO_TOKEN_CONTRACT_BASE_SEPOLIA
-        USDC_CONTRACT = USDC_CONTRACT_BASE_SEPOLIA
-    elif BLOCKCHAIN_NETWORK == 'base-mainnet':
-        NIMO_IDENTITY_CONTRACT_BASE_MAINNET = os.environ.get('NIMO_IDENTITY_CONTRACT_BASE_MAINNET', '')
-        NIMO_TOKEN_CONTRACT_BASE_MAINNET = os.environ.get('NIMO_TOKEN_CONTRACT_BASE_MAINNET', '')
-        USDC_CONTRACT_BASE_MAINNET = os.environ.get('USDC_CONTRACT_BASE_MAINNET', '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913')
-        
-        # Set the generic contract addresses for current network
-        NIMO_IDENTITY_CONTRACT = NIMO_IDENTITY_CONTRACT_BASE_MAINNET
-        NIMO_TOKEN_CONTRACT = NIMO_TOKEN_CONTRACT_BASE_MAINNET
-        USDC_CONTRACT = USDC_CONTRACT_BASE_MAINNET
-    elif BLOCKCHAIN_NETWORK == 'polygon-mumbai':
-        NIMO_IDENTITY_CONTRACT_POLYGON_MUMBAI = os.environ.get('NIMO_IDENTITY_CONTRACT_POLYGON_MUMBAI', '')
-        NIMO_TOKEN_CONTRACT_POLYGON_MUMBAI = os.environ.get('NIMO_TOKEN_CONTRACT_POLYGON_MUMBAI', '')
-        USDC_CONTRACT_POLYGON_MUMBAI = os.environ.get('USDC_CONTRACT_POLYGON_MUMBAI', '0x0FA8781a83E46826621b3BC094Ea2A0212e71B23')
-        
-        # Set the generic contract addresses for current network
-        NIMO_IDENTITY_CONTRACT = NIMO_IDENTITY_CONTRACT_POLYGON_MUMBAI
-        NIMO_TOKEN_CONTRACT = NIMO_TOKEN_CONTRACT_POLYGON_MUMBAI
-        USDC_CONTRACT = USDC_CONTRACT_POLYGON_MUMBAI
-    else:
-        NIMO_IDENTITY_CONTRACT = os.environ.get('NIMO_IDENTITY_CONTRACT', '')
-        NIMO_TOKEN_CONTRACT = os.environ.get('NIMO_TOKEN_CONTRACT', '')
-        USDC_CONTRACT = os.environ.get('USDC_CONTRACT', '')
+    # Blockfrost API configuration
+    BLOCKFROST_PROJECT_ID_MAINNET = os.environ.get('BLOCKFROST_PROJECT_ID_MAINNET', '')
+    BLOCKFROST_PROJECT_ID_PREVIEW = os.environ.get('BLOCKFROST_PROJECT_ID_PREVIEW', '')
+    BLOCKFROST_PROJECT_ID_PREPROD = os.environ.get('BLOCKFROST_PROJECT_ID_PREPROD', '')
     
-    # Legacy support
+    # Cardano service wallet configuration
+    CARDANO_SERVICE_PRIVATE_KEY = os.environ.get('CARDANO_SERVICE_PRIVATE_KEY', 'your_cardano_private_key_here')
+    CARDANO_SERVICE_KEY_FILE = os.environ.get('CARDANO_SERVICE_KEY_FILE', 'service_key.skey')
+    
+    # NIMO native token configuration
+    NIMO_TOKEN_POLICY_ID = os.environ.get('NIMO_TOKEN_POLICY_ID', '')
+    NIMO_TOKEN_ASSET_NAME = os.environ.get('NIMO_TOKEN_ASSET_NAME', 'NIMO')
+    ADA_TO_NIMO_RATE = float(os.environ.get('ADA_TO_NIMO_RATE', '100'))  # 1 ADA = 100 NIMO tokens
+    
+    # Legacy blockchain support (kept for backward compatibility)
+    BLOCKCHAIN_NETWORK = os.environ.get('BLOCKCHAIN_NETWORK', 'cardano-preview')
+    WEB3_PROVIDER_URL = os.environ.get('WEB3_PROVIDER_URL', 'https://cardano-preview.blockfrost.io/api')
+    
+    # Legacy contract addresses (deprecated - kept for migration compatibility)
+    NIMO_IDENTITY_CONTRACT = os.environ.get('NIMO_IDENTITY_CONTRACT', '')
+    NIMO_TOKEN_CONTRACT = os.environ.get('NIMO_TOKEN_CONTRACT', '')
     CONTRACT_ADDRESS = NIMO_IDENTITY_CONTRACT
     PROVIDER_URL = WEB3_PROVIDER_URL
 

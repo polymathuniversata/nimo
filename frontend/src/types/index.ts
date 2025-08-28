@@ -12,21 +12,70 @@ interface Contribution {
   id: number;
   title: string;
   description: string;
-  contribution_type: string;
-  impact_level: 'low' | 'moderate' | 'significant' | 'transformative';
-  created_at: string;
-  user_id: number;
-  wallet_address: string | null;
-  evidence: {
-    type: string;
-    url: string;
-  };
+  status?: string;
+  reward?: number;
+  contribution_type?: string;
+  impact_level?: string;
+  created_at?: string;
+  user_id?: number;
+  wallet_address?: string;
+  evidence?: Record<string, unknown>;
+  verifications?: Array<Record<string, unknown>>;
   metta_processing?: boolean;
   metta_confidence?: number;
-  verifications?: Verification[];
+  metta_reasoning?: string;
 }
 
 // Types for Bond
+interface Bond {
+  id: number;
+  name: string;
+  description: string;
+  yield: number;
+  minInvestment: number;
+  maturityDate: string;
+  available: number;
+  totalSupply: number;
+  issuer: string;
+}
+
+// Types for Investment
+interface Investment {
+  id: number;
+  name: string;
+  description: string;
+  yield: number;
+  minInvestment: number;
+  maturityDate: string;
+  available: number;
+  totalSupply: number;
+  issuer: string;
+  investmentAmount: number;
+  investmentDate: string;
+  expectedReturn: number;
+}
+
+// Types for NFT
+interface NFTData {
+  id: number;
+  walletAddress: string;
+  tokenBalance: number;
+  verificationLevel: string;
+  uniqueId: string;
+  mintDate: string;
+  reputation: number;
+  specialties: string[];
+  traits: {
+    reputation: number;
+    verificationLevel: string;
+    joinDate: string;
+    innovator_type: string;
+    impact_focus: string;
+    collaboration_score: number;
+  };
+}
+
+// Legacy types (keeping for backward compatibility)
 interface Milestone {
   id: string;
   title: string;
@@ -34,7 +83,7 @@ interface Milestone {
   completed: boolean;
 }
 
-interface Bond {
+interface LegacyBond {
   id: string;
   title: string;
   description: string;
@@ -44,8 +93,7 @@ interface Bond {
   milestones?: Milestone[];
 }
 
-// Types for NFT
-interface NFTData {
+interface LegacyNFTData {
   id: string;
   address: string;
   reputation: number;
@@ -76,7 +124,11 @@ interface WalletConnectionProps {
 export type {
   Contribution,
   Bond,
-  Milestone,
+  Investment,
   NFTData,
-  WalletConnectionProps
+  WalletConnectionProps,
+  // Legacy types for backward compatibility
+  Milestone,
+  LegacyBond as BondLegacy,
+  LegacyNFTData as NFTDataLegacy
 };
