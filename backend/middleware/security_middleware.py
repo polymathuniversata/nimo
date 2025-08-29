@@ -171,7 +171,12 @@ class InputValidator:
         if len(value) > max_length:
             return False
         
-        if pattern and not re.match(pattern, value):
+        # Ensure the entire string matches the provided pattern to avoid
+        # partial-match bypass issues (e.g. "<script>alert(1)</script>foo" would
+        # previously pass if pattern matched only the prefix).  Using
+        # ``fullmatch`` guarantees the whole value conforms to the expected
+        # pattern.
+        if pattern and not re.fullmatch(pattern, value):
             return False
         
         return True

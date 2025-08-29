@@ -171,8 +171,16 @@ class USDCIntegration:
         return Decimal(nimo_amount) * self.nimo_to_usdc_rate
     
     def convert_usdc_to_wei(self, usdc_amount: Decimal) -> int:
-        """Convert USDC amount to wei (6 decimal places)"""
-        return int(usdc_amount * Decimal(10 ** self.USDC_DECIMALS))
+        """Convert USDC amount to smallest USDC unit ("wei") with proper rounding.
+
+        We use ``quantize`` to avoid floating-point rounding errors that may
+        otherwise cause an off-by-one in the integer conversion (e.g. Decimal
+       ('0.1') * 10 ** 6 may produce 99999.999999).  We always round **down** to
+        ensure we never attempt to send more tokens than intended.
+        """
+        quantized = usdc_amount.quantize(Decimal('1.') / (10 ** self.USDC_DECIMALS), rounding="ROUND_DOWN")
+        wei_str = str((quantized * (10 ** self.USDC_DECIMALS)).to_integral_exact(rounding="ROUND_DOWN"))
+        return int(wei_str)
     
     def estimate_gas_for_transfer(self, to_address: str, usdc_amount: Decimal) -> Dict:
         """Estimate gas cost for USDC transfer"""

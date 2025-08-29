@@ -45,9 +45,15 @@ class ContextualFormatter(logging.Formatter):
     
     def format(self, record):
         """Format log record with context"""
-        # Base format
+        # Use a class-level cached formatter so we don't allocate a
+        # new ``logging.Formatter`` instance for every single log call.
+        # This saves significant CPU in high-traffic environments.
         base_format = '%(asctime)s - %(name)-20s - %(levelname)-8s - %(message)s'
-        
+
+        # Lazily create and cache the underlying formatter only once
+        if not hasattr(self.__class__, "_base_formatter"):
+            self.__class__._base_formatter = logging.Formatter(base_format)
+
         # Add context if available
         context_parts = []
         
@@ -65,7 +71,9 @@ class ContextualFormatter(logging.Formatter):
             record.message = context_str + record.getMessage()
             record.msg = record.message
         
-        formatter = logging.Formatter(base_format)
+        # Re-use the cached formatter rather than constructing a new
+        # object each call (which would be wasteful).
+        formatter = self.__class__._base_formatter  # type: logging.Formatter
         return formatter.format(record)
 
 def setup_logging(
