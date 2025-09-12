@@ -105,7 +105,6 @@ class USDCIntegration:
         current_app.logger.warning("convert_usdc_to_wei is deprecated. Cardano uses lovelace (1 ADA = 1,000,000 lovelace).")
         # Convert to lovelace equivalent
         return int(usdc_amount * Decimal('1000000'))
-
     def estimate_gas_for_transfer(self, to_address: str, usdc_amount: Decimal) -> Dict:
         """DEPRECATED: Estimate gas - redirect to Cardano service"""
         current_app.logger.warning("estimate_gas_for_transfer is deprecated. Use CardanoService.estimate_fee instead.")
