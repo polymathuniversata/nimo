@@ -387,20 +387,6 @@ cd backend
 python -c "from services.ipfs_service import get_ipfs_service; ipfs = get_ipfs_service(); print('IPFS ready:', ipfs.gateway_url)"
 ```
 
-## 📚 Documentation - **75% Coverage (Updated September 2, 2025)**
-- [Backend Implementation Status](docs/backend/backend_implementation_status.md) - ✅ Complete audit results
-- [API Documentation](docs/api/api_documentation.md) - ✅ Updated (92 endpoints documented)
-- [Security Audit Report](SECURITY_AUDIT_REPORT.md) - ✅ Comprehensive security assessment  
-- [Project Status](PROJECT_STATUS.md) - ✅ Current implementation status
-- [Development Backlog](BACKLOG.md) - ✅ Prioritized remaining tasks
-- [Cardano Smart Contracts](contracts/cardano/README.md) - ✅ Production-ready contracts
-- [Frontend React/TypeScript Guide](docs/development/react_typescript_guide.md) - ✅ Modern UI framework
-- [Deployment Guides](docs/deployment/) - ✅ Production deployment instructions
-- [MeTTa Integration Analysis](docs/metta/METTA_INTEGRATION_ANALYSIS.md) - ✅ AI reasoning implementation
-- [Security Implementation](docs/security/) - ⚠️ Needs update with latest audit findings
-- [User Guide](docs/user/user_guide.md) - ✅ Cardano wallet integration guide
-- [Partner Guide](docs/user/PARTNER_GUIDE.md) - ✅ Collaboration guidelines
-
 ## 🌐 Cardano Network Architecture
 
 ### **🔗 Why Cardano Blockchain?**
