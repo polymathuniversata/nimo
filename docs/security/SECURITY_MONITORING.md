@@ -67,18 +67,17 @@ def init_apm(app: Flask):
 #### **Frontend Monitoring**
 ```javascript
 // frontend/src/plugins/monitoring.js
-import Vue from 'vue'
-import * as Sentry from '@sentry/vue'
+import React from 'react'
+import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
 
-export function initSentry(app) {
+export function initSentry() {
   Sentry.init({
-    app,
     dsn: import.meta.env.VITE_SENTRY_DSN,
     environment: import.meta.env.VITE_ENVIRONMENT,
     integrations: [
       new BrowserTracing({
-        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+        routingInstrumentation: Sentry.reactRouterInstrumentation(history),
         tracePropagationTargets: ['localhost', 'nimo.network', /^\//]
       })
     ],
