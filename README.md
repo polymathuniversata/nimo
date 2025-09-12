@@ -282,41 +282,41 @@ Nimo/
 
 ## Technology Stack 🔧
 
-### **🎨 Frontend (Vue.js 3 + Vite + Tailwind CSS - September 2, 2025)**
-- **Vue.js 3.4.18**: Modern UI framework with Composition API
-- **Vite 5.1.4**: Lightning-fast build tool and dev server
-- **Tailwind CSS 3.4.1**: Utility-first CSS framework
-- **TypeScript 5.5.3**: Type-safe JavaScript development
-- **Pinia**: Modern state management for Vue.js
-- **Vue Router 4**: Official Vue.js router
-- **IPFS Integration**: Decentralized file storage
-- **Cardano Wallet Integration**: Support for Yoroi, Daedalus, Eternl
+🎨 Frontend (Vue.js 3 + Vite + Tailwind CSS - September 2, 2025)
+Vue.js 3.4.18: Modern UI framework with Composition API
+Vite 5.1.4: Lightning-fast build tool and dev server
+Tailwind CSS 3.4.1: Utility-first CSS framework
+TypeScript 5.5.3: Type-safe JavaScript development
+Pinia: Modern state management for Vue.js
+Vue Router 4: Official Vue.js router
+IPFS Integration: Decentralized file storage
+Cardano Wallet Integration: Support for Yoroi, Daedalus, Eternl
 
-### **⚙️ Backend (Cardano-First Architecture - September 2, 2025)**
-- **Flask (Python)**: RESTful API server with 92 endpoints
-- **Cardano Blockchain**: Primary data storage (low-cost transactions)
-- **PyCardano**: Python library for Cardano transaction building
-- **Blockfrost API**: Cardano network access and monitoring
-- **MeTTa Integration**: AI reasoning engine (95% complete)
-- **IPFS Service**: Decentralized file storage
-- **JWT Authentication**: Secure authentication with Cardano addresses
-- **Redis Caching**: High-performance blockchain data caching
+⚙️ Backend (Cardano-First Architecture - September 2, 2025)
+Flask (Python): RESTful API server with 92 endpoints
+Cardano Blockchain: Primary data storage (low-cost transactions)
+PyCardano: Python library for Cardano transaction building
+Blockfrost API: Cardano network access and monitoring
+MeTTa Integration: AI reasoning engine (95% complete)
+IPFS Service: Decentralized file storage
+JWT Authentication: Secure authentication with Cardano addresses
+Redis Caching: High-performance blockchain data caching
 
-### **⛓️ Cardano Blockchain & Smart Contracts - September 2, 2025**
-- **Cardano Networks**: Preview, Preprod, and Mainnet support
-- **Plutus Smart Contracts**: Functional smart contracts in Haskell
-- **Native Token Support**: Built-in multi-asset functionality
-- **Blockfrost API**: Comprehensive blockchain data access
-- **Cardano Addresses**: Bech32 address format support
-- **Transaction Metadata**: Rich metadata support for MeTTa proofs
-- **Mock Deployment**: Complete testing environment configured
+⛓️ Cardano Blockchain & Smart Contracts - September 2, 2025
+Cardano Networks: Preview, Preprod, and Mainnet support
+Plutus Smart Contracts: Functional smart contracts in Haskell
+Native Token Support: Built-in multi-asset functionality
+Blockfrost API: Comprehensive blockchain data access
+Cardano Addresses: Bech32 address format support
+Transaction Metadata: Rich metadata support for MeTTa proofs
+Mock Deployment: Complete testing environment configured
 
-### **🧠 AI & Logic - September 2, 2025**
-- **MeTTa Language**: Autonomous reasoning and decision-making
-- **Hyperon Integration**: Advanced AI verification (95% complete)
-- **Fraud Detection**: Pattern recognition and anomaly detection (96% accuracy)
-- **Confidence Scoring**: Multi-factor verification confidence
-- **Autonomous Processing**: 17 autonomous system endpoints
+🧠 AI & Logic - September 2, 2025
+MeTTa Language: Autonomous reasoning and decision-making
+Hyperon Integration: Advanced AI verification (95% complete)
+Fraud Detection: Pattern recognition and anomaly detection (96% accuracy)
+Confidence Scoring: Multi-factor verification confidence
+Autonomous Processing: 17 autonomous system endpoints
 
 ## 🚀 Quick Start
 
