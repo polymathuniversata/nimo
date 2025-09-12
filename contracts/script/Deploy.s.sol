@@ -123,12 +123,12 @@ contract DeployScript is Script {
     }
     
     function getChainName(uint256 chainId) internal pure returns (string memory) {
+        if (chainId == 1) return "cardano-mainnet";
+        if (chainId == 0) return "cardano-preprod";
         if (chainId == 8453) return "base";
         if (chainId == 84532) return "base-sepolia";
         if (chainId == 80001) return "polygon-mumbai";
         if (chainId == 137) return "polygon";
-        if (chainId == 1) return "ethereum";
-        if (chainId == 11155111) return "sepolia";
         if (chainId == 31337 || chainId == 1337) return "localhost";
         return "unknown";
     }

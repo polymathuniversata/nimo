@@ -5,12 +5,23 @@ import { cn } from "@/lib/utils"
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
+    variant?: 'default' | 'ring' | 'gradient'
+    size?: 'sm' | 'default' | 'lg' | 'xl'
+  }
+>(({ className, variant = 'default', size = 'default', ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      "relative flex shrink-0 overflow-hidden rounded-full transition-all duration-200 ease-out hover:scale-105",
+      {
+        'h-8 w-8': size === 'sm',
+        'h-10 w-10': size === 'default',
+        'h-12 w-12': size === 'lg',
+        'h-16 w-16': size === 'xl',
+        'ring-2 ring-offset-2 ring-ring ring-offset-background': variant === 'ring',
+        'ring-2 ring-offset-2 ring-primary/20 ring-offset-background': variant === 'gradient',
+      },
       className
     )}
     {...props}
@@ -24,7 +35,7 @@ const AvatarImage = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
+    className={cn("aspect-square h-full w-full object-cover", className)}
     {...props}
   />
 ))
@@ -37,7 +48,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      "flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground transition-colors duration-200 ease-out hover:bg-muted/80",
       className
     )}
     {...props}

@@ -41,7 +41,8 @@ def run_metta_script(script_path, capture_output=True):
         result = subprocess.run(cmd, 
                                capture_output=capture_output,
                                text=True,
-                               check=True)
+                               check=True,
+                               shell=False)  # Security: Explicitly disable shell
         if capture_output:
             return result.stdout
         return None
@@ -77,7 +78,8 @@ def run_metta_query(metta_code):
         result = subprocess.run(cmd, 
                                capture_output=True,
                                text=True,
-                               timeout=10)  # Add timeout
+                               timeout=10,
+                               shell=False)  # Security: Explicitly disable shell
         
         # Return the stdout, which should contain the MeTTa output
         return result.stdout.strip()

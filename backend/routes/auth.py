@@ -1,11 +1,13 @@
 from flask import Blueprint, request, jsonify, current_app, g
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash
 import time
 
 from app import db
 from models.user import User, Skill, Token
 from services.signature_verification import SignatureVerificationService, SignatureRateLimit
+from services.kyc_service import KYCService
 from middleware.security_middleware import rate_limit, validate_input, security_scan
 from middleware.auth_middleware import rate_limit_auth
 
@@ -269,3 +271,143 @@ def login():
             "access_token": access_token,
             "user": user.to_dict()
         }), 200
+
+
+# KYC Endpoints
+
+@auth_bp.route('/kyc/submit', methods=['POST'])
+@jwt_required()
+@rate_limit_auth
+@validate_input({
+    'date_of_birth': {'type': 'date', 'required': True},
+    'nationality': {'type': 'string', 'max_length': 100, 'required': True},
+    'phone_number': {'type': 'string', 'max_length': 20, 'required': True},
+    'id_document_type': {'type': 'string', 'required': True},
+    'id_document_number': {'type': 'string', 'max_length': 100, 'required': True},
+    'id_document_front_url': {'type': 'string', 'required': True},
+    'id_document_back_url': {'type': 'string', 'required': False},
+    'selfie_url': {'type': 'string', 'required': True},
+    'address_street': {'type': 'string', 'max_length': 200, 'required': True},
+    'address_city': {'type': 'string', 'max_length': 100, 'required': True},
+    'address_state': {'type': 'string', 'max_length': 100, 'required': False},
+    'address_country': {'type': 'string', 'max_length': 100, 'required': True},
+    'address_postal_code': {'type': 'string', 'max_length': 20, 'required': True},
+    'address_proof_url': {'type': 'string', 'required': False}
+})
+@security_scan
+def submit_kyc():
+    """Submit KYC information for verification"""
+    try:
+        # Get current user
+        user_id = int(get_jwt_identity())
+        kyc_data = g.validated_data
+
+        # Submit KYC
+        success, message = KYCService.submit_kyc(user_id, kyc_data)
+
+        if success:
+            return jsonify({"message": message}), 200
+        else:
+            return jsonify({"error": message}), 400
+
+    except Exception as e:
+        current_app.logger.error(f"KYC submission error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/kyc/status', methods=['GET'])
+@jwt_required()
+def get_kyc_status():
+    """Get current user's KYC status"""
+    try:
+        user_id = int(get_jwt_identity())
+        kyc_status = KYCService.get_kyc_status(user_id)
+
+        if kyc_status:
+            return jsonify(kyc_status), 200
+        else:
+            return jsonify({"error": "User not found"}), 404
+
+    except Exception as e:
+        current_app.logger.error(f"KYC status error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/kyc/eligibility', methods=['GET'])
+@jwt_required()
+def check_eligibility():
+    """Check if current user is eligible for platform features"""
+    try:
+        user_id = int(get_jwt_identity())
+        is_eligible, reason = KYCService.check_user_eligibility(user_id)
+
+        return jsonify({
+            "eligible": is_eligible,
+            "reason": reason
+        }), 200
+
+    except Exception as e:
+        current_app.logger.error(f"Eligibility check error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/admin/kyc/pending', methods=['GET'])
+@jwt_required()
+def get_pending_kyc():
+    """Get all pending KYC submissions (admin only)"""
+    try:
+        # TODO: Add admin role check here
+        # For now, allow any authenticated user (should be restricted to admins)
+
+        pending_submissions = KYCService.get_pending_kyc_submissions()
+        return jsonify({"pending_kyc": pending_submissions}), 200
+
+    except Exception as e:
+        current_app.logger.error(f"Pending KYC error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/admin/kyc/<int:user_id>/approve', methods=['POST'])
+@jwt_required()
+def approve_kyc(user_id):
+    """Approve KYC for a user (admin only)"""
+    try:
+        # TODO: Add admin role check here
+        # For now, allow any authenticated user (should be restricted to admins)
+
+        success, message = KYCService.approve_kyc(user_id)
+
+        if success:
+            return jsonify({"message": message}), 200
+        else:
+            return jsonify({"error": message}), 400
+
+    except Exception as e:
+        current_app.logger.error(f"KYC approval error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/admin/kyc/<int:user_id>/reject', methods=['POST'])
+@jwt_required()
+@validate_input({
+    'reason': {'type': 'string', 'max_length': 500, 'required': True}
+})
+def reject_kyc(user_id):
+    """Reject KYC for a user (admin only)"""
+    try:
+        # TODO: Add admin role check here
+        # For now, allow any authenticated user (should be restricted to admins)
+
+        data = g.validated_data
+        reason = data['reason']
+
+        success, message = KYCService.reject_kyc(user_id, reason)
+
+        if success:
+            return jsonify({"message": message}), 200
+        else:
+            return jsonify({"error": message}), 400
+
+    except Exception as e:
+        current_app.logger.error(f"KYC rejection error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500

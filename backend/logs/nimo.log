@@ -352,3 +352,181 @@
 2025-08-28 15:37:35,167 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
 2025-08-28 15:37:38,815 - cardano_service_preview - WARNING  - Service signing key not configured
 2025-08-28 15:37:38,931 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 17:48:21,725 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 17:48:26,277 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 17:48:28,680 - cardano_service_preview - ERROR    - Error loading service key: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 19:13:01,675 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 19:13:08,661 - services.metta_integration_enhanced - INFO     - Successfully initialized real MeTTa service
+2025-08-28 19:13:11,113 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 19:13:11,190 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 19:13:11,190 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 19:13:11,193 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 19:13:14,963 - cardano_service_preview - ERROR    - Error loading service key: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 19:13:15,215 - nimo.requests        - INFO     - [req:edaa2812] [req:edaa2812] [req:edaa2812] GET /api/health/
+2025-08-28 19:13:17,620 - nimo.requests        - INFO     - [req:edaa2812] [req:edaa2812] [req:edaa2812] Response 200
+2025-08-28 19:13:17,661 - nimo.requests        - INFO     - [req:64c06405] [req:64c06405] [req:64c06405] GET /api/health/detailed
+2025-08-28 19:13:19,884 - nimo.requests        - INFO     - [req:64c06405] [req:64c06405] [req:64c06405] Response 200
+2025-08-28 19:13:19,950 - nimo.requests        - INFO     - [req:9422d1f6] [req:9422d1f6] [req:9422d1f6] GET /api/health/services/metta_integration
+2025-08-28 19:13:19,958 - nimo.requests        - INFO     - [req:9422d1f6] [req:9422d1f6] [req:9422d1f6] Response 200
+2025-08-28 19:13:19,998 - nimo.requests        - INFO     - [req:122ac9a1] [req:122ac9a1] [req:122ac9a1] GET /api/health/services/performance_monitor
+2025-08-28 19:13:19,998 - nimo.requests        - INFO     - [req:122ac9a1] [req:122ac9a1] [req:122ac9a1] Response 200
+2025-08-28 19:13:20,002 - nimo.requests        - INFO     - [req:a65d6a7d] [req:a65d6a7d] [req:a65d6a7d] GET /api/health/services/query_optimizer
+2025-08-28 19:13:20,004 - nimo.requests        - INFO     - [req:a65d6a7d] [req:a65d6a7d] [req:a65d6a7d] Response 200
+2025-08-28 19:13:20,004 - nimo.requests        - INFO     - [req:090eff69] [req:090eff69] [req:090eff69] GET /api/health/metrics
+2025-08-28 19:13:21,157 - nimo.requests        - INFO     - [req:090eff69] [req:090eff69] [req:090eff69] Response 200
+2025-08-28 19:13:21,179 - nimo.requests        - INFO     - [req:5c32e3f6] [req:5c32e3f6] [req:5c32e3f6] GET /api/health/performance
+2025-08-28 19:13:22,201 - nimo.requests        - INFO     - [req:5c32e3f6] [req:5c32e3f6] [req:5c32e3f6] Response 200
+2025-08-28 19:13:22,206 - nimo.requests        - INFO     - [req:fd099d3a] [req:fd099d3a] [req:fd099d3a] GET /api/health/autonomous
+2025-08-28 19:13:22,211 - nimo.requests        - INFO     - [req:fd099d3a] [req:fd099d3a] [req:fd099d3a] Response 200
+2025-08-28 19:13:22,213 - nimo.requests        - INFO     - [req:839adae1] [req:839adae1] [req:839adae1] GET /api/health/ready
+2025-08-28 19:13:22,216 - nimo.requests        - INFO     - [req:839adae1] [req:839adae1] [req:839adae1] Response 200
+2025-08-28 19:13:22,218 - nimo.requests        - INFO     - [req:7fc94977] [req:7fc94977] [req:7fc94977] GET /api/health/live
+2025-08-28 19:13:22,218 - nimo.requests        - INFO     - [req:7fc94977] [req:7fc94977] [req:7fc94977] Response 200
+2025-08-28 19:13:22,230 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 19:13:22,443 - nimo.requests        - INFO     - [req:a241fb56] [req:a241fb56] [req:a241fb56] GET /api/health/
+2025-08-28 19:13:23,577 - nimo.requests        - INFO     - [req:a241fb56] [req:a241fb56] [req:a241fb56] Response 200
+2025-08-28 19:13:23,578 - nimo.requests        - INFO     - [req:81eaf405] [req:81eaf405] [req:81eaf405] GET /api/health/detailed
+2025-08-28 19:13:25,709 - nimo.requests        - INFO     - [req:81eaf405] [req:81eaf405] [req:81eaf405] Response 200
+2025-08-28 19:13:25,709 - nimo.requests        - INFO     - [req:b9d331df] [req:b9d331df] [req:b9d331df] GET /api/health/metrics
+2025-08-28 19:13:26,860 - nimo.requests        - INFO     - [req:b9d331df] [req:b9d331df] [req:b9d331df] Response 200
+2025-08-28 19:13:26,862 - nimo.requests        - INFO     - [req:560067a2] [req:560067a2] [req:560067a2] GET /api/health/performance
+2025-08-28 19:13:27,872 - nimo.requests        - INFO     - [req:560067a2] [req:560067a2] [req:560067a2] Response 200
+2025-08-28 19:13:27,872 - nimo.requests        - INFO     - [req:131d99ba] [req:131d99ba] [req:131d99ba] GET /api/health/autonomous
+2025-08-28 19:13:27,880 - services.metta_integration_enhanced - INFO     - Returning cached autonomous cycle result
+2025-08-28 19:13:27,884 - services.metta_integration_enhanced - INFO     - Returning cached contribution processing for test_123
+2025-08-28 19:13:27,886 - services.metta_integration_enhanced - INFO     - Returning cached reward calculation for test_123
+2025-08-28 19:13:27,888 - nimo.requests        - INFO     - [req:131d99ba] [req:131d99ba] [req:131d99ba] Response 200
+2025-08-28 19:13:27,888 - nimo.requests        - INFO     - [req:e753b083] [req:e753b083] [req:e753b083] GET /api/health/ready
+2025-08-28 19:13:27,888 - nimo.requests        - INFO     - [req:e753b083] [req:e753b083] [req:e753b083] Response 200
+2025-08-28 19:13:27,888 - nimo.requests        - INFO     - [req:027b6613] [req:027b6613] [req:027b6613] GET /api/health/live
+2025-08-28 19:13:27,921 - nimo.requests        - INFO     - [req:027b6613] [req:027b6613] [req:027b6613] Response 200
+2025-08-28 21:15:57,710 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:16:02,226 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 21:16:04,439 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 21:16:04,470 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 21:16:04,472 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 21:16:04,473 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 21:16:06,738 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 21:16:06,826 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 21:16:06,827 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 21:16:06,827 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 21:16:06,827 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 21:16:08,164 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:16:10,235 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 21:16:12,386 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 21:16:12,417 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 21:16:12,419 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 21:16:12,419 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 21:16:13,999 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 21:16:14,068 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 21:16:14,069 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 21:16:14,069 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 21:16:14,069 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 21:16:14,137 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 21:17:33,722 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:17:35,772 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 21:17:37,920 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 21:17:37,972 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 21:17:37,974 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 21:17:37,975 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 21:17:40,022 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 21:17:40,145 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 21:17:40,146 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 21:17:40,146 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 21:17:40,147 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 21:17:41,609 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:17:43,664 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 21:17:45,830 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 21:17:45,885 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 21:17:45,887 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 21:17:45,887 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 21:17:47,617 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 21:17:47,758 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 21:17:47,758 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 21:17:47,760 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 21:17:47,760 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 21:17:47,920 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 21:18:58,889 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:18:58,932 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 21:19:04,671 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 21:19:04,723 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:07:52,338 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:07:56,388 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:07:58,560 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:07:58,612 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:07:58,615 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:07:58,616 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:08:00,675 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:08:00,807 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:08:00,807 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:08:00,807 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:08:00,808 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:08:01,866 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:08:03,651 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:08:05,793 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:08:05,824 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:08:05,826 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:08:05,826 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:08:07,332 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:08:07,419 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:08:07,419 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:08:07,419 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:08:07,420 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:08:07,501 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 22:10:22,415 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:10:24,712 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:10:26,841 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:10:26,869 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:10:26,873 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:10:26,876 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:10:28,549 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:10:28,656 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:10:28,656 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:10:28,656 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:10:28,657 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:10:29,764 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:10:31,731 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:10:33,854 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:10:33,887 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:10:33,888 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:10:33,888 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:10:35,518 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:10:35,605 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:10:35,605 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:10:35,606 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:10:35,607 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:10:35,723 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-28 22:11:52,701 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:11:54,953 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:11:57,135 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:11:57,188 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:11:57,189 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:11:57,193 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:11:59,633 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:11:59,713 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:11:59,714 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:11:59,716 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:11:59,717 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:12:00,983 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-28 22:12:03,119 - services.metta_integration_enhanced - INFO     - Successfully initialized MeTTa runner service
+2025-08-28 22:12:06,187 - services.metta_integration_enhanced - INFO     - Successfully initialized cache service
+2025-08-28 22:12:06,388 - services.metta_integration_enhanced - INFO     - Successfully initialized performance monitor
+2025-08-28 22:12:06,392 - services.metta_query_optimizer - INFO     - Optimized MeTTa Query Service initialized
+2025-08-28 22:12:06,400 - services.metta_integration_enhanced - INFO     - Successfully initialized query optimizer
+2025-08-28 22:12:12,121 - utils.key_manager    - WARNING  - No NIMO_MASTER_KEY found in environment. Using default for development.
+2025-08-28 22:12:12,283 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for mainnet. Please set BLOCKFROST_PROJECT_ID_MAINNET.
+2025-08-28 22:12:12,284 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preview. Please set BLOCKFROST_PROJECT_ID_PREVIEW.
+2025-08-28 22:12:12,285 - utils.key_manager    - WARNING  - No valid Blockfrost API key found for preprod. Please set BLOCKFROST_PROJECT_ID_PREPROD.
+2025-08-28 22:12:12,286 - CardanoService_preview - ERROR    - Error loading service key via key manager: non-hexadecimal number found in fromhex() arg at position 0
+2025-08-28 22:12:12,467 - werkzeug             - WARNING  -  * Debugger is active!
+2025-08-29 04:29:28,765 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-29 04:30:14,797 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-29 04:30:49,285 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-29 04:30:49,794 - app                  - WARNING  - Sentry SDK not installed, skipping error tracking setup
+2025-08-29 04:30:54,169 - BlockchainUserService_mainnet - INFO     - Initializing BlockchainUserService for mainnet network
+2025-08-29 04:38:50,719 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-29 04:38:51,268 - app                  - WARNING  - Sentry SDK not installed, skipping error tracking setup
+2025-08-29 04:39:00,075 - services.ipfs_service - INFO     - IPFS Service initialized with gateway: https://ipfs.io/ipfs/
+2025-08-29 04:39:00,075 - services.ipfs_service - WARNING  - Local IPFS node not available, using public gateway only
+2025-08-29 18:07:49,563 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False
+2025-08-29 18:09:07,567 - root                 - INFO     - Logging configured - Level: INFO, File logging: True, JSON: False

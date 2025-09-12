@@ -1,0 +1,51 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  static-security:
+    name: Static security checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install bandit detect-secrets
+
+      - name: Run Bandit (backend)
+        run: |
+          if [ -d backend ]; then
+            bandit -r backend -lll || true
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm ci --no-audit --no-fund || true
+          fi
+
+      - name: Run ESLint
+        run: |
+          if [ -d frontend ]; then
+            npx eslint frontend --ext .ts,.tsx,.js,.jsx || true
+          fi
+
+      - name: Detect secrets (baseline)
+        run: |
+          detect-secrets scan > .secrets.baseline || true

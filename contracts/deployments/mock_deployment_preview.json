@@ -1,0 +1,46 @@
+{
+  "network": "preview",
+  "deployment_type": "mock",
+  "timestamp": "2025-08-28T22:45:33.861200",
+  "contracts": {
+    "identity": {
+      "contract_type": "identity",
+      "network": "preview",
+      "address": "addr1w8nse38pa7zj2sur39c205t4smhqz8t6dwq36ava8rt5gmock",
+      "policy_id": "d5e6cc5527629f7b4ea896a148ec828199bd3f46f9b5a9b8f8c2d4e6",
+      "deployment_tx": "a1b2c3d4e5f678901234567890123456789012345678901234567890",
+      "deployed_at": "2025-08-28T22:45:33.858198",
+      "status": "deployed",
+      "mock": true
+    },
+    "token": {
+      "contract_type": "token",
+      "network": "preview",
+      "policy_id": "d5e6cc5527629f7b4ea896a148ec828199bd3f46f9b5a9b8f8c2d4e6",
+      "initial_supply": 1000000,
+      "decimals": 6,
+      "metadata": {
+        "name": "Nimo Impact Token",
+        "ticker": "NIMO",
+        "description": "Decentralized Youth Identity & Proof of Contribution Network Token",
+        "decimals": 6,
+        "url": "https://nimo-platform.com"
+      },
+      "deployment_tx": "a1b2c3d4e5f678901234567890123456789012345678901234567890",
+      "deployed_at": "2025-08-28T22:45:33.858198",
+      "status": "deployed",
+      "mock": true
+    },
+    "governance": {
+      "contract_type": "governance",
+      "network": "preview",
+      "address": "addr_gov_se38pa7zj2sur39c205t4smhqz8t6dwq36ava8rt5gmock",
+      "policy_id": "gov_d5e6cc5527629f7b4ea896a148ec828199bd3f46f9b5a9b8f8c2d4e6",
+      "deployment_tx": "gov_a1b2c3d4e5f678901234567890123456789012345678901234567890",
+      "deployed_at": "2025-08-28T22:45:33.860199",
+      "status": "deployed",
+      "mock": true
+    }
+  },
+  "note": "This is a mock deployment for testing purposes. No real blockchain transactions were made."
+}

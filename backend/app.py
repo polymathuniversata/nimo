@@ -11,13 +11,26 @@ try:
     from config import active_config
 except ImportError:
     print("Warning: config.py not found. Using default configuration.")
-    
+
     class DefaultConfig:
-        SECRET_KEY = 'dev-secret-key-change-in-production'
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/app.db'
+        # Security: Generate secure secrets if not provided via environment
+        SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32).hex()
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///instance/app.db'
         SQLALCHEMY_TRACK_MODIFICATIONS = False
-        JWT_SECRET_KEY = 'jwt-secret-change-in-production'
-    
+        JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or os.urandom(32).hex()
+
+        # Logging configuration
+        LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+        LOG_DIR = os.environ.get('LOG_DIR', 'logs')
+        ENABLE_FILE_LOGGING = os.environ.get('ENABLE_FILE_LOGGING', 'true').lower() == 'true'
+        ENABLE_JSON_LOGGING = os.environ.get('ENABLE_JSON_LOGGING', 'false').lower() == 'true'
+        MAX_LOG_SIZE = int(os.environ.get('MAX_LOG_SIZE', '10485760'))  # 10MB
+        LOG_BACKUP_COUNT = int(os.environ.get('LOG_BACKUP_COUNT', '5'))
+
+        # Security settings
+        SENTRY_DSN = os.environ.get('SENTRY_DSN')
+        TESTING = os.environ.get('TESTING', 'false').lower() == 'true'
+
     active_config = DefaultConfig
 
 # Load environment variables from .env file
@@ -45,6 +58,10 @@ def create_app(config_class=active_config):
         backup_count=config_class.LOG_BACKUP_COUNT
     )
     add_request_logging(app)
+
+    # Initialize security logger
+    from utils.security_logger import SecurityLogger
+    security_logger = SecurityLogger(app)
 
     # Initialize extensions with app
     db.init_app(app)
@@ -95,6 +112,8 @@ def create_app(config_class=active_config):
     from routes.identity import identity_bp
     from routes.cardano import cardano_bp  # Replaced USDC with Cardano
     from routes.blockchain import blockchain_bp
+    from routes.autonomous import autonomous_bp
+    from routes.health import health_bp  # Updated to use new health routes
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/user')
@@ -104,6 +123,8 @@ def create_app(config_class=active_config):
     app.register_blueprint(identity_bp)  # Identity routes have their own url_prefix
     app.register_blueprint(cardano_bp)  # Cardano routes have their own url_prefix
     app.register_blueprint(blockchain_bp, url_prefix='/api')
+    app.register_blueprint(autonomous_bp, url_prefix='/api/autonomous')
+    app.register_blueprint(health_bp, url_prefix='/api')  # Health routes with /api prefix
 
     # Enhanced error handlers
     @app.errorhandler(400)
@@ -150,7 +171,8 @@ def create_app(config_class=active_config):
                 "contributions": "/api/contributions/*",
                 "tokens": "/api/tokens/*",
                 "bonds": "/api/bonds/*",
-                "cardano": "/api/cardano/*"
+                "cardano": "/api/cardano/*",
+                "autonomous": "/api/autonomous/*"
             }
         }, 200
 
@@ -161,7 +183,14 @@ def create_app(config_class=active_config):
             "version": "1.0.0",
             "metta_integration": "operational",
             "available_endpoints": [
-                "GET /api/health - Health check",
+                "GET /api/health - Basic health check",
+                "GET /api/health/detailed - Detailed health information",
+                "GET /api/health/services/{name} - Service-specific health",
+                "GET /api/health/metrics - System metrics",
+                "GET /api/health/performance - Performance statistics",
+                "GET /api/health/autonomous - Autonomous operations health",
+                "GET /api/health/ready - Kubernetes readiness check",
+                "GET /api/health/live - Kubernetes liveness check",
                 "POST /api/auth/register - User registration", 
                 "POST /api/auth/login - User login",
                 "POST /api/contributions - Create contribution",
@@ -175,13 +204,20 @@ def create_app(config_class=active_config):
                 "GET /api/cardano/balance/{address} - Check ADA/NIMO balance",
                 "POST /api/cardano/calculate-reward - Calculate ADA rewards",
                 "POST /api/cardano/contribution-reward-preview - Preview complete reward",
-                "GET /api/cardano/faucet-info - Get testnet faucet information"
+                "GET /api/cardano/faucet-info - Get testnet faucet information",
+                "GET /api/autonomous/health - Autonomous system health",
+                "POST /api/autonomous/cycle - Execute autonomous platform cycle",
+                "POST /api/autonomous/contributions/{id}/process - Process contribution autonomously",
+                "POST /api/autonomous/contributions/{id}/reward - Calculate autonomous reward",
+                "POST /api/autonomous/platform/optimize - Predictive platform optimization",
+                "POST /api/autonomous/governance/execute - Execute autonomous governance",
+                "POST /api/autonomous/security/manage - Autonomous security management",
+                "POST /api/autonomous/contributions/{id}/fraud-detect - Comprehensive fraud detection",
+                "POST /api/autonomous/analytics/predict - Predictive insights analysis",
+                "POST /api/autonomous/batch/process - Batch autonomous processing",
+                "GET /api/autonomous/status - Autonomous system status"
             ]
         }, 200
-
-    @app.route('/api/health')
-    def health_check():
-        return {"status": "ok", "metta": "operational"}, 200
 
     # Public demo endpoints for frontend (no auth required)
     @app.route('/api/contributions', methods=['GET'])
@@ -338,4 +374,14 @@ def create_app(config_class=active_config):
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    # Security: Never run with debug=True in production
+    # Use environment variables to control debug mode
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')  # Default to localhost only
+    port = int(os.environ.get('FLASK_PORT', '5000'))
+
+    if debug_mode:
+        print("WARNING: Running in debug mode. This should NEVER be used in production!")
+        print("Set FLASK_DEBUG=false and use a production WSGI server instead.")
+
+    app.run(debug=debug_mode, host=host, port=port)

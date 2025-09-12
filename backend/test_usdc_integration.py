@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Test USDC Integration with MeTTa Rewards System
+Test Cardano Token Integration with MeTTa Rewards System
 
-This script tests the complete flow of MeTTa reasoning → NIMO tokens → USDC rewards
+This script tests the complete flow of MeTTa reasoning → NIMO tokens → Cardano ADA rewards
+MIGRATED FROM: USDC Integration Tests
 """
 
 import sys
@@ -14,93 +15,87 @@ from pathlib import Path
 # Add backend to path
 sys.path.append(str(Path(__file__).parent))
 
-from services.usdc_integration import USDCIntegration
+# Import Cardano services (replacing USDC imports)
+from services.cardano_service import CardanoService
+from services.blockchain_token_service import BlockchainTokenService
+from services.token_service import TokenService
 from services.metta_integration_enhanced import get_metta_service
 from services.metta_blockchain_bridge import MeTTaBlockchainBridge
-from services.blockchain_service import BlockchainService
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class USDCIntegrationTester:
+class CardanoIntegrationTester:
     def __init__(self):
-        """Initialize test environment"""
-        self.usdc_integration = USDCIntegration()
+        """Initialize test environment with Cardano services"""
+        self.cardano_service = CardanoService()
+        self.token_service = BlockchainTokenService()
+        self.unified_token_service = TokenService()
         self.metta_integration = get_metta_service()
-        
-        # Try to initialize blockchain service (will gracefully fail if not configured)
+
+        # Try to initialize blockchain bridge
         try:
-            self.blockchain_service = BlockchainService()
-            self.bridge = MeTTaBlockchainBridge(self.blockchain_service, self.metta_integration)
+            self.bridge = MeTTaBlockchainBridge(self.cardano_service, self.metta_integration)
         except Exception as e:
-            logger.warning(f"Blockchain service not available: {e}")
-            self.blockchain_service = None
+            logger.warning(f"Blockchain bridge not available: {e}")
             self.bridge = None
     
     def test_network_connection(self):
         """Test 1: Network connection and status"""
-        logger.info("🌐 Test 1: Network Connection")
-        
+        logger.info("🌐 Test 1: Cardano Network Connection")
+
         try:
-            network_status = self.usdc_integration.get_network_status()
-            logger.info(f"   Network: {network_status.get('network')}")
-            logger.info(f"   Connected: {network_status.get('connected')}")
-            logger.info(f"   Chain ID: {network_status.get('chain_id')}")
-            logger.info(f"   Latest Block: {network_status.get('latest_block')}")
-            logger.info(f"   Gas Price: {network_status.get('gas_price_gwei'):.2f} gwei")
-            logger.info(f"   USDC Contract: {network_status.get('usdc_contract')}")
-            logger.info(f"   USDC Enabled: {network_status.get('usdc_enabled')}")
-            
+            network_status = self.cardano_service.get_network_status()
+            logger.info(f"   Network: {network_status.get('network', 'cardano')}")
+            logger.info(f"   Connected: {network_status.get('connected', False)}")
+            logger.info(f"   Latest Block: {network_status.get('latest_block', 'N/A')}")
+            logger.info(f"   Current Slot: {network_status.get('current_slot', 'N/A')}")
+            logger.info(f"   Protocol Version: {network_status.get('protocol_version', 'N/A')}")
+
             if network_status.get('connected'):
-                logger.info("   ✅ Network connection successful")
+                logger.info("   ✅ Cardano network connection successful")
                 return True
             else:
-                logger.error("   ❌ Network connection failed")
+                logger.error("   ❌ Cardano network connection failed")
                 return False
-                
+
         except Exception as e:
             logger.error(f"   ❌ Network test failed: {e}")
             return False
-    
-    def test_service_account(self):
-        """Test 2: Service account configuration"""
-        logger.info("🔑 Test 2: Service Account")
-        
+
+    def test_wallet_info(self):
+        """Test 2: Wallet configuration"""
+        logger.info("🔑 Test 2: Cardano Wallet Configuration")
+
         try:
-            account_info = self.usdc_integration.get_service_account_info()
-            
-            if 'error' in account_info:
-                logger.warning(f"   ⚠️  Service account not configured: {account_info['error']}")
+            wallet_info = self.cardano_service.get_wallet_info()
+
+            if 'error' in wallet_info:
+                logger.warning(f"   ⚠️  Wallet not configured: {wallet_info['error']}")
                 return False
-            
-            logger.info(f"   Address: {account_info.get('address')}")
-            logger.info(f"   ETH Balance: {account_info.get('eth_balance'):.4f} ETH")
-            logger.info(f"   USDC Balance: {account_info.get('usdc_balance'):.2f} USDC")
-            
-            eth_balance = account_info.get('eth_balance', 0)
-            usdc_balance = account_info.get('usdc_balance', 0)
-            
-            if eth_balance > 0.001:  # Need ETH for gas
-                logger.info("   ✅ Sufficient ETH balance for gas")
+
+            logger.info(f"   Address: {wallet_info.get('address', 'N/A')}")
+            logger.info(f"   ADA Balance: {wallet_info.get('ada_balance', 0):.6f} ADA")
+            logger.info(f"   Network: {wallet_info.get('network', 'N/A')}")
+
+            ada_balance = wallet_info.get('ada_balance', 0)
+
+            if ada_balance > 1.0:  # Need ADA for transactions
+                logger.info("   ✅ Sufficient ADA balance for transactions")
             else:
-                logger.warning("   ⚠️  Low ETH balance, may not be able to send transactions")
-            
-            if usdc_balance > 0:
-                logger.info("   ✅ USDC balance available for rewards")
-            else:
-                logger.warning("   ⚠️  No USDC balance, cannot send rewards")
-            
+                logger.warning("   ⚠️  Low ADA balance, may not be able to send transactions")
+
             return True
-            
+
         except Exception as e:
-            logger.error(f"   ❌ Service account test failed: {e}")
+            logger.error(f"   ❌ Wallet test failed: {e}")
             return False
     
     def test_reward_calculations(self):
         """Test 3: Reward calculation logic"""
-        logger.info("💰 Test 3: Reward Calculations")
-        
+        logger.info("💰 Test 3: Cardano Reward Calculations")
+
         test_cases = [
             {"nimo_amount": 100, "confidence": 0.9, "contribution_type": "coding"},
             {"nimo_amount": 50, "confidence": 0.7, "contribution_type": "education"},
@@ -108,34 +103,32 @@ class USDCIntegrationTester:
             {"nimo_amount": 25, "confidence": 0.6, "contribution_type": "community"},
             {"nimo_amount": 200, "confidence": 0.95, "contribution_type": "leadership"}
         ]
-        
+
         for i, case in enumerate(test_cases, 1):
             try:
-                calculation = self.usdc_integration.get_reward_calculation(
+                calculation = self.unified_token_service.calculate_reward(
                     nimo_amount=case['nimo_amount'],
                     confidence=case['confidence'],
                     contribution_type=case['contribution_type']
                 )
-                
+
                 logger.info(f"   Case {i}: {case['contribution_type']}")
-                logger.info(f"      NIMO Tokens: {calculation['nimo_amount']}")
-                logger.info(f"      Base USDC: ${calculation['base_usdc_amount']:.3f}")
-                logger.info(f"      Confidence: {calculation['confidence']:.2f}")
-                logger.info(f"      Multiplier: {calculation['confidence_multiplier']:.2f}x")
-                logger.info(f"      Final USDC: ${calculation['final_usdc_amount']:.3f}")
-                logger.info(f"      Pays USDC: {calculation['pays_usdc']}")
-                
+                logger.info(f"      NIMO Tokens: {calculation.get('nimo_amount', case['nimo_amount'])}")
+                logger.info(f"      ADA Reward: {calculation.get('ada_reward', 0):.6f} ADA")
+                logger.info(f"      Confidence: {calculation.get('confidence', case['confidence']):.2f}")
+                logger.info(f"      Total Value: ~${calculation.get('estimated_value_usd', 0):.3f}")
+
             except Exception as e:
                 logger.error(f"   ❌ Case {i} failed: {e}")
                 return False
-        
+
         logger.info("   ✅ All reward calculations completed")
         return True
     
     def test_metta_integration(self):
         """Test 4: MeTTa reasoning integration"""
-        logger.info("🧠 Test 4: MeTTa Integration")
-        
+        logger.info("🧠 Test 4: MeTTa Integration with Cardano")
+
         # Test contribution scenarios
         test_contributions = [
             {
@@ -148,7 +141,7 @@ class USDCIntegrationTester:
                 }
             },
             {
-                "contribution_id": "test_2", 
+                "contribution_id": "test_2",
                 "contribution_data": {
                     "user_id": "user2",
                     "category": "education",
@@ -157,68 +150,62 @@ class USDCIntegrationTester:
                 }
             }
         ]
-        
+
         for i, contrib in enumerate(test_contributions, 1):
             try:
                 logger.info(f"   Testing contribution {i}: {contrib['contribution_data']['title']}")
-                
+
                 # Get MeTTa analysis
                 metta_result = self.metta_integration.validate_contribution(
                     contrib['contribution_id'],
                     contrib['contribution_data']
                 )
-                
+
                 logger.info(f"      Verified: {metta_result.get('verified')}")
                 logger.info(f"      Confidence: {metta_result.get('confidence', 0):.2f}")
                 logger.info(f"      Token Award: {metta_result.get('token_award', 0)}")
                 logger.info(f"      Explanation: {metta_result.get('explanation', 'N/A')[:100]}...")
-                
-                # Calculate complete reward
+
+                # Calculate complete reward using Cardano service
                 if metta_result.get('verified') and metta_result.get('token_award'):
-                    usdc_calc = self.usdc_integration.get_reward_calculation(
+                    reward_calc = self.unified_token_service.calculate_reward(
                         nimo_amount=metta_result['token_award'],
                         confidence=metta_result.get('confidence', 0),
                         contribution_type=contrib['contribution_data']['category']
                     )
-                    
-                    logger.info(f"      USDC Reward: ${usdc_calc['final_usdc_amount']:.3f}")
-                    logger.info(f"      Total Value: ~${usdc_calc['final_usdc_amount'] + (metta_result['token_award'] * 0.01):.3f}")
-                
+
+                    logger.info(f"      ADA Reward: {reward_calc.get('ada_reward', 0):.6f} ADA")
+                    logger.info(f"      Total Value: ~${reward_calc.get('estimated_value_usd', 0):.3f}")
+
             except Exception as e:
                 logger.error(f"   ❌ MeTTa test {i} failed: {e}")
                 return False
-        
+
         logger.info("   ✅ MeTTa integration tests completed")
         return True
     
-    def test_gas_estimation(self):
-        """Test 5: Gas estimation for USDC transfers"""
-        logger.info("⛽ Test 5: Gas Estimation")
-        
-        test_address = "0x742d35Cc6634C0532925a3b8D6AC14"  # Sample address
-        test_amounts = [0.01, 0.50, 1.00, 5.00]
-        
+    def test_fee_estimation(self):
+        """Test 5: Fee estimation for Cardano transactions"""
+        logger.info("💰 Test 5: Cardano Fee Estimation")
+
+        test_amounts = [1.0, 5.0, 10.0, 50.0]  # ADA amounts
+
         for amount in test_amounts:
             try:
-                from decimal import Decimal
-                estimation = self.usdc_integration.estimate_gas_for_transfer(
-                    to_address=test_address,
-                    usdc_amount=Decimal(str(amount))
-                )
-                
-                if 'error' in estimation:
-                    logger.warning(f"   ${amount:.2f}: {estimation['error']}")
+                estimation = self.cardano_service.estimate_transaction_fee()
+                if estimation.get('success'):
+                    logger.info(f"   {amount:.1f} ADA Transaction:")
+                    logger.info(f"      Estimated Fee: {estimation.get('estimated_fee_ada', 0):.6f} ADA")
+                    logger.info(f"      Fee: {estimation.get('estimated_fee_lovelace', 0):,} lovelace")
+                    logger.info(f"      Total Cost: {amount + estimation.get('estimated_fee_ada', 0):.6f} ADA")
                 else:
-                    logger.info(f"   ${amount:.2f} USDC:")
-                    logger.info(f"      Gas: {estimation['gas_estimate']:,}")
-                    logger.info(f"      Cost: {estimation['total_gas_cost_eth']:.6f} ETH")
-                    logger.info(f"      Gas Price: {estimation['gas_price_gwei']:.2f} gwei")
-                
+                    logger.warning(f"   {amount:.1f} ADA: Fee estimation failed")
+
             except Exception as e:
-                logger.error(f"   ❌ Gas estimation for ${amount:.2f} failed: {e}")
+                logger.error(f"   ❌ Fee estimation for {amount:.1f} ADA failed: {e}")
                 return False
-        
-        logger.info("   ✅ Gas estimation tests completed")
+
+        logger.info("   ✅ Fee estimation tests completed")
         return True
     
     def test_blockchain_integration(self):
@@ -245,7 +232,7 @@ class USDCIntegrationTester:
                 for operation in ['create_identity', 'verify_contribution']:
                     cost = self.blockchain_service.estimate_transaction_cost(operation)
                     if 'error' not in cost:
-                        logger.info(f"   {operation}: {cost['total_cost_eth']:.6f} ETH")
+                        logger.info(f"   {operation}: {cost['total_cost_ada']:.6f} ADA")
                 
                 logger.info("   ✅ Blockchain integration working")
             else:

@@ -6,28 +6,28 @@ blockchain_bp = Blueprint('blockchain', __name__)
 @blockchain_bp.route('/contracts', methods=['GET'])
 def get_contract_addresses():
     """Get deployed contract addresses for current network"""
-    network = current_app.config.get('BLOCKCHAIN_NETWORK', 'base-sepolia')
+    network = current_app.config.get('BLOCKCHAIN_NETWORK', 'cardano-preprod')
 
-    if network == 'base-sepolia':
+    if network == 'cardano-preprod':
         contracts = {
-            'network': 'base-sepolia',
-            'chainId': 84532,
-            'rpcUrl': 'https://sepolia.base.org',
+            'network': 'cardano-preprod',
+            'chainId': 0,  # Cardano preprod
+            'rpcUrl': 'https://cardano-preprod.blockfrost.io/api/v0',
             'contracts': {
-                'nimoIdentity': current_app.config.get('NIMO_IDENTITY_CONTRACT_BASE_SEPOLIA', ''),
-                'nimoToken': current_app.config.get('NIMO_TOKEN_CONTRACT_BASE_SEPOLIA', ''),
-                'usdc': current_app.config.get('USDC_CONTRACT_BASE_SEPOLIA', '')
+                'nimoIdentity': current_app.config.get('NIMO_IDENTITY_CONTRACT_CARDANO_PREPROD', ''),
+                'nimoToken': current_app.config.get('NIMO_TOKEN_CONTRACT_CARDANO_PREPROD', ''),
+                'usdc': current_app.config.get('USDC_CONTRACT_CARDANO_PREPROD', '')  # Will be Cardano native token
             }
         }
-    elif network == 'base-mainnet':
+    elif network == 'cardano-mainnet':
         contracts = {
-            'network': 'base-mainnet',
-            'chainId': 8453,
-            'rpcUrl': 'https://mainnet.base.org',
+            'network': 'cardano-mainnet',
+            'chainId': 1,  # Cardano mainnet
+            'rpcUrl': 'https://cardano-mainnet.blockfrost.io/api/v0',
             'contracts': {
-                'nimoIdentity': current_app.config.get('NIMO_IDENTITY_CONTRACT_BASE_MAINNET', ''),
-                'nimoToken': current_app.config.get('NIMO_TOKEN_CONTRACT_BASE_MAINNET', ''),
-                'usdc': current_app.config.get('USDC_CONTRACT_BASE_MAINNET', '')
+                'nimoIdentity': current_app.config.get('NIMO_IDENTITY_CONTRACT_CARDANO_MAINNET', ''),
+                'nimoToken': current_app.config.get('NIMO_TOKEN_CONTRACT_CARDANO_MAINNET', ''),
+                'usdc': current_app.config.get('USDC_CONTRACT_CARDANO_MAINNET', '')  # Will be Cardano native token
             }
         }
     else:

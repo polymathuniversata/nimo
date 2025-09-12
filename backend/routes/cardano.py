@@ -1,7 +1,24 @@
 """
 Cardano Integration Routes for Nimo Platform
 
-These endpoints handle ADA transfers, NIMO token operations, and Cardano blockchain interactions.
+These endpoints handle ADA transfers, NIMO token op        if not balance_info.get('success', False):
+            return jsonify({
+                "success": False,
+                "error": balance_info.get('error', 'Unknown error')
+            }), 400
+        
+        return jsonify({
+            "success": True,
+            "data": {
+                "address": address,
+                "ada_balance": balance_info.get('ada', 0),
+                "ada_lovelace": balance_info.get('ada_lovelace', 0),
+                "nimo_balance": balance_info.get('nimo_tokens', 0),
+                "utxo_count": balance_info.get('utxo_count', 0),
+                "native_tokens": balance_info.get('native_tokens', {}),
+                "network": cardano_service.network
+            }
+        }), 200ano blockchain interactions.
 Replaces the previous USDC-based reward system.
 """
 
@@ -55,9 +72,9 @@ def get_cardano_status():
                     "ada_to_nimo_rate": float(cardano_service.ada_to_nimo_rate),
                     "min_ada_utxo": cardano_service.MIN_ADA_UTXO,
                     "ada_decimals": cardano_service.ADA_DECIMALS,
-                    "network": cardano_service.network_name
+                    "network": cardano_service.network
                 },
-                "faucet_info": cardano_service.get_faucet_info() if cardano_service.network_name != 'mainnet' else None
+                "faucet_info": cardano_service.get_faucet_info() if cardano_service.network != 'mainnet' else None
             }
         }), 200
         
@@ -100,7 +117,7 @@ def get_address_balance(address: str):
                 "error": "Invalid Cardano address format"
             }), 400
         
-        balance_info = cardano_service.get_address_balance(address)
+        balance_info = cardano_service.get_balance(address)
         
         if 'error' in balance_info:
             return jsonify({
@@ -248,15 +265,21 @@ def estimate_transaction_fees():
         
         estimation = cardano_service.estimate_transaction_cost(operation, params)
         
-        if 'error' in estimation:
+        if estimation.error:
             return jsonify({
                 "success": False,
-                "error": estimation['error']
+                "error": estimation.error
             }), 400
         
         return jsonify({
             "success": True,
-            "data": estimation
+            "data": {
+                "operation": estimation.operation,
+                "estimated_fee_lovelace": estimation.estimated_gas,
+                "estimated_fee_ada": estimation.total_cost / 1000000 if estimation.total_cost else 0,
+                "gas_price": estimation.gas_price,
+                "currency": estimation.currency
+            }
         }), 200
         
     except Exception as e:
@@ -360,10 +383,10 @@ def send_ada():
             ada_amount=amount
         )
 
-        if 'error' in tx_result:
+        if not tx_result.get('success', False):
             return jsonify({
                 "success": False,
-                "error": tx_result['error']
+                "error": tx_result.get('error', 'Transaction failed')
             }), 400
 
         return jsonify({
@@ -373,7 +396,7 @@ def send_ada():
                 "amount_ada": float(amount),
                 "amount_lovelace": tx_result['amount_lovelace'],
                 "recipient": recipient_address,
-                "network": cardano_service.network_name,
+                "network": cardano_service.network,
                 "reason": reason
             }
         }), 200
@@ -455,10 +478,10 @@ def mint_nimo_tokens():
             metta_proof=metta_proof
         )
 
-        if 'error' in mint_result:
+        if not mint_result.get('success', False):
             return jsonify({
                 "success": False,
-                "error": mint_result['error']
+                "error": mint_result.get('error', 'Minting failed')
             }), 400
 
         return jsonify({
@@ -551,10 +574,10 @@ def send_nimo_tokens():
             amount=amount
         )
 
-        if 'error' in send_result:
+        if not send_result.get('success', False):
             return jsonify({
                 "success": False,
-                "error": send_result['error']
+                "error": send_result.get('error', 'Token transfer failed')
             }), 400
 
         return jsonify({
@@ -598,7 +621,15 @@ def get_transaction_status(tx_hash: str):
         
         return jsonify({
             "success": True,
-            "data": status
+            "data": {
+                "tx_hash": status.tx_hash,
+                "status": status.status,
+                "block_number": status.block_number,
+                "block_time": status.block_time,
+                "fees": status.fees,
+                "confirmed": status.confirmed,
+                "error": status.error
+            }
         }), 200
         
     except Exception as e:
@@ -760,22 +791,22 @@ def get_current_user_balance():
             }), 400
 
         # Get balance
-        balance_info = cardano_service.get_address_balance(cardano_address)
+        balance_info = cardano_service.get_balance(cardano_address)
         
-        if 'error' in balance_info:
+        if not balance_info.get('success', False):
             return jsonify({
                 "success": False,
-                "error": balance_info['error']
+                "error": balance_info.get('error', 'Failed to get balance')
             }), 400
 
         return jsonify({
             "success": True,
             "data": {
-                "ada_balance": balance_info['ada'],
-                "nimo_balance": balance_info['nimo_tokens'],
+                "ada_balance": balance_info.get('ada', 0),
+                "nimo_balance": balance_info.get('nimo_tokens', 0),
                 "address": cardano_address,
-                "network": cardano_service.network_name,
-                "utxo_count": balance_info['utxo_count']
+                "network": cardano_service.network,
+                "utxo_count": balance_info.get('utxo_count', 0)
             }
         }), 200
 

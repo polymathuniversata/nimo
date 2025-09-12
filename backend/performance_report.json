@@ -1,0 +1,91 @@
+{
+  "time_window_seconds": 3600,
+  "generated_at": "2025-08-28T18:49:01.000822",
+  "system_health": {
+    "cpu_percent": 46.5,
+    "memory_percent": 81.2,
+    "disk_usage": 6.3,
+    "uptime_seconds": 2.741515636444092,
+    "active_operations": 5,
+    "total_operations": 5,
+    "timestamp": "2025-08-28T18:49:01.000822"
+  },
+  "operation_stats": {
+    "operations": {
+      "execute_autonomous_cycle": {
+        "operation": "execute_autonomous_cycle",
+        "total_operations": 1,
+        "error_count": 0,
+        "time_window_seconds": 3600,
+        "avg_duration": 0.003420591354370117,
+        "min_duration": 0.003420591354370117,
+        "max_duration": 0.003420591354370117,
+        "p95_duration": 0.003420591354370117,
+        "duration_count": 1,
+        "success_rate": 1.0,
+        "success_count": 1
+      },
+      "calculate_autonomous_reward": {
+        "operation": "calculate_autonomous_reward",
+        "total_operations": 1,
+        "error_count": 0,
+        "time_window_seconds": 3600,
+        "avg_duration": 0.0,
+        "min_duration": 0.0,
+        "max_duration": 0.0,
+        "p95_duration": 0.0,
+        "duration_count": 1,
+        "success_rate": 1.0,
+        "success_count": 1
+      },
+      "validate_contribution": {
+        "operation": "validate_contribution",
+        "total_operations": 1,
+        "error_count": 0,
+        "time_window_seconds": 3600,
+        "avg_duration": 0.0,
+        "min_duration": 0.0,
+        "max_duration": 0.0,
+        "p95_duration": 0.0,
+        "duration_count": 1,
+        "success_rate": 1.0,
+        "success_count": 1
+      },
+      "process_contribution_autonomously": {
+        "operation": "process_contribution_autonomously",
+        "total_operations": 1,
+        "error_count": 0,
+        "time_window_seconds": 3600,
+        "avg_duration": 0.0033102035522460938,
+        "min_duration": 0.0033102035522460938,
+        "max_duration": 0.0033102035522460938,
+        "p95_duration": 0.0033102035522460938,
+        "duration_count": 1,
+        "success_rate": 1.0,
+        "success_count": 1
+      },
+      "detect_fraud_comprehensive": {
+        "operation": "detect_fraud_comprehensive",
+        "total_operations": 1,
+        "error_count": 0,
+        "time_window_seconds": 3600,
+        "avg_duration": 0.6440603733062744,
+        "min_duration": 0.6440603733062744,
+        "max_duration": 0.6440603733062744,
+        "p95_duration": 0.6440603733062744,
+        "duration_count": 1,
+        "success_rate": 1.0,
+        "success_count": 1
+      }
+    },
+    "summary": {
+      "total_operations": 5,
+      "total_errors": 0,
+      "active_operations": 5,
+      "time_window_seconds": 3600,
+      "generated_at": "2025-08-28T18:48:59.994394"
+    }
+  },
+  "bottlenecks": [],
+  "recommendations": []
+}

@@ -50,6 +50,14 @@ forge-cache/
 broadcast/
 out/
 
+# Cardano Keys and Secrets
+*.skey
+*.vkey
+*.addr
+service_key.*
+wallet_key.*
+*.json.bak
+
 # Editor directories and files
 .idea/
 .vscode/

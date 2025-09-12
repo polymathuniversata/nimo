@@ -1,0 +1,38 @@
+{
+  "deployment_ready": true,
+  "timestamp": "2025-08-28 19:21:05.034752",
+  "files_checked": [
+    {
+      "file": "Dockerfile",
+      "exists": true
+    },
+    {
+      "file": "docker-compose/docker-compose.prod.yml",
+      "exists": true
+    },
+    {
+      "file": "nginx/nginx.conf",
+      "exists": true
+    },
+    {
+      "file": ".env.template",
+      "exists": true
+    },
+    {
+      "file": "deploy.sh",
+      "exists": true
+    },
+    {
+      "file": "setup_dev.sh",
+      "exists": true
+    },
+    {
+      "file": "run_dev.sh",
+      "exists": true
+    }
+  ],
+  "validations": [],
+  "recommendations": [
+    "Configure SSL certificates for HTTPS in production"
+  ]
+}

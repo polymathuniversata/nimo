@@ -53,7 +53,7 @@ class NimoMCPServer {
                 },
                 network: {
                   type: 'string',
-                  enum: ['base-sepolia', 'base-mainnet'],
+                  enum: ['cardano-preprod', 'cardano-mainnet'],
                   description: 'Blockchain network'
                 }
               },
@@ -163,7 +163,7 @@ class NimoMCPServer {
   }
 
   async getBlockchainContext(args) {
-    const { contract_type, network = 'base-sepolia' } = args;
+    const { contract_type, network = 'cardano-preprod' } = args;
 
     // Mock blockchain context - in production this would query actual blockchain
     const contexts = {
@@ -274,7 +274,7 @@ class NimoMCPServer {
           text: JSON.stringify({
             contract_name: 'NimoIdentity',
             version: '1.0.0',
-            network: process.env.BLOCKCHAIN_NETWORK || 'base-sepolia',
+            network: process.env.BLOCKCHAIN_NETWORK || 'cardano-preprod',
             features: [
               'Decentralized Identity (DID)',
               'IPFS Metadata Storage',
@@ -299,7 +299,7 @@ class NimoMCPServer {
           text: JSON.stringify({
             contract_name: 'NimoToken',
             version: '1.0.0',
-            network: process.env.BLOCKCHAIN_NETWORK || 'base-sepolia',
+            network: process.env.BLOCKCHAIN_NETWORK || 'cardano-preprod',
             features: [
               'ERC20Votes Governance',
               'MeTTa-Based Minting',

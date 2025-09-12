@@ -1,407 +1,288 @@
 """
-USDC Integration Service for Nimo Platform
+DEPRECATED: Legacy USDC Integration Service
 
-This service handles USDC token interactions on Base network,
-integrating with MeTTa reasoning for automated reward payments.
+⚠️  DEPRECATED - DO NOT USE ⚠️
+
+This service has been replaced by Cardano native token services.
+All functionality has been migrated to:
+
+- services/cardano_service.py - Core Cardano blockchain operations
+- services/blockchain_token_service.py - Token management
+- services/token_service.py - Unified token operations
+
+This file is kept for backward compatibility but will be removed in a future version.
 """
 
 import os
 import json
 from typing import Dict, List, Optional, Tuple
 from decimal import Decimal
-from web3 import Web3
-from eth_account import Account
 from flask import current_app
 
+# Import Cardano services
+from services.cardano_service import CardanoService
+from services.blockchain_token_service import BlockchainTokenService
+from services.token_service import TokenService
+
 class USDCIntegration:
-    """Service for integrating USDC payments with MeTTa rewards system"""
-    
-    # USDC has 6 decimals (not 18 like ETH)
+    """
+    DEPRECATED: Legacy USDC integration service
+
+    This class now acts as a compatibility layer that redirects
+    all operations to the new Cardano-based services.
+    """
+
+    # Legacy constants (kept for compatibility)
     USDC_DECIMALS = 6
-    
-    # Standard USDC ERC20 ABI (minimal required functions)
-    USDC_ABI = [
-        {
-            "constant": True,
-            "inputs": [{"name": "_owner", "type": "address"}],
-            "name": "balanceOf",
-            "outputs": [{"name": "balance", "type": "uint256"}],
-            "type": "function"
-        },
-        {
-            "constant": False,
-            "inputs": [
-                {"name": "_to", "type": "address"},
-                {"name": "_value", "type": "uint256"}
-            ],
-            "name": "transfer",
-            "outputs": [{"name": "", "type": "bool"}],
-            "type": "function"
-        },
-        {
-            "constant": False,
-            "inputs": [
-                {"name": "_from", "type": "address"},
-                {"name": "_to", "type": "address"},
-                {"name": "_value", "type": "uint256"}
-            ],
-            "name": "transferFrom",
-            "outputs": [{"name": "", "type": "bool"}],
-            "type": "function"
-        },
-        {
-            "constant": False,
-            "inputs": [
-                {"name": "_spender", "type": "address"},
-                {"name": "_value", "type": "uint256"}
-            ],
-            "name": "approve",
-            "outputs": [{"name": "", "type": "bool"}],
-            "type": "function"
-        },
-        {
-            "constant": True,
-            "inputs": [
-                {"name": "_owner", "type": "address"},
-                {"name": "_spender", "type": "address"}
-            ],
-            "name": "allowance",
-            "outputs": [{"name": "", "type": "uint256"}],
-            "type": "function"
-        },
-        {
-            "constant": True,
-            "inputs": [],
-            "name": "totalSupply",
-            "outputs": [{"name": "", "type": "uint256"}],
-            "type": "function"
-        },
-        {
-            "constant": True,
-            "inputs": [],
-            "name": "decimals",
-            "outputs": [{"name": "", "type": "uint8"}],
-            "type": "function"
-        },
-        {
-            "constant": True,
-            "inputs": [],
-            "name": "symbol",
-            "outputs": [{"name": "", "type": "string"}],
-            "type": "function"
-        },
-        {
-            "anonymous": False,
-            "inputs": [
-                {"indexed": True, "name": "from", "type": "address"},
-                {"indexed": True, "name": "to", "type": "address"},
-                {"indexed": False, "name": "value", "type": "uint256"}
-            ],
-            "name": "Transfer",
-            "type": "event"
-        }
-    ]
-    
+
     def __init__(self, network: str = None):
-        """Initialize USDC integration service"""
-        self.network = network or os.getenv('BLOCKCHAIN_NETWORK', 'base-sepolia')
-        
-        # Network configurations
+        """Initialize with Cardano services"""
+        current_app.logger.warning(
+            "USDCIntegration is deprecated. Use CardanoService, BlockchainTokenService, or TokenService instead."
+        )
+
+        # Initialize Cardano services
+        self.cardano_service = CardanoService()
+        self.token_service = BlockchainTokenService()
+        self.unified_token_service = TokenService()
+
+        # Legacy network mapping (for compatibility)
+        self.network = network or os.getenv('BLOCKCHAIN_NETWORK', 'cardano-preprod')
+
+        # Legacy configuration (deprecated)
         self.base_config = {
-            'base-sepolia': {
-                'chain_id': 84532,
-                'rpc_url': os.getenv('BASE_SEPOLIA_RPC_URL', 'https://sepolia.base.org'),
-                'usdc_address': os.getenv('USDC_CONTRACT_BASE_SEPOLIA', '0x036CbD53842c5426634e7929541eC2318f3dCF7e'),
-                'explorer_url': 'https://sepolia.basescan.org'
+            'cardano-preprod': {
+                'chain_id': 0,
+                'rpc_url': os.getenv('CARDANO_PREPROD_RPC_URL', 'https://cardano-preprod.blockfrost.io/api/v0'),
+                'usdc_address': '',  # No longer used
+                'explorer_url': 'https://preprod.cardanoscan.io'
             },
-            'base-mainnet': {
-                'chain_id': 8453,
-                'rpc_url': os.getenv('BASE_MAINNET_RPC_URL', 'https://mainnet.base.org'),
-                'usdc_address': os.getenv('USDC_CONTRACT_BASE_MAINNET', '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'),
-                'explorer_url': 'https://basescan.org'
-            },
-            'polygon-mumbai': {
-                'chain_id': 80001,
-                'rpc_url': os.getenv('WEB3_PROVIDER_URL', 'https://polygon-mumbai.g.alchemy.com/v2/demo'),
-                'usdc_address': os.getenv('USDC_CONTRACT_POLYGON_MUMBAI', '0x4CE536b148BF86Ce30E2A28E610e3B2df973d9Af'),
-                'explorer_url': 'https://mumbai.polygonscan.com'
+            'cardano-mainnet': {
+                'chain_id': 1,
+                'rpc_url': os.getenv('CARDANO_MAINNET_RPC_URL', 'https://cardano-mainnet.blockfrost.io/api/v0'),
+                'usdc_address': '',  # No longer used
+                'explorer_url': 'https://cardanoscan.io'
             }
         }
-        
-        # Initialize Web3
-        self.web3 = Web3(Web3.HTTPProvider(self.base_config[self.network]['rpc_url']))
-        
-        # Initialize USDC contract
-        usdc_address = self.base_config[self.network]['usdc_address']
-        self.usdc_contract = self.web3.eth.contract(
-            address=usdc_address,
-            abi=self.USDC_ABI
-        )
-        
-        # Service account for payments
-        self.service_account = self._load_service_account()
-        
-        # Conversion rates and thresholds
-        self.nimo_to_usdc_rate = Decimal('0.01')  # 1 NIMO token = $0.01 USDC
+
+        # Legacy properties (deprecated)
+        self.nimo_to_usdc_rate = Decimal('0.01')
         self.min_confidence_for_usdc = float(os.getenv('METTA_MIN_CONFIDENCE_FOR_USDC', '0.8'))
-        self.usdc_enabled = os.getenv('METTA_ENABLE_USDC_PAYMENTS', 'False').lower() == 'true'
+        self.usdc_enabled = False  # Always disabled for legacy compatibility
         
     def _load_service_account(self):
-        """Load service account for USDC payments"""
-        private_key = os.getenv('BLOCKCHAIN_SERVICE_PRIVATE_KEY')
-        if private_key and private_key != 'your_service_private_key_here':
-            return Account.from_key(private_key)
+        """DEPRECATED: Service account loading - redirect to Cardano service"""
+        current_app.logger.warning("_load_service_account is deprecated. Use CardanoService instead.")
         return None
-    
+
     def is_connected(self) -> bool:
         """Check if connected to blockchain network"""
-        return self.web3.is_connected()
-    
+        return self.cardano_service.is_connected()
+
     def get_usdc_balance(self, address: str) -> Decimal:
-        """Get USDC balance for address in human-readable format"""
+        """DEPRECATED: Get balance - redirect to Cardano service"""
+        current_app.logger.warning("get_usdc_balance is deprecated. Use BlockchainTokenService.get_token_balance instead.")
         try:
-            balance_wei = self.usdc_contract.functions.balanceOf(address).call()
-            return Decimal(balance_wei) / Decimal(10 ** self.USDC_DECIMALS)
-        except Exception as e:
-            current_app.logger.error(f"Error getting USDC balance for {address}: {e}")
+            # Try to get ADA balance as a substitute
+            balance_result = self.cardano_service.get_balance(address)
+            if balance_result.get('success'):
+                # Return ADA balance in lovelace (1 ADA = 1,000,000 lovelace)
+                ada_balance = balance_result.get('ada_balance', 0)
+                return Decimal(str(ada_balance)) / Decimal('1000000')  # Convert to ADA
             return Decimal('0')
-    
+        except Exception as e:
+            current_app.logger.error(f"Error getting balance for {address}: {e}")
+            return Decimal('0')
+
     def convert_nimo_to_usdc_amount(self, nimo_amount: int) -> Decimal:
-        """Convert NIMO token amount to USDC amount"""
-        return Decimal(nimo_amount) * self.nimo_to_usdc_rate
-    
+        """DEPRECATED: Convert NIMO to USDC - redirect to token service"""
+        current_app.logger.warning("convert_nimo_to_usdc_amount is deprecated. Use TokenService for conversions.")
+        # Return equivalent ADA amount (rough approximation)
+        return Decimal(str(nimo_amount)) * Decimal('0.001')  # 1 NIMO ≈ 0.001 ADA
+
     def convert_usdc_to_wei(self, usdc_amount: Decimal) -> int:
-        """Convert USDC amount to wei (6 decimal places)"""
-        return int(usdc_amount * Decimal(10 ** self.USDC_DECIMALS))
-    
+        """DEPRECATED: Convert USDC to wei - not applicable for Cardano"""
+        current_app.logger.warning("convert_usdc_to_wei is deprecated. Cardano uses lovelace (1 ADA = 1,000,000 lovelace).")
+        # Convert to lovelace equivalent
+        return int(usdc_amount * Decimal('1000000'))
+
     def estimate_gas_for_transfer(self, to_address: str, usdc_amount: Decimal) -> Dict:
-        """Estimate gas cost for USDC transfer"""
+        """DEPRECATED: Estimate gas - redirect to Cardano service"""
+        current_app.logger.warning("estimate_gas_for_transfer is deprecated. Use CardanoService.estimate_fee instead.")
         try:
-            if not self.service_account:
-                return {'error': 'Service account not configured'}
-            
-            usdc_wei = self.convert_usdc_to_wei(usdc_amount)
-            
-            # Estimate gas for transfer
-            gas_estimate = self.usdc_contract.functions.transfer(
-                to_address, usdc_wei
-            ).estimate_gas({'from': self.service_account.address})
-            
-            # Get current gas price
-            gas_price = self.web3.eth.gas_price
-            
-            # Calculate costs in ETH (Base network uses ETH for gas)
-            gas_cost_wei = gas_estimate * gas_price
-            gas_cost_eth = self.web3.from_wei(gas_cost_wei, 'ether')
-            
-            return {
-                'gas_estimate': gas_estimate,
-                'gas_price_wei': gas_price,
-                'gas_price_gwei': self.web3.from_wei(gas_price, 'gwei'),
-                'total_gas_cost_wei': gas_cost_wei,
-                'total_gas_cost_eth': float(gas_cost_eth),
-                'usdc_amount': float(usdc_amount),
-                'usdc_wei': usdc_wei
-            }
+            # Use Cardano fee estimation
+            fee_result = self.cardano_service.estimate_transaction_fee()
+            if fee_result.get('success'):
+                return {
+                    'gas_estimate': fee_result.get('estimated_fee', 0),
+                    'gas_price_wei': 0,  # Not applicable for Cardano
+                    'gas_price_gwei': 0,  # Not applicable for Cardano
+                    'total_gas_cost_wei': 0,  # Not applicable for Cardano
+                    'total_gas_cost_eth': 0,  # Not applicable for Cardano
+                    'ada_amount': float(usdc_amount),  # Treat as ADA amount
+                    'ada_lovelace': int(usdc_amount * Decimal('1000000')),
+                    'estimated_fee_ada': fee_result.get('estimated_fee_ada', 0)
+                }
+            return {'error': 'Fee estimation failed'}
         except Exception as e:
             return {'error': str(e)}
-    
-    def send_usdc_reward(self, 
-                        to_address: str, 
-                        nimo_amount: int, 
-                        contribution_id: str, 
+
+    def send_usdc_reward(self,
+                        to_address: str,
+                        nimo_amount: int,
+                        contribution_id: str,
                         metta_proof: str) -> Optional[str]:
-        """Send USDC reward based on NIMO token calculation"""
-        if not self.usdc_enabled:
-            current_app.logger.info(f"USDC payments disabled, skipping reward for contribution {contribution_id}")
-            return None
-        
-        if not self.service_account:
-            current_app.logger.error("Service account not configured for USDC payments")
-            return None
-        
+        """DEPRECATED: Send reward - redirect to token service"""
+        current_app.logger.warning("send_usdc_reward is deprecated. Use BlockchainTokenService.send_reward instead.")
         try:
-            # Convert NIMO to USDC amount
-            usdc_amount = self.convert_nimo_to_usdc_amount(nimo_amount)
-            usdc_wei = self.convert_usdc_to_wei(usdc_amount)
-            
-            # Check if we have sufficient balance
-            service_balance = self.get_usdc_balance(self.service_account.address)
-            if service_balance < usdc_amount:
-                current_app.logger.error(f"Insufficient USDC balance. Need {usdc_amount}, have {service_balance}")
-                return None
-            
-            # Build transaction
-            transaction = self.usdc_contract.functions.transfer(
-                to_address, usdc_wei
-            ).build_transaction({
-                'from': self.service_account.address,
-                'nonce': self.web3.eth.get_transaction_count(self.service_account.address),
-                'chainId': self.base_config[self.network]['chain_id']
-            })
-            
-            # Estimate and set gas
-            gas_estimate = self.web3.eth.estimate_gas(transaction)
-            transaction['gas'] = int(gas_estimate * 1.2)  # 20% buffer
-            transaction['gasPrice'] = self.web3.eth.gas_price
-            
-            # Sign and send transaction
-            signed_txn = self.web3.eth.account.sign_transaction(transaction, self.service_account.key)
-            tx_hash = self.web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-            
-            tx_hash_hex = tx_hash.hex()
-            
-            current_app.logger.info(
-                f"USDC reward sent: {usdc_amount} USDC to {to_address} "
-                f"for contribution {contribution_id}, tx: {tx_hash_hex}"
+            # Use unified token service for rewards
+            reward_result = self.unified_token_service.send_reward(
+                to_address=to_address,
+                amount=nimo_amount,
+                contribution_id=contribution_id,
+                reward_type='nimo'
             )
-            
-            return tx_hash_hex
-            
-        except Exception as e:
-            current_app.logger.error(f"Error sending USDC reward: {e}")
+            if reward_result.get('success'):
+                return reward_result.get('tx_hash')
             return None
-    
+        except Exception as e:
+            current_app.logger.error(f"Error sending reward: {e}")
+            return None
+
     def batch_send_usdc_rewards(self, rewards: List[Dict]) -> List[Optional[str]]:
-        """Send multiple USDC rewards in batch (if supported by network)"""
-        # For now, send individual transactions
-        # TODO: Implement multicall or batch transaction support
+        """DEPRECATED: Batch send rewards - redirect to token service"""
+        current_app.logger.warning("batch_send_usdc_rewards is deprecated. Use BlockchainTokenService.batch_send_rewards instead.")
         results = []
-        
         for reward in rewards:
             tx_hash = self.send_usdc_reward(
                 reward['to_address'],
                 reward['nimo_amount'],
                 reward['contribution_id'],
-                reward['metta_proof']
+                reward.get('metta_proof', '')
             )
             results.append(tx_hash)
-        
         return results
-    
+
     def verify_usdc_payment(self, tx_hash: str) -> Dict:
-        """Verify USDC payment transaction"""
+        """DEPRECATED: Verify payment - redirect to Cardano service"""
+        current_app.logger.warning("verify_usdc_payment is deprecated. Use CardanoService.verify_transaction instead.")
         try:
-            receipt = self.web3.eth.get_transaction_receipt(tx_hash)
-            
-            if receipt['status'] == 1:
-                # Parse transfer event
-                transfer_event = None
-                for log in receipt['logs']:
-                    if log['address'].lower() == self.usdc_contract.address.lower():
-                        # This is a USDC transfer event
-                        decoded = self.usdc_contract.events.Transfer().process_log(log)
-                        transfer_event = {
-                            'from': decoded['args']['from'],
-                            'to': decoded['args']['to'],
-                            'value_wei': decoded['args']['value'],
-                            'value_usdc': float(Decimal(decoded['args']['value']) / Decimal(10 ** self.USDC_DECIMALS))
-                        }
-                        break
-                
-                return {
-                    'success': True,
-                    'tx_hash': tx_hash,
-                    'block_number': receipt['blockNumber'],
-                    'gas_used': receipt['gasUsed'],
-                    'transfer_event': transfer_event,
-                    'explorer_url': f"{self.base_config[self.network]['explorer_url']}/tx/{tx_hash}"
-                }
-            else:
-                return {
-                    'success': False,
-                    'tx_hash': tx_hash,
-                    'error': 'Transaction failed'
-                }
+            return self.cardano_service.verify_transaction(tx_hash)
         except Exception as e:
             return {
                 'success': False,
                 'tx_hash': tx_hash,
                 'error': str(e)
             }
-    
-    def get_reward_calculation(self, 
-                             nimo_amount: int, 
-                             confidence: float, 
+
+    def get_reward_calculation(self,
+                             nimo_amount: int,
+                             confidence: float,
                              contribution_type: str) -> Dict:
-        """Calculate reward amounts including USDC conversion"""
-        # Base USDC amount from NIMO tokens
-        base_usdc_amount = self.convert_nimo_to_usdc_amount(nimo_amount)
-        
-        # Apply confidence multiplier for USDC rewards
-        if confidence >= self.min_confidence_for_usdc:
-            # High confidence contributions get full USDC reward
-            usdc_multiplier = min(1.5, confidence + 0.2)  # Cap at 1.5x, min confidence boost
-        else:
-            # Low confidence contributions get reduced/no USDC reward
-            usdc_multiplier = max(0.1, confidence - 0.2)  # Minimum 10% if very low confidence
-        
-        final_usdc_amount = base_usdc_amount * Decimal(str(usdc_multiplier))
-        
-        # Minimum USDC payout threshold
-        min_usdc_payout = Decimal('0.01')  # $0.01 minimum
-        pays_usdc = (final_usdc_amount >= min_usdc_payout and 
-                    confidence >= self.min_confidence_for_usdc and 
-                    self.usdc_enabled)
-        
-        return {
-            'nimo_amount': nimo_amount,
-            'base_usdc_amount': float(base_usdc_amount),
-            'confidence': confidence,
-            'confidence_multiplier': usdc_multiplier,
-            'final_usdc_amount': float(final_usdc_amount),
-            'pays_usdc': pays_usdc,
-            'min_confidence_required': self.min_confidence_for_usdc,
-            'usdc_enabled': self.usdc_enabled,
-            'contribution_type': contribution_type
-        }
-    
-    def get_service_account_info(self) -> Dict:
-        """Get service account information"""
-        if not self.service_account:
-            return {'error': 'Service account not configured'}
-        
+        """DEPRECATED: Get reward calculation - redirect to token service"""
+        current_app.logger.warning("get_reward_calculation is deprecated. Use TokenService.calculate_reward instead.")
         try:
-            eth_balance = self.web3.eth.get_balance(self.service_account.address)
-            usdc_balance = self.get_usdc_balance(self.service_account.address)
-            
+            return self.unified_token_service.calculate_reward(
+                nimo_amount=nimo_amount,
+                confidence=confidence,
+                contribution_type=contribution_type
+            )
+        except Exception as e:
+            # Fallback to legacy calculation
             return {
-                'address': self.service_account.address,
-                'eth_balance_wei': eth_balance,
-                'eth_balance': float(self.web3.from_wei(eth_balance, 'ether')),
-                'usdc_balance': float(usdc_balance),
-                'network': self.network,
-                'chain_id': self.base_config[self.network]['chain_id'],
-                'usdc_contract': self.base_config[self.network]['usdc_address']
+                'nimo_amount': nimo_amount,
+                'base_usdc_amount': 0,  # Deprecated
+                'confidence': confidence,
+                'confidence_multiplier': 1.0,
+                'final_usdc_amount': 0,  # Deprecated
+                'pays_usdc': False,  # Always false for legacy
+                'min_confidence_required': self.min_confidence_for_usdc,
+                'usdc_enabled': False,  # Always disabled
+                'contribution_type': contribution_type,
+                'error': str(e)
             }
+
+    def get_service_account_info(self) -> Dict:
+        """DEPRECATED: Get service account info - redirect to Cardano service"""
+        current_app.logger.warning("get_service_account_info is deprecated. Use CardanoService.get_wallet_info instead.")
+        try:
+            return self.cardano_service.get_wallet_info()
         except Exception as e:
             return {'error': str(e)}
-    
+
     def get_network_status(self) -> Dict:
         """Get network status and configuration"""
         try:
-            latest_block = self.web3.eth.get_block('latest')
-            gas_price = self.web3.eth.gas_price
-            
+            status_result = self.cardano_service.get_network_status()
+            if status_result.get('success'):
+                status = status_result
+                status.update({
+                    'usdc_enabled': False,  # Always disabled for legacy
+                    'min_confidence_for_usdc': self.min_confidence_for_usdc,
+                    'nimo_to_usdc_rate': float(self.nimo_to_usdc_rate),
+                    'migration_note': 'USDC integration migrated to Cardano native tokens'
+                })
+                return status
             return {
                 'network': self.network,
-                'connected': self.is_connected(),
-                'chain_id': self.base_config[self.network]['chain_id'],
-                'latest_block': latest_block['number'],
-                'gas_price_wei': gas_price,
-                'gas_price_gwei': float(self.web3.from_wei(gas_price, 'gwei')),
-                'usdc_contract': self.base_config[self.network]['usdc_address'],
-                'usdc_enabled': self.usdc_enabled,
-                'min_confidence_for_usdc': self.min_confidence_for_usdc,
-                'nimo_to_usdc_rate': float(self.nimo_to_usdc_rate),
-                'explorer_url': self.base_config[self.network]['explorer_url']
+                'connected': False,
+                'error': 'Network status unavailable',
+                'usdc_enabled': False,
+                'migration_note': 'USDC integration migrated to Cardano native tokens'
             }
         except Exception as e:
             return {
                 'network': self.network,
                 'connected': False,
+                'error': str(e),
+                'usdc_enabled': False,
+                'migration_note': 'USDC integration migrated to Cardano native tokens'
+            }
+
+    def get_balance(self, address: str) -> Dict:
+        """DEPRECATED: Get balance - redirect to token service"""
+        current_app.logger.warning("get_balance is deprecated. Use BlockchainTokenService.get_token_balance instead.")
+        try:
+            # This method might be called by legacy code
+            balance_result = self.token_service.get_token_balance_by_address(address)
+            return balance_result
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e),
+                'balance': '0',
+                'formatted_balance': '0 USDC'
+            }
+
+    def send_usdc(self, from_address: str, to_address: str, amount: str, reason: str) -> Dict:
+        """DEPRECATED: Send USDC - redirect to token service"""
+        current_app.logger.warning("send_usdc is deprecated. Use BlockchainTokenService.send_tokens instead.")
+        try:
+            # Convert amount to appropriate format
+            amount_decimal = Decimal(amount)
+
+            # Use token service to send
+            send_result = self.unified_token_service.send_tokens(
+                from_address=from_address,
+                to_address=to_address,
+                amount=int(amount_decimal * Decimal('1000000')),  # Convert to lovelace
+                token_type='ada'
+            )
+
+            return {
+                'success': send_result.get('success', False),
+                'tx_hash': send_result.get('tx_hash'),
+                'amount': amount,
+                'recipient': to_address,
+                'reason': reason
+            }
+        except Exception as e:
+            current_app.logger.error(f"Error sending tokens: {e}")
+            return {
+                'success': False,
                 'error': str(e)
             }
 
-# Global instance
+
+# Global instance (deprecated)
 usdc_integration = USDCIntegration()

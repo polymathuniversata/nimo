@@ -1,13 +1,15 @@
 {
   "name": "nimo-contracts",
   "version": "1.0.0",
-  "description": "Smart contracts for Nimo decentralized identity platform on Base",
+  "description": "Smart contracts for Nimo decentralized identity platform on Cardano (migrating from Base)",
   "scripts": {
     "build": "forge build",
     "test": "forge test",
     "test:coverage": "forge coverage",
     "test:gas": "forge test --gas-report",
     "deploy:local": "forge script script/Deploy.s.sol:DeployScript --rpc-url localhost --broadcast --private-key $PRIVATE_KEY",
+    "deploy:cardano-preprod": "echo 'Cardano deployment: Use cardano-cli or Mesh SDK for deployment to preprod'",
+    "deploy:cardano-mainnet": "echo 'Cardano deployment: Use cardano-cli or Mesh SDK for deployment to mainnet'",
     "deploy:base-sepolia": "forge script script/Deploy.s.sol:DeployScript --rpc-url base-sepolia --broadcast --private-key $PRIVATE_KEY --verify",
     "deploy:base-mainnet": "forge script script/Deploy.s.sol:DeployScript --rpc-url base --broadcast --private-key $PRIVATE_KEY --verify",
     "verify:base-sepolia": "forge verify-contract --chain base-sepolia",

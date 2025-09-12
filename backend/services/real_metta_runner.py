@@ -72,7 +72,8 @@ class RealMeTTaRunner:
                 capture_output=True,
                 text=True,
                 timeout=30,
-                cwd=os.path.dirname(self.repl_path)
+                cwd=os.path.dirname(self.repl_path),
+                shell=False  # Security: Explicitly disable shell
             )
             
             # Clean up temp file

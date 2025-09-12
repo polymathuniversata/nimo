@@ -1,0 +1,67 @@
+{
+  "generated_at": "2025-08-28T19:06:07.924856",
+  "query_service_stats": {
+    "query_stats": {
+      "batch_contributions_batch_item": {
+        "total_queries": 40,
+        "successful_queries": 40,
+        "failed_queries": 0,
+        "avg_duration": 0.0374953508377075,
+        "total_duration": 1.4998140335083
+      },
+      "batch_rewards_batch_item": {
+        "total_queries": 23,
+        "successful_queries": 23,
+        "failed_queries": 0,
+        "avg_duration": 0.011472670928291653,
+        "total_duration": 0.263871431350708
+      }
+    },
+    "connection_pool_stats": {
+      "max_connections": 10,
+      "active_connections": 0,
+      "available_connections": 10,
+      "pool_utilization": 0.0
+    },
+    "overall_stats": {
+      "total_queries": 63,
+      "successful_queries": 63,
+      "success_rate": 1.0,
+      "query_types_count": 2
+    }
+  },
+  "enhanced_service_health": {
+    "service_type": "enhanced_metta_integration",
+    "timestamp": "2025-08-28T19:06:07.924856",
+    "components": {
+      "base_service": {
+        "healthy": true,
+        "mode": "mock",
+        "connected": true
+      },
+      "cache": {
+        "healthy": true,
+        "type": "redis"
+      },
+      "performance_monitor": {
+        "healthy": true
+      },
+      "query_optimizer": {
+        "status": "healthy",
+        "connection_pool": {
+          "healthy": true,
+          "utilization": 0.0
+        },
+        "batch_processor": {
+          "healthy": true,
+          "max_workers": 5
+        },
+        "query_optimizer": {
+          "healthy": true
+        }
+      }
+    },
+    "overall_healthy": true
+  },
+  "performance_comparison": {}
+}

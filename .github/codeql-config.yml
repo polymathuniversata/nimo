@@ -1,0 +1,28 @@
+name: "CodeQL Configuration"
+
+disable-default-queries: false
+
+queries:
+  - uses: security-and-quality
+  - uses: security-experimental
+
+paths-ignore:
+  - node_modules
+  - __pycache__
+  - .git
+  - contracts/lib
+  - contracts/cache
+  - frontend/node_modules
+  - backend/__pycache__
+  - hyperon-experimental
+
+paths:
+  - backend/
+  - contracts/src/
+  - frontend/src/
+
+query-filters:
+  - exclude:
+      problem.severity:
+        - warning
+        - recommendation

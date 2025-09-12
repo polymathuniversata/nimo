@@ -135,4 +135,25 @@ def verify_contribution():
         return jsonify({"error": f"Verification failed: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    # Security: Never run with debug=True in production
+    # Never bind to 0.0.0.0 in production - use localhost only
+    import os
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')  # Default to localhost only
+    port = int(os.environ.get('FLASK_PORT', '5001'))
+
+    # Security: Prevent binding to all interfaces in production
+    if host == '0.0.0.0' and not debug_mode:
+        print("ERROR: Cannot bind to all interfaces (0.0.0.0) in production mode.")
+        print("Set FLASK_HOST=127.0.0.1 to bind to localhost only.")
+        host = '127.0.0.1'
+
+    if debug_mode:
+        print("WARNING: Running in debug mode. This should NEVER be used in production!")
+        print("Set FLASK_DEBUG=false and use a production WSGI server instead.")
+
+    if host == '0.0.0.0':
+        print("WARNING: Binding to all interfaces (0.0.0.0). This should NEVER be used in production!")
+        print("Set FLASK_HOST=127.0.0.1 to bind to localhost only.")
+
+    app.run(debug=debug_mode, host=host, port=port)

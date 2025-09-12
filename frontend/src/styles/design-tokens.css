@@ -1,0 +1,194 @@
+/* Nimo Design System - Standardized Tokens */
+
+@layer base {
+  /* Typography Scale - Fluid & Consistent */
+  .text-display-2xl {
+    @apply text-fluid-9xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-display-xl {
+    @apply text-fluid-8xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-display-lg {
+    @apply text-fluid-7xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-display-md {
+    @apply text-fluid-6xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-display-sm {
+    @apply text-fluid-5xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-heading-2xl {
+    @apply text-fluid-4xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-heading-xl {
+    @apply text-fluid-3xl font-bold leading-tight tracking-tight;
+  }
+
+  .text-heading-lg {
+    @apply text-fluid-2xl font-semibold leading-snug;
+  }
+
+  .text-heading-md {
+    @apply text-fluid-xl font-semibold leading-snug;
+  }
+
+  .text-heading-sm {
+    @apply text-fluid-lg font-semibold leading-snug;
+  }
+
+  .text-body-lg {
+    @apply text-fluid-base leading-relaxed;
+  }
+
+  .text-body-md {
+    @apply text-fluid-sm leading-relaxed;
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed;
+  }
+
+  .text-caption {
+    @apply text-xs leading-normal tracking-wide uppercase font-medium;
+  }
+
+  /* Spacing Scale - Consistent & Fluid */
+  .space-section-lg {
+    @apply py-fluid-3xl;
+  }
+
+  .space-section-md {
+    @apply py-fluid-2xl;
+  }
+
+  .space-section-sm {
+    @apply py-fluid-xl;
+  }
+
+  .space-content-lg {
+    @apply py-fluid-lg;
+  }
+
+  .space-content-md {
+    @apply py-fluid-md;
+  }
+
+  .space-content-sm {
+    @apply py-fluid-sm;
+  }
+
+  .space-element-lg {
+    @apply p-fluid-lg;
+  }
+
+  .space-element-md {
+    @apply p-fluid-md;
+  }
+
+  .space-element-sm {
+    @apply p-fluid-sm;
+  }
+
+  /* Layout Patterns */
+  .layout-container {
+    @apply container mx-auto fluid-container;
+  }
+
+  .layout-section {
+    @apply layout-container space-section-md;
+  }
+
+  .layout-grid-responsive {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-fluid-md;
+  }
+
+  .layout-grid-cards {
+    @apply grid auto-fit-md gap-fluid-md;
+  }
+
+  .layout-flex-responsive {
+    @apply flex flex-col sm:flex-row gap-fluid-md items-start sm:items-center;
+  }
+
+  /* Component Patterns */
+  .component-card {
+    @apply bg-card border border-border rounded-xl shadow-card hover:shadow-hover transition-all duration-300;
+  }
+
+  .component-card-interactive {
+    @apply component-card hover:scale-105 cursor-pointer;
+  }
+
+  .component-button-primary {
+    @apply bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
+  }
+
+  .component-button-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
+  }
+
+  .component-input {
+    @apply border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Status Patterns */
+  .status-success {
+    @apply bg-verification-green/10 text-verification-green border-verification-green/20;
+  }
+
+  .status-warning {
+    @apply bg-token-gold/10 text-token-gold border-token-gold/20;
+  }
+
+  .status-error {
+    @apply bg-destructive/10 text-destructive border-destructive/20;
+  }
+
+  .status-info {
+    @apply bg-impact-blue/10 text-impact-blue border-impact-blue/20;
+  }
+
+  /* Interactive States */
+  .interactive-hover-lift {
+    @apply transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  .interactive-hover-glow {
+    @apply transition-all duration-300 hover:shadow-glow;
+  }
+
+  .interactive-focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  /* Responsive Breakpoints */
+  .responsive-text-hero {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+  }
+
+  .responsive-text-heading {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .responsive-text-body {
+    @apply text-base sm:text-lg;
+  }
+
+  .responsive-grid-stats {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8;
+  }
+
+  .responsive-grid-features {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8;
+  }
+
+  .responsive-flex-actions {
+    @apply flex flex-col sm:flex-row gap-6 justify-center items-center;
+  }
+}

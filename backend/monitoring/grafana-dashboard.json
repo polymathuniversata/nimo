@@ -1,0 +1,42 @@
+{
+  "dashboard": {
+    "title": "Nimo Backend Dashboard",
+    "tags": [
+      "nimo",
+      "backend"
+    ],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "System CPU Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "cpu_percent",
+            "legendFormat": "CPU %"
+          }
+        ]
+      },
+      {
+        "title": "System Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "memory_percent",
+            "legendFormat": "Memory %"
+          }
+        ]
+      },
+      {
+        "title": "API Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "flask_http_request_duration_seconds",
+            "legendFormat": "Response Time"
+          }
+        ]
+      }
+    ]
+  }
+}

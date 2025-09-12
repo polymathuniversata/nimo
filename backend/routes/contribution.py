@@ -2,6 +2,9 @@ from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import asyncio
 import datetime
+import re
+import html
+from urllib.parse import urlparse
 
 from app import db
 from models.contribution import Contribution, Verification
@@ -9,9 +12,13 @@ from models.user import User, Token, TokenTransaction
 from models.bond import BlockchainTransaction
 from services.token_service import award_tokens_for_verification
 from services.metta_integration_enhanced import get_metta_service
+from services.blockchain_contribution_service import BlockchainContributionService
 
 # Create blueprint
 contribution_bp = Blueprint('contribution', __name__, url_prefix='/api/contributions')
+
+# Initialize blockchain-first service
+blockchain_contribution_service = BlockchainContributionService()
 
 # Optional blockchain imports - if not available, skip blockchain features
 try:
@@ -81,11 +88,16 @@ def get_contributions():
         query = query.filter(Contribution.impact_level == impact_level)
         
     if search:
-        search_term = f"%{search}%"
-        query = query.filter(
-            Contribution.title.ilike(search_term) | 
-            Contribution.description.ilike(search_term)
-        )
+        # Sanitize search input and use parameterized query to prevent SQL injection
+        import re
+        # Remove potentially dangerous characters and limit length
+        sanitized_search = re.sub(r'[^\w\s-]', '', search.strip())[:100]
+        if sanitized_search:  # Only search if there's valid content after sanitization
+            search_term = f"%{sanitized_search}%"
+            query = query.filter(
+                Contribution.title.ilike(search_term) | 
+                Contribution.description.ilike(search_term)
+            )
     
     # Apply sorting
     if sort_by == 'created_at':
@@ -194,11 +206,25 @@ def add_contribution():
         return jsonify({"error": "Rate limit exceeded. Please wait before creating another contribution"}), 429
     
     try:
-        # Sanitize inputs
-        title = data['title'].strip()
-        description = data.get('description', '').strip() if data.get('description') else None
-        contribution_type = data.get('type', 'other')
-        impact_level = data.get('impact', 'moderate')
+        # Sanitize inputs thoroughly
+        title = _sanitize_input(data['title'], max_length=200)
+        description = _sanitize_input(data.get('description', ''), max_length=2000) if data.get('description') else None
+        contribution_type = _sanitize_input(data.get('type', 'other'), max_length=50)
+        impact_level = _sanitize_input(data.get('impact', 'moderate'), max_length=50)
+        
+        # Sanitize evidence if provided
+        evidence = None
+        if data.get('evidence'):
+            evidence = {}
+            for key, value in data['evidence'].items():
+                # Sanitize evidence keys and values
+                safe_key = _sanitize_input(str(key), max_length=100)
+                if key == 'url':
+                    # URLs need special validation
+                    if _is_valid_url(value):
+                        evidence[safe_key] = _sanitize_input(str(value), max_length=500)
+                else:
+                    evidence[safe_key] = _sanitize_input(str(value), max_length=1000)
         
         # Create new contribution with sanitized data
         new_contribution = Contribution(
@@ -207,7 +233,7 @@ def add_contribution():
             description=description,
             contribution_type=contribution_type,
             impact_level=impact_level,
-            evidence=data.get('evidence')
+            evidence=evidence
         )
         
         db.session.add(new_contribution)
@@ -223,17 +249,62 @@ def add_contribution():
         return jsonify({"error": "Failed to create contribution"}), 500
 
 
+def _sanitize_input(input_value, max_length=None, allow_html=False):
+    """Sanitize user input to prevent XSS and other attacks"""
+    if not input_value:
+        return input_value
+    
+    # Convert to string and strip whitespace
+    sanitized = str(input_value).strip()
+    
+    # Escape HTML entities unless explicitly allowed
+    if not allow_html:
+        sanitized = html.escape(sanitized)
+    
+    # Truncate if max_length specified
+    if max_length and len(sanitized) > max_length:
+        sanitized = sanitized[:max_length]
+    
+    return sanitized
+
+
 def _is_valid_url(url):
-    """Validate URL format"""
-    import re
-    url_pattern = re.compile(
-        r'^https?://'  # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
-        r'localhost|'  # localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
-        r'(?::\d+)?'  # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    return url_pattern.match(url) is not None
+    """Validate URL format and security"""
+    if not url:
+        return False
+    
+    try:
+        # Parse URL to validate structure
+        parsed = urlparse(url)
+        
+        # Must have scheme and netloc
+        if not parsed.scheme or not parsed.netloc:
+            return False
+        
+        # Only allow HTTP/HTTPS
+        if parsed.scheme not in ['http', 'https']:
+            return False
+        
+        # Prevent localhost/private network access in production
+        netloc = parsed.netloc.lower()
+        if any(danger in netloc for danger in ['localhost', '127.0.0.1', '0.0.0.0', '::1']):
+            # Allow localhost only in development
+            if not current_app.config.get('DEBUG', False):
+                return False
+        
+        # Additional URL validation regex
+        url_pattern = re.compile(
+            r'^https?://'  # http:// or https://
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
+            r'localhost|'  # localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+            r'(?::\d+)?'  # optional port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+        
+        return bool(url_pattern.match(url))
+        
+    except Exception:
+        return False
 
 
 def _check_rate_limit(user, action_type):

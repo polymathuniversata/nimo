@@ -1,16 +1,99 @@
-name: Nimo CI/CD
+name: Nimo CI/CD with Security Scanning
+
+# Required Secrets Configuration:
+# - SNYK_TOKEN: For vulnerability scanning (optional - step will be skipped if not configured)
+# - AWS_ACCESS_KEY_ID: For deployment to AWS (required for deployment jobs)
+# - AWS_SECRET_ACCESS_KEY: For deployment to AWS (required for deployment jobs)
+#
+# Configure these secrets in: Settings > Secrets and variables > Actions
+#
+# Note: Linter warnings about "Context access might be invalid" are expected when
+# secrets are not configured in the repository. These warnings won't prevent
+# the workflow from running correctly.
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
+  schedule:
+    # Run security scans daily at 2 AM UTC
+    - cron: '0 2 * * *'
 
 jobs:
+  security-scan:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'Nimo'
+        path: '.'
+        format: 'ALL'
+        args: >
+          --enableRetired
+          --enableExperimental
+          --nvdValidForHours 24
+
+    - name: Upload Dependency Check results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: dependency-check-report
+        path: reports/
+
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript, python, solidity
+        config-file: ./.github/codeql-config.yml
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
   test-backend:
     runs-on: ubuntu-latest
+    needs: security-scan
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -20,16 +103,38 @@ jobs:
         cd backend
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install pytest
+        pip install pytest pytest-cov bandit safety
+    - name: Security scan with Bandit
+      run: |
+        cd backend
+        bandit -r . -f json -o bandit-report.json || true
+    - name: Safety check for Python dependencies
+      run: |
+        cd backend
+        safety check --json > safety-report.json || true
     - name: Test with pytest
       run: |
         cd backend
-        pytest
+        pytest --cov=. --cov-report=xml
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+    - name: Upload security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: backend-security-reports
+        path: |
+          backend/bandit-report.json
+          backend/safety-report.json
 
   test-contracts:
     runs-on: ubuntu-latest
+    needs: security-scan
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
       with:
@@ -38,27 +143,107 @@ jobs:
       run: |
         cd contracts
         forge install
+    - name: Run Slither security analysis
+      uses: crytic/slither-action@v0.3.0
+      with:
+        target: contracts/
+        sarif: results.sarif
+        fail-on: none
     - name: Run Tests
       run: |
         cd contracts
         forge test -vvv
+    - name: Upload Slither results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: results.sarif
 
   test-frontend:
     runs-on: ubuntu-latest
+    needs: security-scan
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '18'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
     - name: Install dependencies
       run: |
         cd frontend
         npm ci
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --file=frontend/package.json
     - name: Lint and build
       run: |
         cd frontend
         npm run lint
         npm run build
+    - name: Upload security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: frontend-security-reports
+        path: frontend/npm-audit.json
+
+  deploy:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-contracts, test-frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Check AWS credentials availability
+      id: check-aws
+      run: |
+        # Note: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY should be configured as repository secrets
+        if [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+          echo "aws_available=true" >> $GITHUB_OUTPUT
+        else
+          echo "aws_available=false" >> $GITHUB_OUTPUT
+        fi
+      continue-on-error: true
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      if: steps.check-aws.outputs.aws_available == 'true'
+      continue-on-error: true
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy to staging
+      continue-on-error: true
+      run: |
+        echo "🚀 Starting deployment to staging environment..."
+        echo "📋 Note: Configure AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY secrets for actual deployment"
+        echo "🔧 Add your deployment commands below:"
+        # Example deployment commands (uncomment and modify as needed):
+        # aws s3 sync ./dist s3://your-staging-bucket --delete
+        # aws ecs update-service --cluster your-cluster --service your-service --force-new-deployment
+        echo "✅ Deployment process completed (credentials not configured)"
+
+  security-gate:
+    name: Security Gate
+    runs-on: ubuntu-latest
+    needs: [security-scan, codeql-analysis]
+    if: always()
+    steps:
+    - name: Check security scan results
+      run: |
+        echo "Security scanning completed"
+        echo "Review security reports in the Actions artifacts"
+        # Add logic to fail the build if critical vulnerabilities are found

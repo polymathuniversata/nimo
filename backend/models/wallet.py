@@ -19,7 +19,7 @@ class Wallet(db.Model):
     encrypted_private_key = db.Column(db.Text)
     
     # Network information
-    network = db.Column(db.String(20), nullable=False, default='base-sepolia')  # 'base-sepolia', 'base-mainnet', 'ethereum'
+    network = db.Column(db.String(20), nullable=False, default='cardano-preprod')  # 'cardano-preprod', 'cardano-mainnet'
     
     # Status and metadata
     is_active = db.Column(db.Boolean, default=True)
@@ -40,7 +40,7 @@ class Wallet(db.Model):
     transactions = db.relationship('WalletTransaction', back_populates='wallet', cascade='all, delete-orphan')
     balances = db.relationship('WalletBalance', back_populates='wallet', cascade='all, delete-orphan')
     
-    def __init__(self, user_id, wallet_address, wallet_type='hot', name=None, network='base-sepolia', 
+    def __init__(self, user_id, wallet_address, wallet_type='hot', name=None, network='cardano-preprod', 
                  private_key=None, description=None):
         self.user_id = user_id
         self.wallet_address = wallet_address

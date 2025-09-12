@@ -1,0 +1,287 @@
+{
+  "generated_at": "2025-08-28T19:13:22.443272",
+  "endpoints_tested": {
+    "basic_health": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "services": {
+          "metta_integration": {
+            "status": "healthy"
+          },
+          "performance_monitor": {
+            "status": "healthy"
+          },
+          "query_optimizer": {
+            "status": "healthy"
+          }
+        },
+        "status": "healthy",
+        "system": {
+          "cpu_percent": 55.6,
+          "disk_percent": 6.3,
+          "memory_percent": 83.5
+        },
+        "timestamp": "2025-08-28T19:13:22.443272",
+        "version": "1.0.0"
+      }
+    },
+    "detailed_health": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "issues": [],
+        "performance": {
+          "bottlenecks": [],
+          "generated_at": "2025-08-28T19:13:25.709564",
+          "operation_stats": {
+            "operations": {
+              "calculate_autonomous_reward": {
+                "avg_duration": 0.0,
+                "duration_count": 1,
+                "error_count": 0,
+                "max_duration": 0.0,
+                "min_duration": 0.0,
+                "operation": "calculate_autonomous_reward",
+                "p95_duration": 0.0,
+                "success_count": 1,
+                "success_rate": 1.0,
+                "time_window_seconds": 3600,
+                "total_operations": 1
+              },
+              "execute_autonomous_cycle": {
+                "avg_duration": 0.0,
+                "duration_count": 1,
+                "error_count": 0,
+                "max_duration": 0.0,
+                "min_duration": 0.0,
+                "operation": "execute_autonomous_cycle",
+                "p95_duration": 0.0,
+                "success_count": 1,
+                "success_rate": 1.0,
+                "time_window_seconds": 3600,
+                "total_operations": 1
+              },
+              "process_contribution_autonomously": {
+                "avg_duration": 0.0,
+                "duration_count": 1,
+                "error_count": 0,
+                "max_duration": 0.0,
+                "min_duration": 0.0,
+                "operation": "process_contribution_autonomously",
+                "p95_duration": 0.0,
+                "success_count": 1,
+                "success_rate": 1.0,
+                "time_window_seconds": 3600,
+                "total_operations": 1
+              }
+            },
+            "summary": {
+              "active_operations": 3,
+              "generated_at": "2025-08-28T19:13:24.698473",
+              "time_window_seconds": 3600,
+              "total_errors": 0,
+              "total_operations": 3
+            }
+          },
+          "recommendations": [],
+          "system_health": {
+            "active_operations": 3,
+            "cpu_percent": 52.3,
+            "disk_usage": 6.3,
+            "memory_percent": 83.5,
+            "timestamp": "2025-08-28T19:13:25.709564",
+            "total_operations": 3,
+            "uptime_seconds": 14.518791913986206
+          },
+          "time_window_seconds": 3600
+        },
+        "query_performance": {
+          "connection_pool_stats": {
+            "active_connections": 0,
+            "available_connections": 10,
+            "max_connections": 10,
+            "pool_utilization": 0.0
+          },
+          "overall_stats": {
+            "query_types_count": 0,
+            "success_rate": 0,
+            "successful_queries": 0,
+            "total_queries": 0
+          },
+          "query_stats": {}
+        },
+        "services": {
+          "metta_integration": {
+            "components": {
+              "base_service": {
+                "connected": true,
+                "healthy": true,
+                "mode": "real"
+              },
+              "cache": {
+                "healthy": true,
+                "type": "redis"
+              },
+              "performance_monitor": {
+                "healthy": true
+              },
+              "query_optimizer": {
+                "batch_processor": {
+                  "healthy": true,
+                  "max_workers": 5
+                },
+                "connection_pool": {
+                  "healthy": true,
+                  "utilization": 0.0
+                },
+                "query_optimizer": {
+                  "healthy": true
+                },
+                "status": "healthy"
+              }
+            },
+            "connected": true,
+            "mode": "real",
+            "status": "healthy"
+          },
+          "performance_monitor": {
+            "active_operations": 3,
+            "status": "healthy",
+            "total_operations": 3
+          },
+          "query_optimizer": {
+            "batch_processor": {
+              "healthy": true,
+              "max_workers": 5
+            },
+            "connection_pool": {
+              "healthy": true,
+              "utilization": 0.0
+            },
+            "query_optimizer": {
+              "healthy": true
+            },
+            "status": "healthy"
+          }
+        },
+        "status": "healthy",
+        "system_metrics": {
+          "cpu_percent": 62.9,
+          "disk": {
+            "free": 455600324608,
+            "percent": 6.3,
+            "total": 486288650240,
+            "used": 30688325632
+          },
+          "load_average": [
+            0.4,
+            0.08,
+            0.03
+          ],
+          "memory": {
+            "available": 2813231104,
+            "percent": 83.5,
+            "total": 17006239744,
+            "used": 14193008640
+          },
+          "network": {
+            "bytes_recv": 57512270,
+            "bytes_sent": 50657109,
+            "packets_recv": 113629,
+            "packets_sent": 38914
+          },
+          "uptime_seconds": 31627.28059744835
+        },
+        "timestamp": "2025-08-28T19:13:23.578563",
+        "version": "1.0.0"
+      }
+    },
+    "system_metrics": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "cpu_percent": 61.7,
+        "disk": {
+          "free": 455600324608,
+          "percent": 6.3,
+          "total": 486288650240,
+          "used": 30688325632
+        },
+        "load_average": [
+          0.4,
+          0.08,
+          0.03
+        ],
+        "memory": {
+          "available": 2818682880,
+          "percent": 83.4,
+          "total": 17006239744,
+          "used": 14187556864
+        },
+        "network": {
+          "bytes_recv": 57518314,
+          "bytes_sent": 50658029,
+          "packets_recv": 113688,
+          "packets_sent": 38931
+        },
+        "timestamp": "2025-08-28T19:13:26.860044",
+        "uptime_seconds": 31629.44216823578
+      }
+    },
+    "performance_metrics": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "summary": {
+          "active_operations": 3,
+          "bottlenecks": 0,
+          "success_rate": 1.0,
+          "total_operations": 3
+        },
+        "time_window_seconds": 3600,
+        "timestamp": "2025-08-28T19:13:27.872649"
+      }
+    },
+    "autonomous_health": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "autonomous_operations": {
+          "contribution_processing": {
+            "status": "operational"
+          },
+          "platform_cycle": {
+            "response_time": 0,
+            "status": "operational"
+          },
+          "reward_calculation": {
+            "status": "operational"
+          }
+        },
+        "operational_count": 3,
+        "overall_status": "healthy",
+        "timestamp": "2025-08-28T19:13:27.872649",
+        "total_operations": 3
+      }
+    },
+    "readiness": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "status": "ready",
+        "timestamp": "2025-08-28T19:13:27.888702"
+      }
+    },
+    "liveness": {
+      "status_code": 200,
+      "working": true,
+      "data": {
+        "status": "alive",
+        "timestamp": "2025-08-28T19:13:27.921116"
+      }
+    }
+  },
+  "overall_health": "healthy",
+  "issues": []
+}

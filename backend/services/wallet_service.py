@@ -43,30 +43,31 @@ class WalletService:
         
         # Token configurations for different networks
         self.token_configs = {
-            'base-sepolia': {
+            'cardano-preprod': {
                 'NIMO': {
-                    'address': os.getenv('NIMO_TOKEN_CONTRACT_BASE_SEPOLIA'),
-                    'decimals': 18,
+                    'address': os.getenv('NIMO_TOKEN_CONTRACT_CARDANO_PREPROD'),
+                    'decimals': 6,  # Cardano native tokens use different decimal structure
                     'coingecko_id': None  # Custom token, no CoinGecko ID
                 },
                 'USDC': {
-                    'address': '0x036CbD53842c5426634e7929541eC2318f3dCF7e',  # Base Sepolia USDC
+                    'address': '0x036CbD53842c5426634e7929541eC2318f3dCF7e',  # Placeholder - will need Cardano USDC equivalent
                     'decimals': 6,
                     'coingecko_id': 'usd-coin'
                 }
             },
-            'base-mainnet': {
+            'cardano-mainnet': {
                 'NIMO': {
-                    'address': os.getenv('NIMO_TOKEN_CONTRACT_BASE_MAINNET'),
-                    'decimals': 18,
+                    'address': os.getenv('NIMO_TOKEN_CONTRACT_CARDANO_MAINNET'),
+                    'decimals': 6,
                     'coingecko_id': None
                 },
                 'USDC': {
-                    'address': '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',  # Base Mainnet USDC
+                    'address': '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',  # Placeholder - will need Cardano USDC equivalent
                     'decimals': 6,
                     'coingecko_id': 'usd-coin'
                 }
-            }
+            },
+            # Legacy Base configurations (to be removed after migration)
         }
         
         # Initialize mnemonic generator
@@ -74,7 +75,7 @@ class WalletService:
     
     # Wallet Creation and Management
     
-    def create_hot_wallet(self, user_id: int, name: str = None, network: str = 'base-sepolia', 
+    def create_hot_wallet(self, user_id: int, name: str = None, network: str = 'cardano-preprod', 
                          mnemonic_phrase: str = None) -> Dict[str, any]:
         """
         Create a new hot wallet for a user
@@ -156,7 +157,7 @@ class WalletService:
             }
     
     def import_wallet_from_private_key(self, user_id: int, private_key: str, name: str = None, 
-                                     network: str = 'base-sepolia') -> Dict[str, any]:
+                                     network: str = 'cardano-preprod') -> Dict[str, any]:
         """Import wallet from private key"""
         try:
             # Validate and create account from private key
@@ -207,7 +208,7 @@ class WalletService:
             }
     
     def import_wallet_from_mnemonic(self, user_id: int, mnemonic_phrase: str, name: str = None,
-                                  network: str = 'base-sepolia', derivation_path: str = None) -> Dict[str, any]:
+                                  network: str = 'cardano-preprod', derivation_path: str = None) -> Dict[str, any]:
         """Import wallet from mnemonic phrase"""
         try:
             # Validate mnemonic
@@ -264,7 +265,7 @@ class WalletService:
             }
     
     def create_watch_only_wallet(self, user_id: int, wallet_address: str, name: str = None,
-                                network: str = 'base-sepolia') -> Dict[str, any]:
+                                network: str = 'cardano-preprod') -> Dict[str, any]:
         """Create a watch-only wallet"""
         try:
             # Validate address
@@ -874,7 +875,7 @@ class WalletService:
     # Multisig Wallet Support
     
     def create_multisig_wallet(self, user_id: int, owners: List[str], required_signatures: int,
-                             name: str = None, network: str = 'base-sepolia') -> Dict[str, any]:
+                             name: str = None, network: str = 'cardano-preprod') -> Dict[str, any]:
         """Create a multisig wallet (placeholder for future implementation)"""
         # This would integrate with a multisig wallet factory contract
         # For now, return a placeholder response

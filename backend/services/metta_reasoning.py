@@ -199,29 +199,45 @@ class MeTTaReasoning:
     
     def _initialize_core_rules(self) -> None:
         """Initialize core MeTTa reasoning rules"""
-        # Load core rules from file if available
-        core_rules_path = os.path.join(self.rules_dir, 'core_rules.metta')
-        if os.path.exists(core_rules_path):
-            with open(core_rules_path, 'r') as f:
-                rules = f.read()
-                self._execute_metta(rules)
-                print(f"Loaded core rules from {core_rules_path}")
-                return
-                
-        # If rules file not found, define rules directly
-        print(f"Core rules file not found at {core_rules_path}, defining rules directly")
-                
-        # Initialize base verification rule
-        self._implement_core_reasoning()
-        
-        # Initialize confidence scoring
-        self._implement_confidence_scoring()
-        
-        # Initialize explanation generation
-        self._implement_explanation_generator()
-        
-        # Initialize fraud detection
-        self._implement_fraud_detection()
+        # Load all MeTTa rule files in order of dependency
+        rule_files = [
+            'core_rules.metta',                    # Core verification and awards
+            'enhanced_rules.metta',               # Advanced verification and fraud detection
+            'autonomous_awards.metta',            # ML-driven token awards
+            'fraud_detection.metta',              # Comprehensive fraud detection
+            'adaptive_governance.metta',          # Decentralized governance
+            'predictive_analytics.metta',         # ML and predictive analytics
+            'integration_orchestration.metta',    # Cross-platform integration
+            'unified_autonomous_system.metta'     # Master orchestration
+        ]
+
+        loaded_files = []
+        for rule_file in rule_files:
+            rule_path = os.path.join(self.rules_dir, rule_file)
+            if os.path.exists(rule_path):
+                try:
+                    with open(rule_path, 'r') as f:
+                        rules = f.read()
+                        self._execute_metta(rules)
+                        loaded_files.append(rule_file)
+                        print(f"Loaded {rule_file} from {rule_path}")
+                except Exception as e:
+                    print(f"Error loading {rule_file}: {e}")
+            else:
+                print(f"Rule file not found: {rule_path}")
+
+        if not loaded_files:
+            print(f"No rule files found in {self.rules_dir}, defining rules directly")
+            # Fallback to defining rules directly if files not found
+            self._implement_core_reasoning()
+            self._implement_confidence_scoring()
+            self._implement_explanation_generator()
+            self._implement_fraud_detection()
+        else:
+            print(f"Successfully loaded {len(loaded_files)} rule files: {', '.join(loaded_files)}")
+
+        # Initialize additional helper rules that complement the loaded files
+        self._implement_additional_helpers()
     
     def _implement_core_reasoning(self) -> None:
         """Implement core verification reasoning rules"""
@@ -521,6 +537,50 @@ class MeTTaReasoning:
              (not (and $dates-consistent $author-consistent))))
         '''
         self._add_to_space(evidence_inconsistency)
+    
+    def _implement_additional_helpers(self) -> None:
+        """Implement additional helper rules for the autonomous system"""
+        # Helper for unified autonomous operations
+        unified_helper = '''
+        (= (ExecuteUnifiedAutonomousCycle $state)
+           (ExecuteAutonomousPlatformCycle $state))
+        '''
+        self._add_to_space(unified_helper)
+
+        # Helper for comprehensive contribution processing
+        processing_helper = '''
+        (= (ProcessContributionComprehensive $contrib-id)
+           (ProcessContributionAutonomously $contrib-id))
+        '''
+        self._add_to_space(processing_helper)
+
+        # Helper for autonomous reward calculation
+        reward_helper = '''
+        (= (CalculateAutonomousRewardUnified $contrib-id $quality $impact)
+           (CalculateAutonomousReward $contrib-id $quality $impact))
+        '''
+        self._add_to_space(reward_helper)
+
+        # Helper for predictive platform optimization
+        predictive_helper = '''
+        (= (OptimizePlatformWithPrediction $state)
+           (OptimizePlatformPredictively $state))
+        '''
+        self._add_to_space(predictive_helper)
+
+        # Helper for autonomous governance
+        governance_helper = '''
+        (= (ExecuteGovernanceAutonomously $state)
+           (ExecuteAutonomousGovernance $state))
+        '''
+        self._add_to_space(governance_helper)
+
+        # Helper for autonomous security
+        security_helper = '''
+        (= (ManageSecurityAutonomously $state)
+           (ManageAutonomousSecurity $state))
+        '''
+        self._add_to_space(security_helper)
     
     def verify_contribution(self, user_id: str, contribution_id: str, 
                           evidence: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -1191,3 +1251,292 @@ class MeTTaReasoning:
         self.added_atoms = []
         self.cache = {}
         self._initialize_core_rules()
+    
+    def execute_autonomous_cycle(self, platform_state: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Execute a complete autonomous platform cycle
+        
+        Args:
+            platform_state (Dict[str, Any]): Current platform state
+            
+        Returns:
+            Dict[str, Any]: Autonomous cycle results
+        """
+        try:
+            # Execute unified autonomous cycle
+            result = self._execute_metta(f'(ExecuteUnifiedAutonomousCycle "{json.dumps(platform_state)}")')
+            
+            if result:
+                return {
+                    'success': True,
+                    'cycle_completed': True,
+                    'results': result,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'success': False,
+                    'cycle_completed': False,
+                    'error': 'Autonomous cycle execution failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'success': False,
+                'cycle_completed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def process_contribution_autonomously(self, contribution_id: str) -> Dict[str, Any]:
+        """
+        Process a contribution autonomously using comprehensive rules
+        
+        Args:
+            contribution_id (str): Contribution ID
+            
+        Returns:
+            Dict[str, Any]: Autonomous processing results
+        """
+        try:
+            # Execute comprehensive contribution processing
+            result = self._execute_metta(f'(ProcessContributionComprehensive "{contribution_id}")')
+            
+            if result:
+                return {
+                    'contribution_id': contribution_id,
+                    'processed': True,
+                    'autonomous_decision': result,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'contribution_id': contribution_id,
+                    'processed': False,
+                    'error': 'Autonomous processing failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'contribution_id': contribution_id,
+                'processed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def calculate_autonomous_reward(self, contribution_id: str, quality_score: float, impact_score: float) -> Dict[str, Any]:
+        """
+        Calculate autonomous reward using advanced rules
+        
+        Args:
+            contribution_id (str): Contribution ID
+            quality_score (float): Quality score (0-1)
+            impact_score (float): Impact score (0-1)
+            
+        Returns:
+            Dict[str, Any]: Reward calculation results
+        """
+        try:
+            # Execute autonomous reward calculation
+            result = self._execute_metta(f'(CalculateAutonomousRewardUnified "{contribution_id}" {quality_score} {impact_score})')
+            
+            if result:
+                return {
+                    'contribution_id': contribution_id,
+                    'reward_calculated': True,
+                    'autonomous_reward': result,
+                    'quality_score': quality_score,
+                    'impact_score': impact_score,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'contribution_id': contribution_id,
+                    'reward_calculated': False,
+                    'error': 'Autonomous reward calculation failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'contribution_id': contribution_id,
+                'reward_calculated': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def optimize_platform_predictively(self, platform_state: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Optimize platform using predictive analytics
+        
+        Args:
+            platform_state (Dict[str, Any]): Current platform state
+            
+        Returns:
+            Dict[str, Any]: Optimization results
+        """
+        try:
+            # Execute predictive optimization
+            result = self._execute_metta(f'(OptimizePlatformWithPrediction "{json.dumps(platform_state)}")')
+            
+            if result:
+                return {
+                    'optimization_completed': True,
+                    'predictive_insights': result,
+                    'platform_state': platform_state,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'optimization_completed': False,
+                    'error': 'Predictive optimization failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'optimization_completed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def execute_governance_autonomously(self, governance_state: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Execute autonomous governance cycle
+        
+        Args:
+            governance_state (Dict[str, Any]): Current governance state
+            
+        Returns:
+            Dict[str, Any]: Governance execution results
+        """
+        try:
+            # Execute autonomous governance
+            result = self._execute_metta(f'(ExecuteGovernanceAutonomously "{json.dumps(governance_state)}")')
+            
+            if result:
+                return {
+                    'governance_executed': True,
+                    'autonomous_decisions': result,
+                    'governance_state': governance_state,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'governance_executed': False,
+                    'error': 'Autonomous governance execution failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'governance_executed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def manage_security_autonomously(self, security_state: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Manage security autonomously
+        
+        Args:
+            security_state (Dict[str, Any]): Current security state
+            
+        Returns:
+            Dict[str, Any]: Security management results
+        """
+        try:
+            # Execute autonomous security management
+            result = self._execute_metta(f'(ManageSecurityAutonomously "{json.dumps(security_state)}")')
+            
+            if result:
+                return {
+                    'security_managed': True,
+                    'autonomous_actions': result,
+                    'security_state': security_state,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'security_managed': False,
+                    'error': 'Autonomous security management failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'security_managed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def detect_fraud_comprehensive(self, contribution_id: str) -> Dict[str, Any]:
+        """
+        Detect fraud using comprehensive rules
+        
+        Args:
+            contribution_id (str): Contribution ID
+            
+        Returns:
+            Dict[str, Any]: Fraud detection results
+        """
+        try:
+            # Execute comprehensive fraud detection
+            result = self._execute_metta(f'(DetectFraudComprehensive "{contribution_id}")')
+            
+            if result:
+                return {
+                    'contribution_id': contribution_id,
+                    'fraud_detected': True,
+                    'fraud_analysis': result,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'contribution_id': contribution_id,
+                    'fraud_detected': False,
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'contribution_id': contribution_id,
+                'fraud_detected': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }
+    
+    def analyze_predictive_insights(self, entity_id: str, prediction_type: str) -> Dict[str, Any]:
+        """
+        Generate predictive insights for an entity
+        
+        Args:
+            entity_id (str): Entity ID (user, contribution, etc.)
+            prediction_type (str): Type of prediction to generate
+            
+        Returns:
+            Dict[str, Any]: Predictive analysis results
+        """
+        try:
+            # Execute predictive analysis
+            result = self._execute_metta(f'(ExecutePredictiveAnalysis "{entity_id}" "{prediction_type}")')
+            
+            if result:
+                return {
+                    'entity_id': entity_id,
+                    'prediction_type': prediction_type,
+                    'analysis_completed': True,
+                    'predictive_insights': result,
+                    'timestamp': self._get_current_timestamp()
+                }
+            else:
+                return {
+                    'entity_id': entity_id,
+                    'prediction_type': prediction_type,
+                    'analysis_completed': False,
+                    'error': 'Predictive analysis failed',
+                    'timestamp': self._get_current_timestamp()
+                }
+        except Exception as e:
+            return {
+                'entity_id': entity_id,
+                'prediction_type': prediction_type,
+                'analysis_completed': False,
+                'error': str(e),
+                'timestamp': self._get_current_timestamp()
+            }

@@ -1,77 +1,15 @@
+/* Import Design Tokens */
+@import './styles/design-tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Nimo Design System - Theme Variables */
 
 @layer base {
   :root {
-    --background: 25 25% 6%;
-    --foreground: 45 100% 95%;
-
-    --card: 25 25% 8%;
-    --card-foreground: 45 100% 95%;
-
-    --popover: 25 25% 8%;
-    --popover-foreground: 45 100% 95%;
-
-    --primary: 25 95% 53%;
-    --primary-foreground: 25 25% 6%;
-
-    --secondary: 280 65% 60%;
-    --secondary-foreground: 45 100% 95%;
-
-    --muted: 25 15% 15%;
-    --muted-foreground: 45 20% 65%;
-
-    --accent: 45 95% 64%;
-    --accent-foreground: 25 25% 6%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 25 15% 15%;
-    --input: 25 15% 15%;
-    --ring: 25 95% 53%;
-
-    /* Web3 & African-inspired tokens */
-    --nft-glow: 280 100% 70%;
-    --token-gold: 45 95% 64%;
-    --verification-green: 142 76% 36%;
-    --impact-blue: 200 95% 50%;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-nft: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--nft-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.9), hsl(var(--secondary) / 0.9));
-    
-    /* Shadows & Effects */  
-    --shadow-nft: 0 10px 40px hsl(var(--nft-glow) / 0.3);
-    --shadow-card: 0 4px 20px hsl(var(--primary) / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.2);
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .light {
+    /* Light Theme - Clean & Professional */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -99,6 +37,95 @@ All colors MUST be HSL.
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 25 95% 53%;
+
+    /* Web3 & African-inspired tokens */
+    --nft-glow: 280 100% 70%;
+    --token-gold: 45 95% 64%;
+    --verification-green: 142 76% 36%;
+    --impact-blue: 200 95% 50%;
+
+    /* Enhanced Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(45 95% 64%));
+    --gradient-nft: linear-gradient(135deg, hsl(280 65% 60%), hsl(280 100% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(25 95% 53% / 0.9), hsl(280 65% 60% / 0.9));
+    --gradient-accent: linear-gradient(135deg, hsl(200 95% 50%), hsl(280 65% 60%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+
+    /* Enhanced Shadows & Effects */
+    --shadow-nft: 0 10px 40px hsl(280 100% 70% / 0.3);
+    --shadow-card: 0 4px 20px hsl(25 95% 53% / 0.1), 0 1px 3px hsl(25 95% 53% / 0.1);
+    --shadow-glow: 0 0 40px hsl(45 95% 64% / 0.2);
+    --shadow-hover: 0 8px 30px hsl(25 95% 53% / 0.15);
+    --shadow-inner: inset 0 2px 4px 0 hsl(25 95% 53% / 0.1);
+
+    /* Enhanced Border Radius */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Sidebar variables for light theme */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme - Cosmic & Modern */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 25 95% 53%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 280 65% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 45 95% 64%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 25 95% 53%;
+
+    /* Web3 & African-inspired tokens - Dark variants */
+    --nft-glow: 280 100% 70%;
+    --token-gold: 45 95% 64%;
+    --verification-green: 142 76% 36%;
+    --impact-blue: 200 95% 50%;
+
+    /* Enhanced Gradients - Dark variants */
+    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(45 95% 64%));
+    --gradient-nft: linear-gradient(135deg, hsl(280 65% 60%), hsl(280 100% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(25 95% 53% / 0.9), hsl(280 65% 60% / 0.9));
+    --gradient-accent: linear-gradient(135deg, hsl(200 95% 50%), hsl(280 65% 60%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+
+    /* Enhanced Shadows & Effects - Dark variants */
+    --shadow-nft: 0 10px 40px hsl(280 100% 70% / 0.4);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 40px hsl(45 95% 64% / 0.3);
+    --shadow-hover: 0 8px 30px hsl(0 0% 0% / 0.4);
+    --shadow-inner: inset 0 2px 4px 0 hsl(0 0% 0% / 0.3);
+
+    /* Sidebar variables for dark theme */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -118,4 +145,237 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom Animations & Micro-interactions */
+@layer utilities {
+  /* Fade In Animation */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  /* Fade In Up Animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  /* Animation Delays */
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  /* Background Patterns */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .bg-dots-pattern {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-circuit-pattern {
+    background-image: 
+      linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Pulse Animation */
+  .animate-pulse-gentle {
+    animation: pulseGentle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Bounce Animation */
+  .animate-bounce-gentle {
+    animation: bounceGentle 1s infinite;
+  }
+
+  /* Scale on Hover */
+  .hover-scale {
+    transition: transform 0.2s ease;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  /* Glow Effect */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
+  }
+}
+
+/* Keyframe Definitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGentle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Responsive Utilities */
+@layer utilities {
+  /* Container queries support */
+  .container-inline {
+    container-type: inline-size;
+  }
+
+  .container-block {
+    container-type: block-size;
+  }
+
+  /* Fluid spacing utilities */
+  .fluid-container {
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+
+  /* Safe area utilities for mobile devices */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Focus visible improvements */
+  .focus-visible-enhanced:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-fade-in-up,
+    .animate-bounce,
+    .animate-pulse-gentle,
+    .animate-bounce-gentle,
+    .hover-lift,
+    .hover-scale {
+      animation: none;
+      transition: none;
+    }
+  }
+}
+
+/* Section spacing utilities for consistent vertical rhythm */
+.section-spacing {
+  padding: 2rem 0;
+}
+
+.section-spacing-lg {
+  padding: 3rem 0;
+}
+
+.section-spacing-xl {
+  padding: 4rem 0;
+}
+
+/* Theme Transition */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }

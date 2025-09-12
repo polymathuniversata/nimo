@@ -1,0 +1,93 @@
+[package]
+name = "nimo-platform"
+version = "1.0.0"
+license = "MIT"
+description = "Nimo Platform Smart Contracts for Cardano"
+repository = "https://github.com/nimo-platform/contracts"
+
+[[package.authors]]
+name = "Nimo Platform Team"
+email = "dev@nimo.platform"
+
+[build]
+compiler_version = "v1.0.28-alpha"
+plutus_version = "v2"
+
+[config]
+# Default parameters for the contracts
+default_config = "preview"
+
+[config.preview]
+# Preview testnet configuration
+network = "preview"
+magic = 2
+min_utxo = 1000000  # 1 ADA minimum UTXO
+
+# Platform configuration parameters
+platform_admin = "addr_test1qp9error7fs0f99ht4yyqh3q02ta5q7z2se8hm9jy6rjwyx7h5qpf"
+metta_agent_pool = [
+    "addr_test1qpmetta1_placeholder_address_here_for_preview_testnet",
+    "addr_test1qpmetta2_placeholder_address_here_for_preview_testnet"
+]
+verifier_pool = [
+    "addr_test1qpverifier1_placeholder_address_here_for_preview",
+    "addr_test1qpverifier2_placeholder_address_here_for_preview"
+]
+
+# Reward parameters
+min_confidence_threshold = 70
+max_reward_amount = 1000
+min_reward_amount = 10
+platform_fee_percentage = 5
+
+# Token parameters
+nimo_token_name = "4e494d4f"  # "NIMO" in hex
+initial_token_supply = 1000000
+
+[config.preprod]
+# Preprod testnet configuration
+network = "preprod"
+magic = 1
+min_utxo = 1000000
+
+# Platform configuration for preprod
+platform_admin = "addr_test1qppreprod_admin_placeholder_here"
+metta_agent_pool = [
+    "addr_test1qpmetta_preprod_1_placeholder_here",
+    "addr_test1qpmetta_preprod_2_placeholder_here"
+]
+
+[config.mainnet]
+# Mainnet configuration
+network = "mainnet"
+magic = 764824073
+min_utxo = 1000000
+
+# Production addresses - TO BE UPDATED BEFORE MAINNET DEPLOYMENT
+platform_admin = "addr1_mainnet_admin_to_be_set"
+metta_agent_pool = [
+    "addr1_mainnet_metta_agent_1_to_be_set",
+    "addr1_mainnet_metta_agent_2_to_be_set"
+]
+
+[dependencies]
+aiken = { version = "1.0.28-alpha", source = "github", repo = "aiken-lang/aiken" }
+stdlib = { version = "1.9.0", source = "github", repo = "aiken-lang/stdlib" }
+
+[scripts]
+# Build scripts for development
+build = "aiken build"
+check = "aiken check"
+test = "aiken test"
+format = "aiken fmt"
+
+# Deployment scripts
+deploy-preview = "python deploy.py --network preview"
+deploy-preprod = "python deploy.py --network preprod"  
+deploy-mainnet = "python deploy.py --network mainnet"
+
+# Testing scripts
+test-contribution = "aiken test --match contribution*"
+test-identity = "aiken test --match identity*"
+test-metta = "aiken test --match metta*"
+test-integration = "aiken test --match integration*"

@@ -31,13 +31,8 @@ class SecurityConfig:
     MAX_STRING_LENGTH = 10000
     MAX_ARRAY_LENGTH = 1000
     
-    # CORS settings
-    CORS_ORIGINS = [
-        'http://localhost:3000',
-        'http://localhost:5173',
-        'http://localhost:4173',
-        'https://nimo.platform'
-    ]
+    # CORS settings - Environment-based configuration
+    CORS_ORIGINS = []
     
     # Security headers
     SECURITY_HEADERS = {
@@ -55,12 +50,37 @@ def init_security(app):
     # Set request size limit
     app.config['MAX_CONTENT_LENGTH'] = SecurityConfig.MAX_CONTENT_LENGTH
     
-    # Configure CORS
-    CORS(app, 
-         origins=SecurityConfig.CORS_ORIGINS,
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
-         supports_credentials=True)
+    # Configure CORS with environment-based origins
+    cors_origins = app.config.get('CORS_ORIGINS', [])
+    if not cors_origins:
+        # Fallback to environment variable or defaults
+        import os
+        cors_env = os.environ.get('CORS_ORIGINS', '')
+        if cors_env:
+            cors_origins = [origin.strip() for origin in cors_env.split(',')]
+        else:
+            # Development fallback
+            if app.config.get('DEBUG', False):
+                cors_origins = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4173', 'http://localhost:8081']
+            else:
+                # Production - restrictive by default
+                cors_origins = []
+    
+    # Enhanced CORS configuration
+    if cors_origins:
+        CORS(app, 
+             origins=cors_origins,
+             methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+             allow_headers=['Content-Type', 'Authorization', 'X-Requested-With', 'X-CSRF-Token'],
+             supports_credentials=True,
+             max_age=86400)  # Cache preflight for 24 hours
+    else:
+        # Very restrictive CORS for production when no origins specified
+        CORS(app,
+             origins=False,  # No cross-origin requests allowed
+             methods=['GET', 'POST'],
+             allow_headers=['Content-Type', 'Authorization'],
+             supports_credentials=False)
     
     # Add security headers to all responses
     @app.after_request
