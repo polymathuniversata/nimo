@@ -1,0 +1,38 @@
+* [33m5205d68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfinal[m[33m)[m WIP: add remaining modified paths before rebase
+* [33ma09460d[m WIP: save local changes before rebase
+* [33m03da748[m WIP: stage current changes before rebase
+* [33mb291d9c[m 🗑️ MIGRATION: Remove Solidity files - Complete Cardano migration
+* [33m90c3429[m 🔄 MIGRATION: Add Aiken NIMO token contract equivalent
+* [33mee67c48[m[33m ([m[1;31morigin/final[m[33m, [m[1;31morigin/HEAD[m[33m)[m Delete .env.cardano
+* [33mbbf87a0[m 🔒 SECURITY: Sanitize sensitive configuration files
+* [33m191d3a3[m docs: consolidate audit reports and update documentation
+* [33m272497d[m Complete Vue to React migration cleanup
+* [33m6947bcb[m Move documentation section to dedicated docs file
+* [33m74ed6b4[m Move frontend code audit section to dedicated docs file
+* [33m5c6122a[m Update Technology Stack section formatting in README.md
+* [33m53976e4[m Remove platform status from README and move docs to docs/ directory
+*   [33m4363ceb[m Conclude merge after resolving conflicts
+[32m|[m[33m\[m  
+[32m|[m * [33md3f6e3a[m Fix three critical code bugs (#5)
+* [33m|[m [33m14edc73[m feat: make theme toggle visible on navbar
+[33m|[m[33m/[m  
+* [33m80aa440[m � File Organization & Cardano Deployment Setup
+* [33m83eb899[m � Complete Cardano Migration & Documentation Update
+* [33m4afd8c6[m Complete Nimo Platform Setup - Polygon Mumbai Deployment Ready
+* [33m461f778[m[33m ([m[1;31morigin/integrate-aisha-backend[m[33m, [m[1;32mintegrate-aisha-backend[m[33m)[m Update project with latest changes
+* [33mfc88639[m feat: apply partner's simplified frontend
+* [33ma19682f[m fix: resolve ESLint errors and improve code quality
+* [33m8bc26e4[m docs: add partner guide for repository status and next steps
+*   [33m694d3b4[m[33m ([m[1;31morigin/hackathon[m[33m)[m Merge origin/main into development - resolved conflicts keeping migration changes
+[34m|[m[35m\[m  
+[34m|[m * [33m824856c[m Resolved main.jsx merge conflict and kept UserProvider version
+[34m|[m *   [33mb5f9cd2[m Resolve all merge conflicts, keep all files from frontend-update and main
+[34m|[m [36m|[m[1;31m\[m  
+[34m|[m * [1;31m\[m   [33m0205a0f[m Merge pull request #3 from polymathuniversata/frontend-update
+[34m|[m [1;32m|[m[1;33m\[m [1;31m\[m  
+[34m|[m [1;32m|[m * [1;31m\[m   [33m8bc7372[m Merge main into frontend-update, resolved all conflicts
+[34m|[m [1;32m|[m [1;34m|[m[1;32m\[m [1;31m\[m  
+[34m|[m [1;32m|[m [1;34m|[m[1;32m/[m [1;31m/[m  
+[34m|[m [1;32m|[m[1;32m/[m[1;34m|[m [1;31m|[m   
+* [1;32m|[m [1;34m|[m [1;31m|[m [33m7cb6604[m refactor: complete frontend migration - remove client/ directory and update remaining files
+* [1;32m|[m [1;34m|[m [1;31m|[m [33m9f9ce6e[m refactor: migrate frontend from client/ to root directory
