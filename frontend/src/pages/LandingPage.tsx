@@ -82,6 +82,9 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="flex items-center gap-4">
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="block sm:hidden text-muted-foreground hover:text-primary transition-colors">
