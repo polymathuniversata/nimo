@@ -77,33 +77,33 @@
 
   .dark {
     /* Dark Theme - Cosmic & Modern */
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --background: 240 20% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 20% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 20% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 25 95% 53%;
-    --primary-foreground: 222 47% 6%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 280 65% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 20% 10%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 20% 10%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 45 95% 64%;
-    --accent-foreground: 222 47% 6%;
+    --accent: 240 20% 10%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 25 95% 53%;
+    --border: 240 20% 10%;
+    --input: 240 20% 10%;
+    --ring: 263.4 70% 50.4%;
 
     /* Web3 & African-inspired tokens - Dark variants */
     --nft-glow: 280 100% 70%;
@@ -112,18 +112,18 @@
     --impact-blue: 200 95% 50%;
 
     /* Enhanced Gradients - Dark variants */
-    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(45 95% 64%));
-    --gradient-nft: linear-gradient(135deg, hsl(280 65% 60%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(25 95% 53% / 0.9), hsl(280 65% 60% / 0.9));
-    --gradient-accent: linear-gradient(135deg, hsl(200 95% 50%), hsl(280 65% 60%));
+    --gradient-primary: linear-gradient(135deg, hsl(263.4 70% 50.4%), hsl(240 20% 10%));
+    --gradient-nft: linear-gradient(135deg, hsl(263.4 70% 50.4%), hsl(280 100% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(263.4 70% 50.4% / 0.9), hsl(240 20% 10% / 0.9));
+    --gradient-accent: linear-gradient(135deg, hsl(240 20% 10%), hsl(263.4 70% 50.4%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
 
     /* Enhanced Shadows & Effects - Dark variants */
-    --shadow-nft: 0 10px 40px hsl(280 100% 70% / 0.4);
-    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3), 0 1px 3px hsl(0 0% 0% / 0.2);
-    --shadow-glow: 0 0 40px hsl(45 95% 64% / 0.3);
-    --shadow-hover: 0 8px 30px hsl(0 0% 0% / 0.4);
-    --shadow-inner: inset 0 2px 4px 0 hsl(0 0% 0% / 0.3);
+    --shadow-nft: 0 10px 40px hsl(263.4 70% 50.4% / 0.4);
+    --shadow-card: 0 4px 20px hsl(240 20% 3.9% / 0.5), 0 1px 3px hsl(240 20% 3.9% / 0.4);
+    --shadow-glow: 0 0 40px hsl(263.4 70% 50.4% / 0.3);
+    --shadow-hover: 0 8px 30px hsl(240 20% 3.9% / 0.5);
+    --shadow-inner: inset 0 2px 4px 0 hsl(240 20% 3.9% / 0.4);
 
     /* Sidebar variables for dark theme */
     --sidebar-background: 240 5.9% 10%;
@@ -144,6 +144,14 @@
 
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  /* Theme transition effects */
+  :root * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.3s;
   }
 }
 
@@ -172,25 +180,46 @@
 
   /* Background Patterns */
   .bg-grid-pattern {
+    @apply bg-background;
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      linear-gradient(90deg, rgb(var(--primary) / 0.05) 1px, transparent 1px),
+      linear-gradient(rgb(var(--primary) / 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
   .bg-dots-pattern {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    @apply bg-background;
+    background-image: radial-gradient(circle, rgb(var(--primary) / 0.1) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
   .bg-circuit-pattern {
+    @apply bg-background;
     background-image: 
-      linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
-      linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
-      linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.02) 75%);
+      linear-gradient(45deg, rgb(var(--primary) / 0.07) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(var(--primary) / 0.07) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.07) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.07) 75%);
     background-size: 16px 16px;
     background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  }
+
+  .dark .bg-grid-pattern {
+    background-image: 
+      linear-gradient(90deg, rgb(var(--primary) / 0.15) 1px, transparent 1px),
+      linear-gradient(rgb(var(--primary) / 0.15) 1px, transparent 1px);
+  }
+
+  .dark .bg-dots-pattern {
+    background-image: radial-gradient(circle, rgb(var(--primary) / 0.2) 1px, transparent 1px);
+  }
+
+  .dark .bg-circuit-pattern {
+    background-image: 
+      linear-gradient(45deg, rgb(var(--primary) / 0.15) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(var(--primary) / 0.15) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.15) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.15) 75%);
   }
 
   /* Hover Effects */

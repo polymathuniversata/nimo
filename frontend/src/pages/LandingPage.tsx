@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   Users,
   Award,
@@ -11,7 +12,6 @@ import {
   Target,
   Zap,
   CheckCircle,
-  Star,
   Github,
   Twitter,
   Mail,
@@ -26,14 +26,19 @@ import {
   Trophy,
   MapPin,
   Calendar,
-  ChevronDown
+  ChevronDown,
+  Menu
 } from 'lucide-react';
 
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+
 const LandingPage = () => {
-  // Hot reload test - this comment should trigger a reload
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -76,12 +81,53 @@ const LandingPage = () => {
                 </Link>
               </div>
             </div>
-            <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus-visible-enhanced" asChild>
-              <Link to="/login" aria-label="Get started with Nimo">
-                <span>Get Started</span>
-                <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
-              </Link>
-            </Button>
+            <div className="flex items-center gap-4">
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="block sm:hidden text-muted-foreground hover:text-primary transition-colors">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-full sm:w-80">
+                  <SheetHeader>
+                    <SheetTitle className="text-left">Menu</SheetTitle>
+                  </SheetHeader>
+                  <div className="mt-8 flex flex-col gap-6">
+                    <nav className="flex flex-col gap-4">
+                      <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('problem')}>
+                        Problem
+                      </Button>
+                      <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('solution')}>
+                        Solution
+                      </Button>
+                      <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('features')}>
+                        Features
+                      </Button>
+                    </nav>
+                    <div className="border-t pt-4">
+                      <div className="flex flex-col gap-2">
+                        <p className="text-sm font-medium">Theme</p>
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                    <div className="border-t pt-4">
+                      <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300" asChild>
+                        <Link to="/login" aria-label="Get started with Nimo">
+                          <span>Get Started</span>
+                          <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+              <Button className="hidden sm:flex bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus-visible-enhanced" asChild>
+                <Link to="/login" aria-label="Get started with Nimo">
+                  <span>Get Started</span>
+                  <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
