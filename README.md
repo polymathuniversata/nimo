@@ -15,33 +15,82 @@ Nimo is a decentralized reputation system built on **Cardano blockchain** and **
 
 ## ✨ Key Features
 
-<div align="center">
+<div align="center" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 40px 0;">
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 🏗️ Decentralized Identity & NFTs
 **Unique, transferable NFT identities on Cardano**
-<br>*Persistent digital identity with cryptographic proof of ownership*
+
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; backdrop-filter: blur(10px);">
+*Persistent digital identity with cryptographic proof of ownership*
+</div>
+
+</div>
+
+<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 🎯 Smart Contract Integration
 **Immutable contribution records with automated token awards**
-<br>*Transparent, tamper-proof contribution verification system*
+
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; backdrop-filter: blur(10px);">
+*Transparent, tamper-proof contribution verification system*
+</div>
+
+</div>
+
+<div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 💰 Native Token Economy
 **NIMO tokens for reputation rewards and opportunity access**
-<br>*Economic incentives for meaningful community contributions*
+
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; backdrop-filter: blur(10px);">
+*Economic incentives for meaningful community contributions*
+</div>
+
+</div>
+
+<div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 🌍 Impact Bond Marketplace
 **Decentralized funding for local projects**
-<br>*Community-driven investment in African youth initiatives*
+
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; backdrop-filter: blur(10px);">
+*Community-driven investment in African youth initiatives*
+</div>
+
+</div>
+
+<div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 🤖 MeTTa Autonomous Agents
 **AI-powered contribution verification and reward calculation**
-<br>*Intelligent automation with transparent reasoning*
+
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; backdrop-filter: blur(10px);">
+*Intelligent automation with transparent reasoning*
+</div>
+
+</div>
+
+<div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s ease;">
 
 ### 🔐 Multi-Chain Support
 **Cardano primary with Base Network compatibility**
-<br>*Cross-platform interoperability and future-proof architecture*
+
+<div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 8px; margin-top: 15px;">
+*Cross-platform interoperability and future-proof architecture*
+</div>
 
 </div>
+
+</div>
+
+<style>
+.feature-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+}
+</style>
 
 ## 🚀 Quick Start
 
