@@ -1,0 +1,13 @@
+[33m4363ceb[m Conclude merge after resolving conflicts
+[33m14edc73[m feat: make theme toggle visible on navbar
+[33m80aa440[m � File Organization & Cardano Deployment Setup
+[33m83eb899[m � Complete Cardano Migration & Documentation Update
+[33m4afd8c6[m Complete Nimo Platform Setup - Polygon Mumbai Deployment Ready
+[33m461f778[m[33m ([m[1;31morigin/integrate-aisha-backend[33m, [m[1;32mintegrate-aisha-backend[33m)[m Update project with latest changes
+[33m6d8b308[m Merge branch 'frontend-update' into development
+[33mb5f9cd2[m Resolve all merge conflicts, keep all files from frontend-update and main
+[33m8bc7372[m Merge main into frontend-update, resolved all conflicts
+[33m10b4117[m refactor: complete frontend structure migration and cleanup
+[33m3d807ea[m Update MeTTa integration components and documentation
+[33me4f8f6a[m Update MeTTa integration and backend services with new rules and documentation
+[33m71631ea[m Add full project structure: frontend, backend, MeTTa files, and documentation

@@ -34,6 +34,7 @@ $env:BLOCKFROST_PROJECT_ID_PREVIEW="your_project_id_here"
 Or add to your `.env` files:
 ```
 BLOCKFROST_PROJECT_ID_PREVIEW=your_project_id_here
+CARDANO_NETWORK=preview
 ```
 
 ### 3. Fund Service Address with Test ADA
@@ -51,7 +52,7 @@ python check_deployment_status.py
 ```
 
 You should see:
-- Blockfrost: ✓
+- Blockfrost: 
 - Service balance: > 5 ADA
 
 ### 5. Deploy NIMO Token

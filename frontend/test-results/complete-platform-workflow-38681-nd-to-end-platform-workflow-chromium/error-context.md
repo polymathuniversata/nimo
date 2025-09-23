@@ -1,0 +1,85 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e8]
+        - heading "Nimo" [level=1] [ref=e10]
+      - heading "Join Nimo" [level=2] [ref=e11]
+      - paragraph [ref=e12]: Create your decentralized identity and start earning reputation
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - heading "Create Account" [level=3] [ref=e15]
+        - paragraph [ref=e16]: Complete your profile, KYC verification, and wallet connection
+      - generic [ref=e17]:
+        - generic [ref=e19]:
+          - img [ref=e21]
+          - img [ref=e26]
+          - img [ref=e31]
+        - generic [ref=e34]:
+          - tablist [ref=e35]:
+            - tab "Profile" [selected] [ref=e36] [cursor=pointer]:
+              - img [ref=e37] [cursor=pointer]
+              - generic [ref=e40] [cursor=pointer]: Profile
+            - tab "KYC" [disabled]:
+              - img
+              - generic: KYC
+            - tab "Wallet" [disabled]:
+              - img
+              - generic: Wallet
+          - tabpanel "Profile" [ref=e41]:
+            - generic [ref=e42]:
+              - heading "Create Your Profile" [level=3] [ref=e43]
+              - paragraph [ref=e44]: Start by setting up your basic information
+            - generic [ref=e45]:
+              - generic [ref=e46]:
+                - generic [ref=e47]:
+                  - generic [ref=e48]: Full Name *
+                  - generic [ref=e49]:
+                    - img [ref=e50]
+                    - textbox "Full Name *" [active] [ref=e53]: John Doe
+                - generic [ref=e54]:
+                  - generic [ref=e55]: Email *
+                  - generic [ref=e56]:
+                    - img [ref=e57]
+                    - textbox "Email *" [ref=e60]: john.doe@example.com
+              - generic [ref=e61]:
+                - generic [ref=e62]: Location (Optional)
+                - generic [ref=e63]:
+                  - img [ref=e64]
+                  - textbox "Location (Optional)" [ref=e67]
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - generic [ref=e70]: Password *
+                  - generic [ref=e71]:
+                    - img [ref=e72]
+                    - textbox "Password *" [ref=e75]
+                - generic [ref=e76]:
+                  - generic [ref=e77]: Confirm Password *
+                  - generic [ref=e78]:
+                    - img [ref=e79]
+                    - textbox "Confirm Password *" [ref=e82]: SecurePass123!
+              - generic [ref=e83]:
+                - generic [ref=e84]: Bio (Optional)
+                - textbox "Bio (Optional)" [ref=e85]
+              - generic [ref=e86]:
+                - generic [ref=e87]: Skills (Optional)
+                - generic [ref=e88]:
+                  - img [ref=e89]
+                  - textbox "Skills (Optional)" [ref=e92]
+              - 'button "Next: KYC Verification" [ref=e93] [cursor=pointer]'
+        - generic [ref=e94]:
+          - paragraph [ref=e95]:
+            - text: Already have an account?
+            - link "Sign in here" [ref=e96] [cursor=pointer]:
+              - /url: /login
+          - generic [ref=e97]:
+            - generic [ref=e98]: 🔐 Secure Registration
+            - generic [ref=e99]: 🛡️ KYC Required
+            - generic [ref=e100]: 🌍 Decentralized Identity
+```

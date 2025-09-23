@@ -1,5 +1,17 @@
 {
+  "scripts": {
+    "start": "node mcp-server.js",
+    "playwright-mcp": "node playwright-mcp-server.js",
+    "playwright-mcp:direct": "npx @playwright/mcp",
+    "playwright-mcp:headless": "npx @playwright/mcp --headless",
+    "playwright-mcp:chrome": "npx @playwright/mcp --browser chrome",
+    "playwright-mcp:firefox": "npx @playwright/mcp --browser firefox",
+    "test:mcp": "node test-system-mcp.js",
+    "test:mcp:demo": "node mcp-test-demo.js",
+    "test:mcp:quick": "node test-system-mcp.js --quick"
+  },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.4"
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "@playwright/mcp": "^0.0.39"
   }
 }

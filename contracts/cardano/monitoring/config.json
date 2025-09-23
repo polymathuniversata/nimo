@@ -1,0 +1,49 @@
+{
+  "blockfrost_project_id": "YOUR_BLOCKFROST_PROJECT_ID",
+  "contract_address": "YOUR_CONTRACT_ADDRESS",
+  "prometheus_port": 9090,
+  "monitoring_interval": 60,
+  "alert_config": {
+    "min_contract_balance": 1000,
+    "max_active_challenges": 10,
+    "proof_processing_timeout": 3600,
+    "alert_webhook_url": "YOUR_WEBHOOK_URL"
+  },
+  "logging": {
+    "level": "INFO",
+    "file_path": "bridge_monitor.log",
+    "max_size": 10485760,
+    "backup_count": 5
+  },
+  "metrics": {
+    "enable_prometheus": true,
+    "collection_interval": 15,
+    "retention_days": 30
+  },
+  "cardano": {
+    "network": "mainnet",
+    "node_url": "YOUR_CARDANO_NODE_URL",
+    "sync_tolerance": 120,
+    "max_block_lag": 10
+  },
+  "alert_thresholds": {
+    "high_gas_usage": 800000,
+    "low_stake_amount": 50000000,
+    "challenge_resolution_warning": 5400,
+    "proof_verification_delay": 1800
+  },
+  "notification_channels": {
+    "discord": {
+      "enabled": true,
+      "webhook_url": "YOUR_DISCORD_WEBHOOK",
+      "mention_role_id": "YOUR_ROLE_ID"
+    },
+    "email": {
+      "enabled": false,
+      "smtp_server": "smtp.example.com",
+      "smtp_port": 587,
+      "sender": "monitor@example.com",
+      "recipients": ["admin@example.com"]
+    }
+  }
+}

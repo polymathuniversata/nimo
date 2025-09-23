@@ -12,10 +12,11 @@ The Nimo Design System provides a comprehensive set of design tokens, components
 
 ### Colors
 
-#### Primary Palette
+#### Primary Palette (Indigo - Main Brand)
 ```css
+/* Light Theme Values */
 --nimo-primary: #6366f1;      /* Indigo - Main brand color */
---nimo-primary-50: #eef2ff;
+--nimo-primary-50: #eef2ff;   /* Lightest */
 --nimo-primary-100: #e0e7ff;
 --nimo-primary-200: #c7d2fe;
 --nimo-primary-300: #a5b4fc;
@@ -24,11 +25,25 @@ The Nimo Design System provides a comprehensive set of design tokens, components
 --nimo-primary-600: #4f46e5;
 --nimo-primary-700: #4338ca;
 --nimo-primary-800: #3730a3;
---nimo-primary-900: #312e81;
+--nimo-primary-900: #312e81;   /* Darkest */
+
+/* Dark Theme Values (Inverted for Better Contrast) */
+--nimo-primary-dark: #818cf8;      /* Brighter base for dark mode */
+--nimo-primary-50-dark: #312e81;   /* Inverted scale */
+--nimo-primary-100-dark: #3730a3;
+--nimo-primary-200-dark: #4338ca;
+--nimo-primary-300-dark: #4f46e5;
+--nimo-primary-400-dark: #6366f1;
+--nimo-primary-500-dark: #818cf8;  /* Base - brighter */
+--nimo-primary-600-dark: #a5b4fc;
+--nimo-primary-700-dark: #c7d2fe;
+--nimo-primary-800-dark: #e0e7ff;
+--nimo-primary-900-dark: #eef2ff;  /* Lightest in dark */
 ```
 
-#### Secondary Palette
+#### Secondary Palette (Purple - Accents)
 ```css
+/* Light Theme Values */
 --nimo-secondary: #8b5cf6;    /* Purple - Accents */
 --nimo-secondary-50: #faf5ff;
 --nimo-secondary-100: #f3e8ff;
@@ -40,15 +55,48 @@ The Nimo Design System provides a comprehensive set of design tokens, components
 --nimo-secondary-700: #6d28d9;
 --nimo-secondary-800: #5b21b6;
 --nimo-secondary-900: #4c1d95;
+
+/* Dark Theme Values (Enhanced for Visibility) */
+--nimo-secondary-dark: #c084fc;    /* Brighter base for dark mode */
+--nimo-secondary-50-dark: #4c1d95; /* Inverted scale */
+--nimo-secondary-100-dark: #5b21b6;
+--nimo-secondary-200-dark: #6d28d9;
+--nimo-secondary-300-dark: #7c3aed;
+--nimo-secondary-400-dark: #8b5cf6;
+--nimo-secondary-500-dark: #c084fc; /* Base - brighter */
+--nimo-secondary-600-dark: #d8b4fe;
+--nimo-secondary-700-dark: #e9d5ff;
+--nimo-secondary-800-dark: #f3e8ff;
+--nimo-secondary-900-dark: #faf5ff; /* Lightest in dark */
 ```
 
-#### Accent Colors
+#### Accent Colors (Enhanced for Accessibility)
 ```css
+/* Light Theme Values */
 --nimo-accent: #06b6d4;       /* Cyan - CTAs */
 --nimo-positive: #10b981;     /* Emerald - Success */
 --nimo-negative: #ef4444;     /* Red - Error */
 --nimo-warning: #f59e0b;      /* Amber - Warning */
 --nimo-info: #3b82f6;         /* Blue - Info */
+
+/* Dark Theme Values (Enhanced Contrast) */
+--nimo-accent-dark: #22d3ee;      /* Brighter cyan for dark mode */
+--nimo-positive-dark: #34d399;    /* Brighter emerald */
+--nimo-negative-dark: #f87171;    /* Brighter red */
+--nimo-warning-dark: #fbbf24;     /* Brighter amber */
+--nimo-info-dark: #60a5fa;       /* Brighter blue */
+
+/* Web3 & Nimo-specific Enhanced Colors */
+--nimo-nft-glow: #d946ef;        /* Enhanced NFT glow */
+--nimo-token-gold: #f59e0b;       /* Token/Gold accent */
+--nimo-verification-green: #10b981; /* Verification badge */
+--nimo-impact-blue: #3b82f6;      /* Impact metrics */
+
+/* Dark Mode Variants */
+--nimo-nft-glow-dark: #e879f9;    /* Brighter NFT glow */
+--nimo-token-gold-dark: #fbbf24;  /* Brighter gold */
+--nimo-verification-green-dark: #34d399; /* Brighter green */
+--nimo-impact-blue-dark: #60a5fa; /* Brighter blue */
 ```
 
 #### Neutral Palette
@@ -351,7 +399,7 @@ Rules:
 
 ## 4. Theme System
 
-### Light Theme
+### Light Theme (Enhanced Contrast)
 ```css
 :root {
   --nimo-bg-primary: #ffffff;
@@ -361,19 +409,60 @@ Rules:
   --nimo-border-color: #e2e8f0;
   --nimo-card-bg: #ffffff;
   --nimo-card-border: #e2e8f0;
+  
+  /* Enhanced shadows for better depth */
+  --nimo-shadow-card: 0 4px 20px hsl(231 48% 48% / 0.08);
+  --nimo-shadow-hover: 0 8px 30px hsl(231 48% 48% / 0.12);
+  --nimo-shadow-glow: 0 0 40px hsl(231 48% 48% / 0.15);
 }
 ```
 
-### Dark Theme (Cosmic)
+### Dark Theme (Enhanced Cosmic Design)
 ```css
 [data-theme="dark"] {
-  --nimo-bg-primary: #0c0c0f;
-  --nimo-bg-secondary: #161622;
-  --nimo-text-primary: #f8fafc;
-  --nimo-text-secondary: #cbd5e1;
-  --nimo-border-color: #2a2a3e;
-  --nimo-card-bg: rgba(30, 30, 46, 0.8);
+  --nimo-bg-primary: #0c0c0f;      /* Deep space */
+  --nimo-bg-secondary: #161622;    /* Dark nebula */
+  --nimo-text-primary: #f8fafc;    /* Bright star light */
+  --nimo-text-secondary: #cbd5e1;  /* Nebula light */
+  --nimo-border-color: #2a2a3e;    /* Stellar surface */
+  --nimo-card-bg: rgba(22, 22, 34, 0.9); /* Enhanced card background */
   --nimo-card-border: rgba(255, 255, 255, 0.1);
+  
+  /* Enhanced shadows for dark mode visibility */
+  --nimo-shadow-card: 0 4px 20px hsl(231 81% 74% / 0.15);
+  --nimo-shadow-hover: 0 8px 30px hsl(231 81% 74% / 0.2);
+  --nimo-shadow-glow: 0 0 40px hsl(231 81% 74% / 0.25);
+  
+  /* Improved text contrast ratios */
+  --nimo-text-high-contrast: #ffffff;
+  --nimo-text-medium-contrast: #e2e8f0;
+  --nimo-text-low-contrast: #94a3b8;
+}
+```
+
+### System Theme Support
+```css
+/* Respects user's system preference */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    /* Automatically applies dark theme variables */
+  }
+}
+
+/* Enhanced focus indicators for accessibility */
+.focus-visible-enhanced:focus-visible {
+  outline: 2px solid var(--nimo-primary);
+  outline-offset: 2px;
+  border-radius: var(--nimo-radius-sm);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 ```
 
@@ -445,7 +534,87 @@ Rules:
 
 ---
 
-## 6. Accessibility Guidelines
+## 6. Enhanced Color System & Dark Mode
+
+### Color Accessibility Standards
+
+Our enhanced color system ensures WCAG 2.1 AA compliance across all themes:
+
+#### Contrast Ratios
+- **Normal text (16px+):** Minimum 4.5:1 contrast ratio
+- **Large text (18px+ or 14px+ bold):** Minimum 3:1 contrast ratio
+- **Interactive elements:** Minimum 3:1 contrast ratio
+- **Focus indicators:** Minimum 3:1 contrast ratio against adjacent colors
+
+#### Dark Mode Enhancements
+
+**Key Improvements:**
+1. **Inverted Color Scales:** Primary and secondary colors use brighter variants in dark mode
+2. **Enhanced Shadows:** Colored shadows with appropriate opacity for visibility
+3. **Improved Text Contrast:** Multiple contrast levels for different content hierarchy
+4. **Better Border Visibility:** Adjusted border colors for clear component separation
+
+```css
+/* Example: Enhanced button contrast in dark mode */
+.dark .btn-primary {
+  background: hsl(231 81% 74%);     /* Brighter primary */
+  color: hsl(222.2 84% 4.9%);      /* Dark text for contrast */
+  box-shadow: 0 2px 8px hsl(231 81% 74% / 0.2);
+}
+
+.dark .btn-primary:hover {
+  background: hsl(231 86% 79%);     /* Even brighter on hover */
+  box-shadow: 0 4px 16px hsl(231 81% 74% / 0.35);
+}
+```
+
+### Theme Switching Best Practices
+
+#### Smooth Transitions
+```css
+* {
+  transition: background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+```
+
+#### System Theme Detection
+```typescript
+// Automatic system theme detection
+const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const systemTheme = mediaQuery.matches ? 'dark' : 'light';
+
+// Listen for system theme changes
+mediaQuery.addEventListener('change', (e) => {
+  if (theme === 'system') {
+    applyTheme(e.matches ? 'dark' : 'light');
+  }
+});
+```
+
+### Color Usage Guidelines
+
+#### Primary Colors
+- Use for main CTAs, navigation highlights, and brand elements
+- Ensure sufficient contrast with background in both themes
+- Apply hover states with appropriate brightness adjustments
+
+#### Secondary Colors
+- Use for accent elements, secondary actions, and decorative elements
+- Maintain visual hierarchy with primary colors
+- Consider color blindness accessibility
+
+#### Semantic Colors
+- **Success (Green):** Confirmations, completed states, positive feedback
+- **Warning (Amber):** Cautions, pending states, important notices
+- **Error (Red):** Errors, destructive actions, critical alerts
+- **Info (Blue):** Information, neutral notifications, help content
+
+---
+
+## 7. Accessibility Guidelines
 
 ### Color Contrast
 - **Normal text:** Minimum 4.5:1 contrast ratio

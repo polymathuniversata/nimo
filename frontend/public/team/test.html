@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimo Team Photos Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .team-member {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .team-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+        .fallback {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            border: 3px solid white;
+            background: linear-gradient(135deg, #3B82F6, #1E40AF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .success { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .error { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Nimo Team Photos Test</h1>
+
+        <div class="team-member">
+            <img src="./john-koiyaki.svg" alt="John Koiyaki" class="team-photo" onerror="handleError(this, 'JK')">
+            <div>
+                <h3>John Koiyaki</h3>
+                <p>Creative Technologist & Lead Developer</p>
+                <div id="john-status" class="status success">✅ Local image loaded</div>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <img src="./aisha-omar-farah.svg" alt="Aisha Omar Farah" class="team-photo" onerror="handleError(this, 'AF')">
+            <div>
+                <h3>Aisha Omar Farah</h3>
+                <p>Frontend & Web3 Developer</p>
+                <div id="aisha-status" class="status success">✅ Local image loaded</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+            <h3>📋 Testing Checklist</h3>
+            <ul style="text-align: left; display: inline-block;">
+                <li>✅ Local SVG images load correctly</li>
+                <li>✅ Fallback to GitHub profile photos works</li>
+                <li>✅ Initials display if all sources fail</li>
+                <li>✅ Images are properly sized and styled</li>
+                <li>✅ Hover effects work in the main app</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function handleError(img, initials) {
+            // Try GitHub fallback
+            if (img.src.includes('john-koiyaki.svg')) {
+                img.src = 'https://github.com/polymathuniversata.png?size=160';
+                document.getElementById('john-status').className = 'status';
+                document.getElementById('john-status').classList.add('error');
+                document.getElementById('john-status').textContent = '⚠️ Using GitHub fallback';
+            } else if (img.src.includes('aisha-omar-farah.svg')) {
+                img.src = 'https://github.com/Aishagojo.png?size=160';
+                document.getElementById('aisha-status').className = 'status';
+                document.getElementById('aisha-status').classList.add('error');
+                document.getElementById('aisha-status').textContent = '⚠️ Using GitHub fallback';
+            }
+
+            // If GitHub also fails, show initials
+            img.onerror = function() {
+                img.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.className = 'fallback';
+                fallback.textContent = initials;
+                img.parentNode.insertBefore(fallback, img);
+
+                if (img.alt.includes('John')) {
+                    document.getElementById('john-status').textContent = '❌ Showing initials fallback';
+                } else {
+                    document.getElementById('aisha-status').textContent = '❌ Showing initials fallback';
+                }
+            };
+        }
+    </script>
+</body>
+</html>

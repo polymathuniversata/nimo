@@ -17,6 +17,38 @@ This backlog represents the remaining development tasks to achieve full producti
 
 ## P0 - Critical Path Tasks (Must Complete for Production)
 
+### **Smart Contract Implementation Epic** ⚠️ **CRITICAL PRIORITY**
+| Task ID | Task | Effort | Dependencies | Acceptance Criteria |
+|---------|------|---------|--------------|-------------------|
+| SC-001 | Complete MeTTa bridge integration | 8 | Bridge architecture | Bridge functionality verified |
+| SC-002 | Implement full token distribution logic | 5 | Distribution design | Token distribution working |
+| SC-003 | Add comprehensive test coverage | 4 | Test framework | >90% test coverage achieved |
+| SC-004 | Setup multi-sig governance | 6 | Governance design | Multi-sig system operational |
+
+**Epic Total: 23 story points, 2-3 weeks**
+
+### **Contract Security Epic** ⚠️ **CRITICAL PRIORITY**
+| Task ID | Task | Effort | Dependencies | Acceptance Criteria |
+|---------|------|---------|--------------|-------------------|
+| CSE-001 | Implement emergency pause mechanism | 5 | Contract architecture | Pause functionality tested |
+| CSE-002 | Add multi-signature validation | 6 | Multi-sig setup | Validation system working |
+| CSE-003 | Complete security audit | 8 | All contracts ready | Audit report approved |
+| CSE-004 | Setup monitoring system | 4 | Monitoring infrastructure | System alerts functional |
+
+**Epic Total: 23 story points, 2-3 weeks**
+
+### **Deployment Preparation Epic** ⚠️ **CRITICAL PRIORITY**
+| Task ID | Task | Effort | Dependencies | Acceptance Criteria |
+|---------|------|---------|--------------|-------------------|
+| DEP-001 | Setup Blockfrost API keys | 2 | API access approved | API integration working |
+| DEP-002 | Configure test environment | 4 | Environment design | Test system operational |
+| DEP-003 | Complete deployment scripts | 5 | Script requirements | Automated deployment ready |
+| DEP-004 | Prepare recovery procedures | 3 | Recovery planning | Recovery docs complete |
+
+**Epic Total: 14 story points, 1-2 weeks**
+
+## P0 - Critical Path Tasks (Must Complete for Production)
+
 ### **Security Hardening Epic** ⚠️ **CRITICAL PRIORITY**
 | Task ID | Task | Effort | Dependencies | Acceptance Criteria |
 |---------|------|---------|--------------|-------------------|

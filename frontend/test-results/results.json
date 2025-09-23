@@ -1,0 +1,1218 @@
+{
+  "config": {
+    "configFile": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/playwright.config.ts",
+    "rootDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/junit.xml"
+        }
+      ],
+      [
+        "line",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts",
+          "!**/mobile-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts",
+          "!**/mobile-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts",
+          "!**/mobile-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/mobile-*.spec.ts",
+          "**/authentication-flow.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/mobile-*.spec.ts",
+          "**/authentication-flow.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Microsoft Edge",
+        "name": "Microsoft Edge",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts",
+          "!**/mobile-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Performance",
+        "name": "Performance",
+        "testDir": "/mnt/e/Polymath Universata/Projects/Nimo/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/performance-*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:5173",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "authentication-flow.spec.ts",
+      "file": "authentication-flow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication and User Management Flow",
+          "file": "authentication-flow.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete traditional login flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-20T14:08:08.538Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-ee0cfa14e8bf100bf573",
+              "file": "authentication-flow.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "should handle wallet-based authentication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-20T14:08:08.570Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-0db7aa59ef25db0f36d4",
+              "file": "authentication-flow.spec.ts",
+              "line": 24,
+              "column": 3
+            },
+            {
+              "title": "should handle login errors gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-4bbc3123f7b52266bdbc",
+              "file": "authentication-flow.spec.ts",
+              "line": 63,
+              "column": 3
+            },
+            {
+              "title": "should handle password reset flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-e12fea3b88083863fcd6",
+              "file": "authentication-flow.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "should maintain session across page refreshes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-622e4682f07c7aa8e51a",
+              "file": "authentication-flow.spec.ts",
+              "line": 106,
+              "column": 3
+            },
+            {
+              "title": "should handle logout correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-2b768beb5e1e5fe06bfa",
+              "file": "authentication-flow.spec.ts",
+              "line": 122,
+              "column": 3
+            },
+            {
+              "title": "should handle session timeout",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-515f3562b066a438ee30",
+              "file": "authentication-flow.spec.ts",
+              "line": 147,
+              "column": 3
+            },
+            {
+              "title": "should handle concurrent sessions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b6dd7814dceceb1a5216-aebf049bd2503505747d",
+              "file": "authentication-flow.spec.ts",
+              "line": 174,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "basic-test.spec.ts",
+      "file": "basic-test.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Basic Test",
+          "file": "basic-test.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load the page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6a887aa2576b40705ac9-37f3b04e9895e5a9d77e",
+              "file": "basic-test.spec.ts",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "complete-platform-workflow.spec.ts",
+      "file": "complete-platform-workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Nimo Platform - Complete E2E Testing Suite",
+          "file": "complete-platform-workflow.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete full user journey",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-cff8407f4c1155723739",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 26,
+              "column": 3
+            },
+            {
+              "title": "should handle Cardano wallet authentication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-12bdda69b69a3f4c0b34",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 50,
+              "column": 3
+            },
+            {
+              "title": "should complete contribution submission workflow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-a36481499adf87635952",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "should verify contribution with AI agent",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-8a90e8ff63117e412155",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 101,
+              "column": 3
+            },
+            {
+              "title": "should display token balance and transactions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-649d094988a8ca5410d8",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 129,
+              "column": 3
+            },
+            {
+              "title": "should handle impact bond creation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-8e96f330a37d18d44170",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 168,
+              "column": 3
+            },
+            {
+              "title": "should complete governance participation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-6b52632d9d0ae3cf5795",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 205,
+              "column": 3
+            },
+            {
+              "title": "should handle responsive design",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-5b8e59fb0d2df3032a1b",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 255,
+              "column": 3
+            },
+            {
+              "title": "should handle error scenarios gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-0e2a7997fb2c8e923074",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 272,
+              "column": 3
+            },
+            {
+              "title": "should maintain accessibility standards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-d5e725219e4f2857fcd6",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 293,
+              "column": 3
+            },
+            {
+              "title": "should handle performance requirements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-bfa9efa2e0ddd4006a60",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 315,
+              "column": 3
+            },
+            {
+              "title": "should integrate with IPFS",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-85022a510536fdcb2eaa",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 339,
+              "column": 3
+            },
+            {
+              "title": "should validate security measures",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-29f2160fcaaeb7db6498",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 370,
+              "column": 3
+            },
+            {
+              "title": "should complete end-to-end platform workflow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b7dffc37a891d6fa20a5-6188c30ceeaf8b400f8a",
+              "file": "complete-platform-workflow.spec.ts",
+              "line": 401,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "contribution-workflow.spec.ts",
+      "file": "contribution-workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Contribution Submission and Verification Flow",
+          "file": "contribution-workflow.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should submit contribution and track verification status",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-6c7d0ceeec2e6b905f14",
+              "file": "contribution-workflow.spec.ts",
+              "line": 13,
+              "column": 3
+            },
+            {
+              "title": "should display MeTTa AI analysis results",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-c00d31e608036d407892",
+              "file": "contribution-workflow.spec.ts",
+              "line": 48,
+              "column": 3
+            },
+            {
+              "title": "should handle contribution verification workflow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-c4feb0939dd3658faf27",
+              "file": "contribution-workflow.spec.ts",
+              "line": 72,
+              "column": 3
+            },
+            {
+              "title": "should distribute tokens upon contribution approval",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-59d2dcf84826f927236b",
+              "file": "contribution-workflow.spec.ts",
+              "line": 103,
+              "column": 3
+            },
+            {
+              "title": "should handle contribution rejection with feedback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-561e8d54cb3acf8b965a",
+              "file": "contribution-workflow.spec.ts",
+              "line": 129,
+              "column": 3
+            },
+            {
+              "title": "should allow contributors to resubmit after rejection",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "deea2c98b34e8341bb74-bef353e758e690680d2d",
+              "file": "contribution-workflow.spec.ts",
+              "line": 154,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "performance-testing.spec.ts",
+      "file": "performance-testing.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Nimo Platform - Performance Testing",
+          "file": "performance-testing.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load dashboard within performance thresholds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-d19bfe333578e89eec76",
+              "file": "performance-testing.spec.ts",
+              "line": 5,
+              "column": 3
+            },
+            {
+              "title": "should handle concurrent user sessions",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-4286db1ed69fe407a0a5",
+              "file": "performance-testing.spec.ts",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "should maintain performance under load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-1b033e61d973a7d6bbef",
+              "file": "performance-testing.spec.ts",
+              "line": 85,
+              "column": 3
+            },
+            {
+              "title": "should optimize resource loading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-6c35fe7140c842e9edf6",
+              "file": "performance-testing.spec.ts",
+              "line": 118,
+              "column": 3
+            },
+            {
+              "title": "should handle API response times",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-5fc08ded39e8517748fd",
+              "file": "performance-testing.spec.ts",
+              "line": 152,
+              "column": 3
+            },
+            {
+              "title": "should maintain memory efficiency",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-43d9a0b74113ddc1af5a",
+              "file": "performance-testing.spec.ts",
+              "line": 179,
+              "column": 3
+            },
+            {
+              "title": "should handle WebSocket connections efficiently",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-a5a25f9adc4d840e9ed5",
+              "file": "performance-testing.spec.ts",
+              "line": 207,
+              "column": 3
+            },
+            {
+              "title": "should optimize bundle size and loading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-521f388eb685e6c95f60",
+              "file": "performance-testing.spec.ts",
+              "line": 242,
+              "column": 3
+            },
+            {
+              "title": "should maintain accessibility under load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-409e8323a3dfea16f492",
+              "file": "performance-testing.spec.ts",
+              "line": 270,
+              "column": 3
+            },
+            {
+              "title": "should handle error scenarios gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-330853da16e486be18fb",
+              "file": "performance-testing.spec.ts",
+              "line": 287,
+              "column": 3
+            },
+            {
+              "title": "should validate SEO and meta tags",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-7a06a428c3f9cb3ed1f5",
+              "file": "performance-testing.spec.ts",
+              "line": 311,
+              "column": 3
+            },
+            {
+              "title": "should maintain security headers",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "65c6be355a19659987b9-451d25a38b6788818d86",
+              "file": "performance-testing.spec.ts",
+              "line": 327,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "registration-kyc.spec.ts",
+      "file": "registration-kyc.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "User Registration and KYC Flow",
+          "file": "registration-kyc.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete full user registration journey",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "02a62f8a66c8cb4450a8-9157cde6930827e8a7c3",
+              "file": "registration-kyc.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "should handle wallet connection during registration",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "02a62f8a66c8cb4450a8-111aebf3da46e981b9d3",
+              "file": "registration-kyc.spec.ts",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "should validate required fields in registration",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "02a62f8a66c8cb4450a8-0f8c08931f0879b7aff0",
+              "file": "registration-kyc.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "should handle KYC rejection and resubmission",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "02a62f8a66c8cb4450a8-99fedeb3fc7a0cf1550f",
+              "file": "registration-kyc.spec.ts",
+              "line": 90,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-20T14:06:59.789Z",
+    "duration": 68967.951,
+    "expected": 0,
+    "skipped": 45,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

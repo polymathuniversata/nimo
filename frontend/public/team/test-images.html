@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Photos Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .photo-test {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            margin-right: 20px;
+            float: left;
+        }
+        .info {
+            overflow: hidden;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Team Photos Test</h1>
+    <p>Testing locally downloaded team photos...</p>
+
+    <div class="photo-test">
+        <img src="john-koiyaki.jpg" alt="John Koiyaki" class="photo" 
+             onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'; this.nextElementSibling.className='status success';"
+             onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'; this.nextElementSibling.className='status error';">
+        <div class="status">Loading...</div>
+        <div class="info">
+            <h3>John Koiyaki</h3>
+            <p><strong>Role:</strong> Creative Technologist & Lead Developer</p>
+            <p><strong>File:</strong> john-koiyaki.jpg</p>
+            <p><strong>Source:</strong> GitHub Profile (polymathuniversata)</p>
+        </div>
+    </div>
+
+    <div class="photo-test">
+        <img src="aisha-omar-farah.jpg" alt="Aisha Omar Farah" class="photo"
+             onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'; this.nextElementSibling.className='status success';"
+             onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'; this.nextElementSibling.className='status error';">
+        <div class="status">Loading...</div>
+        <div class="info">
+            <h3>Aisha Omar Farah</h3>
+            <p><strong>Role:</strong> Frontend & Web3 Developer</p>
+            <p><strong>File:</strong> aisha-omar-farah.jpg</p>
+            <p><strong>Source:</strong> GitHub Profile (Aishagojo)</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
+        <h3>📋 Test Instructions</h3>
+        <ol>
+            <li>Open this file in a browser: <code>frontend/public/team/test-images.html</code></li>
+            <li>Verify both photos load with "✅ Loaded Successfully" status</li>
+            <li>Check that photos are clear, professional headshots</li>
+            <li>Confirm photos are properly cropped to circles</li>
+        </ol>
+        
+        <h3>🔧 If Photos Don't Load</h3>
+        <ul>
+            <li>Check that JPG files exist in the same directory</li>
+            <li>Verify file names match exactly: <code>john-koiyaki.jpg</code> and <code>aisha-omar-farah.jpg</code></li>
+            <li>Ensure files aren't corrupted (should be ~500KB each)</li>
+        </ul>
+    </div>
+</body>
+</html>

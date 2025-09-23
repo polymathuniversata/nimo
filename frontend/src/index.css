@@ -9,7 +9,7 @@
 
 @layer base {
   :root {
-    /* Light Theme - Clean & Professional */
+    /* Light Theme - Enhanced Brand Colors */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -19,44 +19,71 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 25 95% 53%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary Brand Colors - Indigo Scale */
+    --primary: 231 48% 48%;           /* #6366f1 - Main brand */
+    --primary-50: 231 100% 98%;       /* #eef2ff */
+    --primary-100: 231 100% 94%;      /* #e0e7ff */
+    --primary-200: 231 93% 88%;       /* #c7d2fe */
+    --primary-300: 231 86% 79%;       /* #a5b4fc */
+    --primary-400: 231 81% 74%;       /* #818cf8 */
+    --primary-500: 231 48% 48%;       /* #6366f1 - Base */
+    --primary-600: 231 48% 43%;       /* #4f46e5 */
+    --primary-700: 231 49% 38%;       /* #4338ca */
+    --primary-800: 231 55% 32%;       /* #3730a3 */
+    --primary-900: 231 57% 27%;       /* #312e81 */
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 280 65% 60%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary Brand Colors - Purple Scale */
+    --secondary: 280 65% 60%;         /* #8b5cf6 - Accent */
+    --secondary-50: 280 100% 98%;     /* #faf5ff */
+    --secondary-100: 280 100% 95%;    /* #f3e8ff */
+    --secondary-200: 280 87% 91%;     /* #e9d5ff */
+    --secondary-300: 280 79% 84%;     /* #d8b4fe */
+    --secondary-400: 280 71% 76%;     /* #c084fc */
+    --secondary-500: 280 65% 60%;     /* #8b5cf6 - Base */
+    --secondary-600: 280 67% 55%;     /* #7c3aed */
+    --secondary-700: 280 69% 50%;     /* #6d28d9 */
+    --secondary-800: 280 73% 42%;     /* #5b21b6 */
+    --secondary-900: 280 76% 35%;     /* #4c1d95 */
+    --secondary-foreground: 210 40% 98%;
 
+    /* Neutral Colors - Enhanced Contrast */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 45 95% 64%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 217 91% 60%;            /* #06b6d4 - Cyan CTAs */
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 60.2%;     /* #ef4444 - Error */
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 25 95% 53%;
+    --ring: 231 48% 48%;
 
-    /* Web3 & African-inspired tokens */
-    --nft-glow: 280 100% 70%;
-    --token-gold: 45 95% 64%;
-    --verification-green: 142 76% 36%;
-    --impact-blue: 200 95% 50%;
+    /* Web3 & Nimo-specific Enhanced Colors */
+    --nft-glow: 280 100% 70%;         /* Enhanced NFT glow */
+    --token-gold: 45 95% 64%;         /* #f59e0b - Warning/Gold */
+    --verification-green: 142 76% 36%; /* #10b981 - Success */
+    --impact-blue: 200 95% 50%;       /* #3b82f6 - Info */
 
-    /* Enhanced Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(45 95% 64%));
-    --gradient-nft: linear-gradient(135deg, hsl(280 65% 60%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(25 95% 53% / 0.9), hsl(280 65% 60% / 0.9));
-    --gradient-accent: linear-gradient(135deg, hsl(200 95% 50%), hsl(280 65% 60%));
+    /* Enhanced Gradients with Better Contrast */
+    --gradient-primary: linear-gradient(135deg, hsl(231 48% 48%), hsl(231 48% 43%));
+    --gradient-secondary: linear-gradient(135deg, hsl(280 65% 60%), hsl(280 67% 55%));
+    --gradient-nft: linear-gradient(135deg, hsl(280 65% 60%), hsl(217 91% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(231 48% 48% / 0.95), hsl(280 65% 60% / 0.95));
+    --gradient-accent: linear-gradient(135deg, hsl(217 91% 60%), hsl(200 95% 50%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
 
-    /* Enhanced Shadows & Effects */
-    --shadow-nft: 0 10px 40px hsl(280 100% 70% / 0.3);
-    --shadow-card: 0 4px 20px hsl(25 95% 53% / 0.1), 0 1px 3px hsl(25 95% 53% / 0.1);
-    --shadow-glow: 0 0 40px hsl(45 95% 64% / 0.2);
-    --shadow-hover: 0 8px 30px hsl(25 95% 53% / 0.15);
-    --shadow-inner: inset 0 2px 4px 0 hsl(25 95% 53% / 0.1);
+    /* Enhanced Shadows & Effects with Better Visibility */
+    --shadow-nft: 0 10px 40px hsl(280 65% 60% / 0.25);
+    --shadow-card: 0 4px 20px hsl(231 48% 48% / 0.08), 0 1px 3px hsl(231 48% 48% / 0.06);
+    --shadow-glow: 0 0 40px hsl(231 48% 48% / 0.15);
+    --shadow-hover: 0 8px 30px hsl(231 48% 48% / 0.12);
+    --shadow-inner: inset 0 2px 4px 0 hsl(231 48% 48% / 0.08);
+    --shadow-button: 0 2px 8px hsl(231 48% 48% / 0.15);
+    --shadow-button-hover: 0 4px 16px hsl(231 48% 48% / 0.25);
+    --shadow-glow-hover: 0 0 50px hsl(231 48% 48% / 0.3);
 
     /* Enhanced Border Radius */
     --radius: 0.75rem;
@@ -67,73 +94,100 @@
     /* Sidebar variables for light theme */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 231 48% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 231 48% 48%;
   }
 
   .dark {
-    /* Dark Theme - Cosmic & Modern */
-    --background: 240 20% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Dark Theme - Enhanced Cosmic Design with Better Contrast */
+    --background: 222.2 84% 4.9%;     /* #0c0c0f - Deep space */
+    --foreground: 210 40% 98%;        /* #f8fafc - Bright text */
 
-    --card: 240 20% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 223 47% 8%;               /* #161622 - Dark nebula */
+    --card-foreground: 210 40% 98%;
 
-    --popover: 240 20% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 223 47% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary Brand Colors - Enhanced for Dark Mode */
+    --primary: 231 81% 74%;           /* #818cf8 - Brighter for dark */
+    --primary-50: 231 57% 27%;        /* Inverted scale for dark */
+    --primary-100: 231 55% 32%;
+    --primary-200: 231 49% 38%;
+    --primary-300: 231 48% 43%;
+    --primary-400: 231 48% 48%;
+    --primary-500: 231 81% 74%;       /* Base - brighter */
+    --primary-600: 231 86% 79%;
+    --primary-700: 231 93% 88%;
+    --primary-800: 231 100% 94%;
+    --primary-900: 231 100% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
 
-    --secondary: 240 20% 10%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary Brand Colors - Enhanced for Dark Mode */
+    --secondary: 280 71% 76%;         /* #c084fc - Brighter purple */
+    --secondary-50: 280 76% 35%;      /* Inverted scale */
+    --secondary-100: 280 73% 42%;
+    --secondary-200: 280 69% 50%;
+    --secondary-300: 280 67% 55%;
+    --secondary-400: 280 65% 60%;
+    --secondary-500: 280 71% 76%;     /* Base - brighter */
+    --secondary-600: 280 79% 84%;
+    --secondary-700: 280 87% 91%;
+    --secondary-800: 280 100% 95%;
+    --secondary-900: 280 100% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 240 20% 10%;
-    --muted-foreground: 240 5% 64.9%;
+    /* Enhanced Neutral Colors for Better Dark Mode Contrast */
+    --muted: 223 47% 11%;             /* #1f1f2e - Space blue */
+    --muted-foreground: 215.4 16.3% 65.9%; /* Brighter muted text */
 
-    --accent: 240 20% 10%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 200 95% 65%;            /* #3b82f6 - Brighter cyan */
+    --accent-foreground: 222.2 84% 4.9%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 70%;       /* #f87171 - Brighter red */
+    --destructive-foreground: 222.2 84% 4.9%;
 
-    --border: 240 20% 10%;
-    --input: 240 20% 10%;
-    --ring: 263.4 70% 50.4%;
+    --border: 217.2 32.6% 20%;        /* Lighter border */
+    --input: 217.2 32.6% 20%;
+    --ring: 231 81% 74%;
 
-    /* Web3 & African-inspired tokens - Dark variants */
-    --nft-glow: 280 100% 70%;
-    --token-gold: 45 95% 64%;
-    --verification-green: 142 76% 36%;
-    --impact-blue: 200 95% 50%;
+    /* Web3 & Nimo-specific Enhanced Colors for Dark Mode */
+    --nft-glow: 280 100% 80%;         /* Brighter NFT glow */
+    --token-gold: 45 95% 70%;         /* Brighter gold */
+    --verification-green: 142 76% 50%; /* Brighter green */
+    --impact-blue: 200 95% 65%;       /* Brighter blue */
 
-    /* Enhanced Gradients - Dark variants */
-    --gradient-primary: linear-gradient(135deg, hsl(263.4 70% 50.4%), hsl(240 20% 10%));
-    --gradient-nft: linear-gradient(135deg, hsl(263.4 70% 50.4%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(263.4 70% 50.4% / 0.9), hsl(240 20% 10% / 0.9));
-    --gradient-accent: linear-gradient(135deg, hsl(240 20% 10%), hsl(263.4 70% 50.4%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    /* Enhanced Gradients for Dark Mode with Better Visibility */
+    --gradient-primary: linear-gradient(135deg, hsl(231 81% 74%), hsl(231 86% 79%));
+    --gradient-secondary: linear-gradient(135deg, hsl(280 71% 76%), hsl(280 79% 84%));
+    --gradient-nft: linear-gradient(135deg, hsl(280 71% 76%), hsl(200 95% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(231 81% 74% / 0.95), hsl(280 71% 76% / 0.95));
+    --gradient-accent: linear-gradient(135deg, hsl(200 95% 65%), hsl(231 81% 74%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 50%), hsl(160 84% 55%));
 
-    /* Enhanced Shadows & Effects - Dark variants */
-    --shadow-nft: 0 10px 40px hsl(263.4 70% 50.4% / 0.4);
-    --shadow-card: 0 4px 20px hsl(240 20% 3.9% / 0.5), 0 1px 3px hsl(240 20% 3.9% / 0.4);
-    --shadow-glow: 0 0 40px hsl(263.4 70% 50.4% / 0.3);
-    --shadow-hover: 0 8px 30px hsl(240 20% 3.9% / 0.5);
-    --shadow-inner: inset 0 2px 4px 0 hsl(240 20% 3.9% / 0.4);
+    /* Enhanced Shadows & Effects for Dark Mode */
+    --shadow-nft: 0 10px 40px hsl(280 71% 76% / 0.3);
+    --shadow-card: 0 4px 20px hsl(231 81% 74% / 0.15), 0 1px 3px hsl(231 81% 74% / 0.1);
+    --shadow-glow: 0 0 40px hsl(231 81% 74% / 0.25);
+    --shadow-hover: 0 8px 30px hsl(231 81% 74% / 0.2);
+    --shadow-inner: inset 0 2px 4px 0 hsl(222.2 84% 4.9% / 0.3);
+    --shadow-button: 0 2px 8px hsl(231 81% 74% / 0.2);
+    --shadow-button-hover: 0 4px 16px hsl(231 81% 74% / 0.35);
+    --shadow-glow-hover: 0 0 50px hsl(231 81% 74% / 0.4);
 
-    /* Sidebar variables for dark theme */
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar variables for dark theme - Enhanced */
+    --sidebar-background: 223 47% 8%;  /* Darker sidebar */
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 231 81% 74%;
+    --sidebar-primary-foreground: 222.2 84% 4.9%;
+    --sidebar-accent: 223 47% 11%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 20%;
+    --sidebar-ring: 231 81% 74%;
   }
 }
 
@@ -182,44 +236,44 @@
   .bg-grid-pattern {
     @apply bg-background;
     background-image: 
-      linear-gradient(90deg, rgb(var(--primary) / 0.05) 1px, transparent 1px),
-      linear-gradient(rgb(var(--primary) / 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
+      linear-gradient(90deg, rgb(var(--primary) / 0.08) 1px, transparent 1px),
+      linear-gradient(rgb(var(--primary) / 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   .bg-dots-pattern {
     @apply bg-background;
-    background-image: radial-gradient(circle, rgb(var(--primary) / 0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background-image: radial-gradient(circle, rgb(var(--primary) / 0.15) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
   .bg-circuit-pattern {
     @apply bg-background;
     background-image: 
-      linear-gradient(45deg, rgb(var(--primary) / 0.07) 25%, transparent 25%),
-      linear-gradient(-45deg, rgb(var(--primary) / 0.07) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.07) 75%),
-      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.07) 75%);
-    background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      linear-gradient(45deg, rgb(var(--primary) / 0.1) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(var(--primary) / 0.1) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.1) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   }
 
   .dark .bg-grid-pattern {
     background-image: 
-      linear-gradient(90deg, rgb(var(--primary) / 0.15) 1px, transparent 1px),
-      linear-gradient(rgb(var(--primary) / 0.15) 1px, transparent 1px);
+      linear-gradient(90deg, rgb(var(--primary) / 0.2) 1px, transparent 1px),
+      linear-gradient(rgb(var(--primary) / 0.2) 1px, transparent 1px);
   }
 
   .dark .bg-dots-pattern {
-    background-image: radial-gradient(circle, rgb(var(--primary) / 0.2) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgb(var(--primary) / 0.25) 1.5px, transparent 1.5px);
   }
 
   .dark .bg-circuit-pattern {
     background-image: 
-      linear-gradient(45deg, rgb(var(--primary) / 0.15) 25%, transparent 25%),
-      linear-gradient(-45deg, rgb(var(--primary) / 0.15) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.15) 75%),
-      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.15) 75%);
+      linear-gradient(45deg, rgb(var(--primary) / 0.2) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(var(--primary) / 0.2) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(var(--primary) / 0.2) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(var(--primary) / 0.2) 75%);
   }
 
   /* Hover Effects */

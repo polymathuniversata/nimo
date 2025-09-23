@@ -1,0 +1,194 @@
+<testsuites id="" name="" tests="45" failures="0" skipped="45" errors="0" time="68.967951">
+<testsuite name="authentication-flow.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Authentication and User Management Flow › should complete traditional login flow" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle wallet-based authentication" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle login errors gracefully" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle password reset flow" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should maintain session across page refreshes" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle logout correctly" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle session timeout" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Authentication and User Management Flow › should handle concurrent sessions" classname="authentication-flow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="basic-test.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="Basic Test › should load the page" classname="basic-test.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="complete-platform-workflow.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should complete full user journey" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should handle Cardano wallet authentication" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should complete contribution submission workflow" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should verify contribution with AI agent" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should display token balance and transactions" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should handle impact bond creation" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should complete governance participation" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should handle responsive design" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should handle error scenarios gracefully" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should maintain accessibility standards" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should handle performance requirements" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should integrate with IPFS" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should validate security measures" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Complete E2E Testing Suite › should complete end-to-end platform workflow" classname="complete-platform-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="contribution-workflow.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="6" failures="0" skipped="6" time="0" errors="0">
+<testcase name="Contribution Submission and Verification Flow › should submit contribution and track verification status" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contribution Submission and Verification Flow › should display MeTTa AI analysis results" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contribution Submission and Verification Flow › should handle contribution verification workflow" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contribution Submission and Verification Flow › should distribute tokens upon contribution approval" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contribution Submission and Verification Flow › should handle contribution rejection with feedback" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Contribution Submission and Verification Flow › should allow contributors to resubmit after rejection" classname="contribution-workflow.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="performance-testing.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Nimo Platform - Performance Testing › should load dashboard within performance thresholds" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should handle concurrent user sessions" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should maintain performance under load" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should optimize resource loading" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should handle API response times" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should maintain memory efficiency" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should handle WebSocket connections efficiently" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should optimize bundle size and loading" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should maintain accessibility under load" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should handle error scenarios gracefully" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should validate SEO and meta tags" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nimo Platform - Performance Testing › should maintain security headers" classname="performance-testing.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="registration-kyc.spec.ts" timestamp="2025-09-20T14:07:03.285Z" hostname="chromium" tests="4" failures="0" skipped="4" time="0" errors="0">
+<testcase name="User Registration and KYC Flow › should complete full user registration journey" classname="registration-kyc.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="User Registration and KYC Flow › should handle wallet connection during registration" classname="registration-kyc.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="User Registration and KYC Flow › should validate required fields in registration" classname="registration-kyc.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="User Registration and KYC Flow › should handle KYC rejection and resubmission" classname="registration-kyc.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

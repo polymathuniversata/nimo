@@ -3,10 +3,10 @@
 
 ## Overview
 
-The Nimo Platform API is a comprehensive RESTful API built with Flask that enables decentralized identity management, social impact measurement, and AI-powered verification. The API features **92 endpoints** with advanced MeTTa reasoning integration, Cardano blockchain support, and complete autonomous system capabilities.
+The Nimo Platform API is a comprehensive RESTful API built with Flask that enables decentralized identity management, social impact measurement, and AI-powered verification. The API features **25 endpoints** with advanced MeTTa reasoning integration, Cardano blockchain support, and complete autonomous system capabilities.
 
 ### **API Statistics - September 2, 2025**
-- **92 Total Endpoints** (100% audited and verified)
+- **25 Total Endpoints** (12 autonomous + 13 AI agents)
 - **17 Autonomous System Endpoints** (95% complete)
 - **Advanced MeTTa AI Integration** (95% complete)
 - **Cardano Blockchain Integration** (92% complete)

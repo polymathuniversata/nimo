@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -16,13 +16,14 @@ import {
   AlertCircle,
   CheckCircle,
   Loader2,
-  ExternalLink
+  ExternalLink,
+  ArrowLeft,
+  Home
 } from 'lucide-react';
 import {
   detectCardanoWallets,
   connectWallet as connectWalletUtil,
   signMessage,
-  hasCardanoWallets,
   getWalletInstallationUrls,
   getWalletTroubleshootingInfo,
   type WalletInfo
@@ -160,6 +161,21 @@ const LoginPage = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4" role="main">
+      {/* Back to Home Button */}
+      <div className="absolute top-4 left-4">
+        <Link to="/" className="group">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-2 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+            <Home className="w-4 h-4" />
+            <span className="hidden sm:inline">Back to Home</span>
+          </Button>
+        </Link>
+      </div>
+
       <div className="w-full max-w-md">
         {/* Header */}
         <header className="text-center mb-8">
@@ -170,34 +186,28 @@ const LoginPage = () => {
             <h1 className="text-3xl font-bold text-primary">Nimo</h1>
           </div>
           <h2 className="text-2xl font-semibold text-foreground mb-2">Welcome Back</h2>
-          <p className="text-muted-foreground">Sign in to access your decentralized identity</p>
+          <p className="text-muted-foreground">
+            Sign in to access your decentralized identity. Connect your wallet and choose your authentication method.
+          </p>
         </header>
 
         {/* Login Form */}
         <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-xl text-center">Sign In</CardTitle>
-            <CardDescription className="text-center">
-              Connect your wallet and choose your authentication method
-            </CardDescription>
-          </CardHeader>
           <CardContent>
             {/* Wallet Connection Required Notice */}
             {!walletForm.walletAddress && (
-              <Alert className="mb-4 border-amber-200 bg-amber-50">
-                <Wallet className="h-4 w-4 text-amber-600" />
-                <AlertDescription className="text-amber-800">
-                  {availableWallets.length === 0 ? (
-                    <div className="space-y-2">
-                      <p>Wallet connection is required to access Nimo.</p>
-                      <p className="text-sm">Please install a Cardano wallet extension and refresh this page.</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <p>Wallet connection is required to access Nimo.</p>
-                      <p className="text-sm">Select and connect your Cardano wallet from the options below.</p>
-                    </div>
-                  )}
+              <Alert className="mb-4 border-primary/20 bg-primary/5">
+                <Wallet className="h-4 w-4 text-primary" />
+                <AlertDescription className="text-foreground">
+                  <div className="space-y-1">
+                    <p className="font-medium">🔐 Wallet Connection Required</p>
+                    <p className="text-sm text-muted-foreground">
+                      {availableWallets.length === 0 
+                        ? "Install a Cardano wallet extension to access your decentralized identity."
+                        : "Connect your Cardano wallet to securely access your decentralized identity and authenticate."
+                      }
+                    </p>
+                  </div>
                 </AlertDescription>
               </Alert>
             )}
@@ -440,13 +450,20 @@ const LoginPage = () => {
             )}
 
             {/* Footer */}
-            <div className="mt-6 text-center space-y-2">
-              <p className="text-sm text-muted-foreground">
-                Don't have an account?{' '}
-                <Link to="/register" className="text-primary hover:underline font-medium">
-                  Sign up here
+            <div className="mt-6 text-center space-y-3">
+              <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+                <p>
+                  Don't have an account?{' '}
+                  <Link to="/register" className="text-primary hover:underline font-medium">
+                    Sign up here
+                  </Link>
+                </p>
+                <span className="text-muted-foreground/50">•</span>
+                <Link to="/" className="text-primary hover:underline font-medium flex items-center gap-1">
+                  <Home className="w-3 h-3" />
+                  Home
                 </Link>
-              </p>
+              </div>
               <div className="flex items-center justify-center space-x-4 text-xs text-muted-foreground">
                 <Badge variant="secondary" className="text-xs">
                   🔐 Secure Authentication

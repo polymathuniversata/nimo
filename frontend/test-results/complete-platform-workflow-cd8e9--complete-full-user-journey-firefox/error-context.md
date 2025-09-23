@@ -1,0 +1,301 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - link "Nimo homepage" [ref=e8] [cursor=pointer]:
+            - /url: /
+            - img [ref=e10] [cursor=pointer]
+            - heading "Nimo" [level=1] [ref=e16] [cursor=pointer]
+          - menubar [ref=e17]:
+            - menuitem "Home" [ref=e18] [cursor=pointer]
+            - menuitem "Problem" [ref=e19] [cursor=pointer]
+            - menuitem "Solution" [ref=e20] [cursor=pointer]
+            - menuitem "How It Works" [ref=e21] [cursor=pointer]
+            - menuitem "Impact" [ref=e22] [cursor=pointer]
+            - menuitem "Team" [ref=e23] [cursor=pointer]
+            - menuitem "Login" [ref=e24] [cursor=pointer]
+            - menuitem "Sign Up" [ref=e25] [cursor=pointer]
+        - generic [ref=e26]:
+          - button "Toggle theme" [ref=e28] [cursor=pointer]:
+            - img
+            - generic [ref=e29] [cursor=pointer]: System (light)
+          - link "Sign in to access your decentralized identity" [ref=e30] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e31] [cursor=pointer]: Sign In
+            - img
+    - region "Unlocking Africa's Youth Potential" [ref=e32]:
+      - img [ref=e34]
+      - generic [ref=e39]:
+        - banner [ref=e40]:
+          - img [ref=e41]
+          - text: Empowering African Youth Through Technology
+        - heading "Unlocking Africa's Youth Potential" [level=1] [ref=e47]
+        - paragraph [ref=e48]: Decentralized Identity & Proof of Contribution for a Brighter Future
+        - generic [ref=e49]:
+          - button "Learn More" [ref=e50] [cursor=pointer]:
+            - img
+            - text: Learn More
+          - link "Get Started" [ref=e51] [cursor=pointer]:
+            - /url: /login
+            - img
+            - text: Get Started
+        - img [ref=e53] [cursor=pointer]
+    - region "The Challenge" [ref=e55]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e66]:
+            - img [ref=e68]
+            - heading "The Challenge" [level=2] [ref=e72]
+          - paragraph [ref=e74]: Across Africa, brilliant minds are transforming communities, but their digital contributions remain invisible.
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e78]:
+              - img [ref=e80]
+              - generic [ref=e85]:
+                - heading "Untapped Talent" [level=3] [ref=e86]
+                - paragraph [ref=e87]: Millions of young Africans contribute daily, yet go unrecognized.
+            - generic [ref=e89]:
+              - img [ref=e91]
+              - generic [ref=e93]:
+                - heading "Invisible Impact" [level=3] [ref=e94]
+                - paragraph [ref=e95]: No verifiable digital identities make contributions invisible.
+            - generic [ref=e97]:
+              - img [ref=e99]
+              - generic [ref=e103]:
+                - heading "Blocked Opportunities" [level=3] [ref=e104]
+                - paragraph [ref=e105]: Digital divide blocks access to jobs, grants, and platforms.
+          - generic [ref=e106]:
+            - generic [ref=e108]:
+              - generic [ref=e109]: 420M+
+              - generic [ref=e110]: African Youth
+            - generic [ref=e114]:
+              - generic [ref=e115]: 60%
+              - generic [ref=e116]: Digital Gap
+            - generic [ref=e120]:
+              - generic [ref=e121]: $95B
+              - generic [ref=e122]: Informal Economy
+            - generic [ref=e126]:
+              - generic [ref=e127]: 85%
+              - generic [ref=e128]: Youth Unemployment
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - generic [ref=e138]:
+          - img [ref=e140]
+          - heading "The Solution" [level=2] [ref=e144]
+        - paragraph [ref=e145]: This is where Nimo steps in. We're building a decentralized reputation system that empowers African youth to create persistent digital identities and earn verifiable reputation tokens for their work, activism, and learning—bridging real-world contributions with digital recognition.
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - img [ref=e149]
+          - heading "Decentralized Identity" [level=3] [ref=e152]
+          - paragraph [ref=e153]: Unique NFT certificates on Cardano blockchain for true ownership
+        - generic [ref=e154]:
+          - img [ref=e156]
+          - heading "Proof of Contribution" [level=3] [ref=e159]
+          - paragraph [ref=e160]: Immutable record of achievements and real-world impact
+        - generic [ref=e161]:
+          - img [ref=e163]
+          - heading "Reputation Tokens" [level=3] [ref=e166]
+          - paragraph [ref=e167]: Native Cardano tokens earned for verified contributions
+        - generic [ref=e168]:
+          - img [ref=e170]
+          - heading "MeTTa Intelligence" [level=3] [ref=e172]
+          - paragraph [ref=e173]: AI-powered verification system for intelligent contribution analysis
+    - generic [ref=e176]:
+      - generic [ref=e177]:
+        - generic [ref=e182]:
+          - img [ref=e184]
+          - heading "How It Works" [level=2] [ref=e199]
+        - paragraph [ref=e200]: At its core, Nimo leverages cutting-edge technology to create a transparent, immutable record of achievements.
+      - generic [ref=e201]:
+        - generic [ref=e202]:
+          - generic [ref=e203]: "1"
+          - heading "Identity Creation" [level=3] [ref=e204]
+          - paragraph [ref=e205]: Each identity is a unique NFT on Cardano, giving users full ownership and portability.
+        - generic [ref=e208]:
+          - generic [ref=e209]: "2"
+          - heading "Contribution Submission" [level=3] [ref=e210]
+          - paragraph [ref=e211]: Users submit evidence of their real-world contributions to the platform.
+        - generic [ref=e214]:
+          - generic [ref=e215]: "3"
+          - heading "MeTTa Verification" [level=3] [ref=e216]
+          - paragraph [ref=e217]: AI agents analyze contributions using MeTTa language for intelligent verification.
+        - generic [ref=e220]:
+          - generic [ref=e221]: "4"
+          - heading "Token Rewards" [level=3] [ref=e222]
+          - paragraph [ref=e223]: Smart contracts automatically award native tokens for verified contributions.
+        - generic [ref=e226]:
+          - generic [ref=e227]: "5"
+          - heading "Opportunity Access" [level=3] [ref=e228]
+          - paragraph [ref=e229]: Users leverage their identity and tokens to unlock access to jobs, grants, and more.
+    - generic [ref=e233]:
+      - generic [ref=e234]:
+        - generic [ref=e239]:
+          - img [ref=e241]
+          - heading "Unlocking Opportunities" [level=2] [ref=e246]
+        - paragraph [ref=e247]: With Nimo, young individuals can use their verifiable identity and reputation to unlock a world of opportunities.
+      - generic [ref=e248]:
+        - generic [ref=e249]:
+          - img [ref=e251]
+          - heading "Internships & Jobs" [level=3] [ref=e256]
+          - paragraph [ref=e257]: Access opportunities with verified skills and proven contributions
+        - generic [ref=e258]:
+          - img [ref=e260]
+          - heading "Grants & Funding" [level=3] [ref=e264]
+          - paragraph [ref=e265]: Secure funding for projects with transparent impact tracking
+        - generic [ref=e266]:
+          - img [ref=e268]
+          - heading "Freelance Gigs" [level=3] [ref=e271]
+          - paragraph [ref=e272]: Build reputation and earn through verified freelance work
+        - generic [ref=e273]:
+          - img [ref=e275]
+          - heading "DAO Participation" [level=3] [ref=e279]
+          - paragraph [ref=e280]: Participate in governance and decentralized organizations
+      - generic [ref=e282]:
+        - img [ref=e283]
+        - paragraph [ref=e289]: We're also building an Impact Bond Marketplace, allowing diaspora investors to directly fund local projects, with transparent tracking of social and economic impact.
+      - generic [ref=e291]:
+        - generic [ref=e292]:
+          - img [ref=e293]
+          - heading "Powered by Innovation" [level=3] [ref=e300]
+        - paragraph [ref=e301]: Nimo leverages cutting-edge technologies to deliver a robust, scalable, and secure platform.
+        - generic [ref=e302]:
+          - generic [ref=e304]:
+            - heading "Frontend" [level=4] [ref=e305]:
+              - img [ref=e306]
+              - text: Frontend
+            - generic [ref=e309]:
+              - generic [ref=e310]: React 18.3.1
+              - generic [ref=e312]: Vite 5.4.19
+              - generic [ref=e314]: Tailwind CSS 3.4.17
+              - generic [ref=e316]: React Router 6.30.1
+          - generic [ref=e319]:
+            - heading "Backend" [level=4] [ref=e320]:
+              - img [ref=e321]
+              - text: Backend
+            - generic [ref=e327]:
+              - generic [ref=e328]: Flask 3.0.3
+              - generic [ref=e330]: MeTTa AI (PyMeTTa)
+              - generic [ref=e332]: JWT Auth
+              - generic [ref=e334]: SQLAlchemy 2.0.32
+          - generic [ref=e337]:
+            - heading "Blockchain" [level=4] [ref=e338]:
+              - img [ref=e339]
+              - text: Blockchain
+            - generic [ref=e341]:
+              - generic [ref=e342]: Cardano (Aiken/Plutus)
+              - generic [ref=e344]: PyCardano Integration
+              - generic [ref=e346]: Blockfrost API
+              - generic [ref=e348]: NFT Identity System
+    - generic [ref=e352]:
+      - generic [ref=e353]:
+        - generic [ref=e358]:
+          - img [ref=e360]
+          - heading "Meet the Team" [level=2] [ref=e365]
+        - paragraph [ref=e366]: Behind Nimo is a dedicated team of innovators committed to empowering African youth through technology.
+      - generic [ref=e367]:
+        - generic [ref=e369]:
+          - generic [ref=e373]: JK
+          - generic [ref=e374]:
+            - heading "John Koiyaki" [level=3] [ref=e375]
+            - paragraph [ref=e376]: Creative Technologist & Lead Developer
+            - paragraph [ref=e377]: Software developer and emerging tech educator from Kenya, passionate about building tools that scale knowledge and culture.
+            - generic [ref=e378]:
+              - generic [ref=e379]: Python
+              - generic [ref=e380]: Blockchain
+              - generic [ref=e381]: AI
+        - generic [ref=e383]:
+          - generic [ref=e387]: AF
+          - generic [ref=e388]:
+            - heading "Aisha Omar Farah" [level=3] [ref=e389]
+            - paragraph [ref=e390]: Frontend & Web3 Developer
+            - paragraph [ref=e391]: Passionate frontend developer and open-source contributor with expertise in creating modern, interactive designs.
+            - generic [ref=e392]:
+              - generic [ref=e393]: React
+              - generic [ref=e394]: Tailwind
+              - generic [ref=e395]: UI/UX
+      - generic [ref=e396]:
+        - paragraph [ref=e397]: Connect with our team
+        - generic [ref=e398]:
+          - link "John's GitHub" [ref=e399] [cursor=pointer]:
+            - /url: https://github.com/polymathuniversata
+            - img [ref=e400] [cursor=pointer]
+            - text: John's GitHub
+          - link "Aisha's GitHub" [ref=e403] [cursor=pointer]:
+            - /url: https://github.com/Aishagojo
+            - img [ref=e404] [cursor=pointer]
+            - text: Aisha's GitHub
+    - generic [ref=e410]:
+      - generic [ref=e411]:
+        - img [ref=e412]
+        - text: Join the Movement
+      - heading "Join the Movement" [level=2] [ref=e414]
+      - paragraph [ref=e415]: Nimo is more than just technology; it's a movement to empower African youth and build a more inclusive digital future.
+      - paragraph [ref=e416]: With your support, we can scale this solution to reach millions, transforming lives and creating lasting change.
+      - generic [ref=e417]:
+        - link "Join Nimo" [ref=e418] [cursor=pointer]:
+          - /url: /register
+          - img
+          - text: Join Nimo
+          - img
+        - link "Sign In" [ref=e419] [cursor=pointer]:
+          - /url: /login
+          - img
+          - text: Sign In
+          - img
+    - contentinfo [ref=e420]:
+      - generic [ref=e421]:
+        - generic [ref=e422]:
+          - generic [ref=e423]:
+            - generic [ref=e424]:
+              - img [ref=e426]
+              - heading "Nimo" [level=3] [ref=e432]
+            - paragraph [ref=e433]: Empowering African youth through decentralized identity and proof of contribution.
+          - generic [ref=e434]:
+            - heading "Contact" [level=4] [ref=e435]
+            - generic [ref=e436]:
+              - generic [ref=e437]:
+                - img [ref=e438]
+                - text: nimo.network
+              - generic [ref=e442]:
+                - img [ref=e443]
+                - text: hello@nimo.network
+          - generic [ref=e446]:
+            - heading "Follow Us" [level=4] [ref=e447]
+            - generic [ref=e448]:
+              - link "Follow us on Twitter" [ref=e449] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e450] [cursor=pointer]
+              - link "Follow us on GitHub" [ref=e452] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e453] [cursor=pointer]
+              - link "Contact us via email" [ref=e456] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e457] [cursor=pointer]
+          - generic [ref=e460]:
+            - heading "Legal" [level=4] [ref=e461]
+            - generic [ref=e462]:
+              - link "Privacy Policy" [ref=e463] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e464] [cursor=pointer]
+                - text: Privacy Policy
+              - link "Terms of Service" [ref=e466] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e467] [cursor=pointer]
+                - text: Terms of Service
+        - generic [ref=e470]:
+          - generic [ref=e471]:
+            - generic [ref=e472]:
+              - img [ref=e473]
+              - paragraph [ref=e478]: © 2025 Nimo. All rights reserved.
+            - button "Back to Top" [ref=e479] [cursor=pointer]:
+              - img
+              - text: Back to Top
+          - paragraph [ref=e480]: Empowering African youth through decentralized identity and proof of contribution.
+```

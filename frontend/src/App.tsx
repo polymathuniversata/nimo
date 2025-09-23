@@ -5,8 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { TokenProvider } from "@/contexts/TokenContext";
+import { ContributionsProvider } from "@/contexts/ContributionsContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { ProtectedRoute, VerifiedRoute } from "@/components/ProtectedRoute";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -22,58 +25,62 @@ const App = () => (
   <ErrorBoundary>
     <ThemeProvider>
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+        <TokenProvider>
+          <ContributionsProvider>
+            <WalletProvider>
+              <QueryClientProvider client={queryClient}>
+                <TooltipProvider>
+                  <Toaster />
+                  <Sonner />
+                  <BrowserRouter>
+                    <Routes>
+                      <Route path="/" element={<LandingPage />} />
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/register" element={<RegisterPage />} />
 
-                {/* Protected Dashboard Routes - Require Authentication */}
-                <Route
-                  path="/dashboard/user"
-                  element={
-                    <ProtectedRoute>
-                      <UserDashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/contributor"
-                  element={
-                    <ProtectedRoute>
-                      <ContributorDashboard />
-                    </ProtectedRoute>
-                  }
-                />
+                      {/* Protected Dashboard Routes - Require Authentication */}
+                      <Route
+                        path="/dashboard/user"
+                        element={
+                          <ProtectedRoute>
+                            <UserDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/dashboard/contributor"
+                        element={
+                          <ProtectedRoute>
+                            <ContributorDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/dashboard/organization"
+                        element={
+                          <ProtectedRoute>
+                            <OrganizationDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/dashboard/diaspora"
+                        element={
+                          <ProtectedRoute>
+                            <DiasporaDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
 
-                {/* Fully Verified Routes - Require Authentication + KYC + Wallet */}
-                <Route
-                  path="/dashboard/organization"
-                  element={
-                    <VerifiedRoute>
-                      <OrganizationDashboard />
-                    </VerifiedRoute>
-                  }
-                />
-                <Route
-                  path="/dashboard/diaspora"
-                  element={
-                    <VerifiedRoute>
-                      <DiasporaDashboard />
-                    </VerifiedRoute>
-                  }
-                />
-
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </QueryClientProvider>
+                      {/* 404 Route */}
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </BrowserRouter>
+                </TooltipProvider>
+              </QueryClientProvider>
+            </WalletProvider>
+          </ContributionsProvider>
+        </TokenProvider>
       </AuthProvider>
     </ThemeProvider>
   </ErrorBoundary>

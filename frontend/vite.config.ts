@@ -6,15 +6,17 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
-    port: 8080,
+    host: '0.0.0.0',
+    port: 5173,
     // Enhanced hot reloading configuration
     hmr: {
       overlay: true,
+      timeout: 5000,
+      port: 5173
     },
     // Ensure file watching works properly
     watch: {
-      usePolling: false,
+      usePolling: true,
       interval: 100,
       // Include additional file types for watching
       include: [

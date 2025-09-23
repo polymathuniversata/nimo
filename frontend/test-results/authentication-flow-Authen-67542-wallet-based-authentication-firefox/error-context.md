@@ -1,0 +1,68 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - main [ref=e3]:
+    - link "Back to Home" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - button "Back to Home" [ref=e6] [cursor=pointer]:
+        - img
+        - img
+        - generic [ref=e7] [cursor=pointer]: Back to Home
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - img [ref=e12]
+          - heading "Nimo" [level=1] [ref=e18]
+        - heading "Welcome Back" [level=2] [ref=e19]
+        - paragraph [ref=e20]: Sign in to access your decentralized identity. Connect your wallet and choose your authentication method.
+      - generic [ref=e22]:
+        - alert [ref=e23]:
+          - img [ref=e24]
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: 🔐 Wallet Connection Required
+            - paragraph [ref=e30]: Install a Cardano wallet extension to access your decentralized identity.
+        - generic "Authentication method selection" [ref=e31]:
+          - tablist [ref=e32]:
+            - tab "Email" [selected] [ref=e33] [cursor=pointer]:
+              - img [ref=e34] [cursor=pointer]
+              - generic [ref=e37] [cursor=pointer]: Email
+            - tab "Wallet" [ref=e38] [cursor=pointer]:
+              - img [ref=e39] [cursor=pointer]
+              - generic [ref=e42] [cursor=pointer]: Wallet
+          - tabpanel "Email" [ref=e43]:
+            - form "Email and Password Login" [ref=e44]:
+              - group "Email and Password Login" [ref=e45]:
+                - generic [ref=e46]: Email and Password Login
+                - generic [ref=e47]:
+                  - generic [ref=e48]: Email
+                  - generic [ref=e49]:
+                    - img [ref=e50]
+                    - textbox "Email" [ref=e53]
+                    - generic [ref=e54]: Enter your registered email address
+                - generic [ref=e55]:
+                  - generic [ref=e56]: Password
+                  - generic [ref=e57]:
+                    - img [ref=e58]
+                    - textbox "Password" [ref=e61]
+                    - generic [ref=e62]: Enter your account password
+                - button "Sign In" [disabled]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - paragraph [ref=e65]:
+              - text: Don't have an account?
+              - link "Sign up here" [ref=e66] [cursor=pointer]:
+                - /url: /register
+            - generic [ref=e67]: •
+            - link "Home" [ref=e68] [cursor=pointer]:
+              - /url: /
+              - img [ref=e69] [cursor=pointer]
+              - text: Home
+          - generic [ref=e72]:
+            - generic [ref=e73]: 🔐 Secure Authentication
+            - generic [ref=e74]: 🛡️ KYC Required
+            - generic [ref=e75]: 🌍 Decentralized Identity
+```
